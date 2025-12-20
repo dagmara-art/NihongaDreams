@@ -22,6 +22,15 @@
     <meta name="twitter:description" content="Nihonga artist working with mineral pigments on washi and gold leaf.">
     <meta name="twitter:image" content="https://dagmara-art.github.io/NihongaDreams/Social%20Sharing%20Image/iris.jpeg">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV04ELD31R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JV04ELD31R');
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -69,7 +78,6 @@
             overflow-x: hidden;
             background: var(--cream);
             overscroll-behavior: contain;
-            -webkit-overflow-scrolling: touch;
         }
 
         /* Skip Link - Accessibility */
@@ -196,6 +204,72 @@
 
         .nav-links a:focus-visible {
             outline: none;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--cream);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        nav.scrolled .lang-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.15);
+            color: var(--charcoal);
+            text-shadow: none;
+        }
+
+        nav.scrolled .lang-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-toggle .lang-option {
+            padding: 0.2rem 0.4rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle .lang-option.active {
+            background: var(--gold);
+            color: var(--cream);
+            text-shadow: none;
+        }
+
+        .lang-toggle .lang-divider {
+            opacity: 0.5;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-right {
+                gap: 0.75rem;
+            }
+            
+            .lang-toggle {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
         }
 
         /* Hamburger Menu */
@@ -333,7 +407,13 @@
             background-size: cover;
             background-position: center;
             z-index: -2;
-            will-change: transform;
+        }
+
+        /* Only allocate GPU memory for parallax on desktop */
+        @media (min-width: 769px) {
+            .bg-image {
+                will-change: transform;
+            }
         }
 
         .bg-overlay {
@@ -459,6 +539,7 @@
         #hero .content-card {
             max-width: 700px;
             padding: 2.5rem 3rem;
+            margin-top: 5rem;
         }
 
         #hero .content-card .bio-text {
@@ -491,6 +572,7 @@
         @media (max-width: 768px) {
             #hero .content-card {
                 padding: 1.75rem 1.5rem;
+                margin-top: 4rem;
             }
 
             #hero .content-card .bio-text p {
@@ -792,24 +874,27 @@
 
         .lightbox-close {
             position: absolute;
-            top: -3rem;
-            right: 0;
-            background: none;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            opacity: 0.9;
+            transition: all 0.3s ease;
             width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 4px;
+            z-index: 10;
         }
 
         .lightbox-close:hover {
             opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
         }
 
         .lightbox-nav {
@@ -960,15 +1045,6 @@
             margin-top: 1rem;
         }
 
-        @media (max-width: 768px) {
-            .contact-grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .contact-item {
-                padding: 1.25rem 1.5rem;
-            }
-        }
-
         .contact-item {
             padding: 1.5rem 2rem;
             background: rgba(255, 255, 255, 0.5);
@@ -976,6 +1052,20 @@
             border: 1px solid var(--glass-border);
             text-align: center;
             transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid-centered {
+                display: block;
+            }
+            .contact-item {
+                padding: 1.25rem 1.5rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
         }
 
         .contact-item:hover {
@@ -1099,20 +1189,23 @@
 
         .exhibitions-modal-close {
             position: absolute;
-            top: -3rem;
-            right: 0;
-            background: none;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            padding: 0.5rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            z-index: 10;
         }
 
         .exhibitions-modal-close:hover {
             opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
         }
 
         /* Scroll Indicator - Inline below content */
@@ -1417,21 +1510,28 @@
     <nav id="navbar" role="navigation" aria-label="Main navigation">
         <div class="logo">Dagmara Dreams of Nihonga</div>
         <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
+            <li><a href="#hero" data-i18n="nav.home">Home</a></li>
             <li><a href="#nihonga">Nihonga</a></li>
-            <li><a href="#catalog">Catalog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#catalog" data-i18n="nav.catalog">Catalog</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-        </button>
+        <div class="nav-right">
+            <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+                <span class="lang-option" data-lang="en">EN</span>
+                <span class="lang-divider">|</span>
+                <span class="lang-option" data-lang="pl">PL</span>
+            </button>
+            <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
         <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-            <a href="#hero">Home</a>
+            <a href="#hero" data-i18n="nav.home">Home</a>
             <a href="#nihonga">Nihonga</a>
-            <a href="#catalog">Catalog</a>
-            <a href="#contact">Contact</a>
+            <a href="#catalog" data-i18n="nav.catalog">Catalog</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
     </nav>
     <div class="mobile-overlay" id="mobile-overlay"></div>
@@ -1442,26 +1542,26 @@
         <div class="bg-overlay" aria-hidden="true"></div>
         
         <main id="main-content" class="content-card">
-            <span class="section-label">Welcome</span>
-            <h1>Where Nature Meets Washi</h1>
+            <span class="section-label" data-i18n="hero.label">Welcome</span>
+            <h1 data-i18n="hero.title">Where Nature Meets Washi</h1>
             
             <div class="decorative-line" aria-hidden="true"></div>
             
             <div class="bio-text">
-                <p>
+                <p data-i18n="hero.bio1">
                     Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in historic Kyoto and the scenic Shiga Prefecture on the shores of Lake Biwa. I practiced traditional Japanese arts directly in Japan: Japanese painting Nihonga, Shodō calligraphy, Haiku poetry and Nō theater. I have enriched my painting and drawing skills at the University of Fine Arts in Łódź.
                 </p>
-                <p>
+                <p data-i18n="hero.bio2">
                     I work in traditional Japanese painting style - Nihonga. My work offers a unique and profound blend, a distinctive fusion of Eastern techniques and Western craftsmanship that creates an original bridge connecting the two cultures.
                 </p>
-                <p class="signature">
+                <p class="signature" data-i18n="hero.signature" data-i18n-html="true">
                     Thank you for being with me<br>
                     <strong>Dagmara Okła</strong>
                 </p>
             </div>
             
             <a href="#catalog" class="cta-button">
-                View Collection
+                <span data-i18n="hero.cta">View Collection</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -1471,7 +1571,7 @@
                 <div class="scroll-mouse" aria-hidden="true">
                     <div class="scroll-wheel"></div>
                 </div>
-                <span class="scroll-text" aria-hidden="true">Scroll to explore</span>
+                <span class="scroll-text" aria-hidden="true" data-i18n="hero.scroll">Scroll to explore</span>
                 <svg class="scroll-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7" />
                 </svg>
@@ -1485,27 +1585,27 @@
         <div class="bg-overlay"></div>
         
         <div class="content-card reveal">
-            <span class="section-label">About the Art</span>
-            <h2>Nihonga – Japanese Traditional Painting</h2>
-            <p>
+            <span class="section-label" data-i18n="nihonga.label">About the Art</span>
+            <h2 data-i18n="nihonga.title">Nihonga – Japanese Traditional Painting</h2>
+            <p data-i18n="nihonga.intro">
                 Nihonga is a style of Japanese painting that utilizes traditional techniques and natural materials.
             </p>
             
-            <h3>Color</h3>
-            <p>
+            <h3 data-i18n="nihonga.colorTitle">Color</h3>
+            <p data-i18n="nihonga.color1">
                 Instead of oil or acrylic paints, I use natural pigments, gold and silver in form of leaf and powder. I mix them with nikawa glue in the appropriate proportion, achieving a unique texture of handmade paints that is impossible to replicate with other techniques.
             </p>
-            <p>
+            <p data-i18n="nihonga.color2">
                 The white pigment, known as gofun, is made by grinding Itaba oyster shells that have been dried for 10-30 years. Nakagawa Gofun in Kyoto (Uji), has been making pigments for over a century and is my favorite manufacturer of pigments.
             </p>
             
-            <h3>Washi Paper</h3>
-            <p>
+            <h3 data-i18n="nihonga.washiTitle">Washi Paper</h3>
+            <p data-i18n="nihonga.washi">
                 I use exclusively Japanese washi paper, which I size myself with dōsa solution. The papers are handmade by Japanese artisans and mainly come from the Echizen region, which is the most famous paper-making region in Japan. Iwano Heizaburou in Echizen, has been making washi for over 150 years and is my favorite manufacturer of washi.
             </p>
             
             <a href="#catalog" class="cta-button">
-                View the Gallery
+                <span data-i18n="nihonga.cta">View the Gallery</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -1519,16 +1619,16 @@
         <div class="bg-overlay"></div>
         
         <div class="content-card reveal">
-            <span class="section-label">Collection</span>
-            <h2>Explore the Gallery</h2>
-            <p>
+            <span class="section-label" data-i18n="catalog.label">Collection</span>
+            <h2 data-i18n="catalog.title">Explore the Gallery</h2>
+            <p data-i18n="catalog.intro">
                 "Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.
             </p>
             
             <div class="gallery" id="gallery" role="list" aria-label="Artwork gallery">
                 <!-- Gallery items are loaded dynamically from artworks.json -->
                 <div class="gallery-loading" aria-label="Loading artworks">
-                    <span>Loading artworks...</span>
+                    <span data-i18n="catalog.loading">Loading artworks...</span>
                 </div>
                 <noscript>
                     <p style="text-align: center; padding: 2rem; color: var(--charcoal);">
@@ -1538,7 +1638,7 @@
             </div>
             
             <a href="#contact" class="cta-button">
-                Inquire About Works
+                <span data-i18n="catalog.cta">Inquire About Works</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -1566,7 +1666,7 @@
                     <span class="caption-paper" id="caption-paper"></span>
                 </div>
             </div>
-            <div class="lightbox-zoom-hint" aria-hidden="true">Click image to zoom</div>
+            <div class="lightbox-zoom-hint" aria-hidden="true" data-i18n="lightbox.zoomHint">Click image to zoom</div>
         </div>
     </div>
 
@@ -1584,16 +1684,16 @@
         <div class="bg-overlay"></div>
         
         <div class="content-card reveal">
-            <span class="section-label">Get in Touch</span>
-            <h2>Let's Connect</h2>
-            <p>
+            <span class="section-label" data-i18n="contact.label">Get in Touch</span>
+            <h2 data-i18n="contact.title">Let's Connect</h2>
+            <p data-i18n="contact.intro">
                 Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.
             </p>
             
             <div class="contact-grid contact-grid-2">
                 <a href="mailto:dagmaraokla.art@gmail.com" class="contact-item contact-item-link">
                     <div class="contact-icon">✉️</div>
-                    <div class="contact-label">Email</div>
+                    <div class="contact-label" data-i18n="contact.emailLabel">Email</div>
                     <div class="contact-value">dagmaraokla.art@gmail.com</div>
                 </a>
                 
@@ -1607,8 +1707,8 @@
             <div class="contact-grid contact-grid-centered">
                 <div class="contact-item exhibitions-item" id="exhibitions-trigger" tabindex="0" role="button" aria-label="View exhibitions">
                     <div class="contact-icon">🎭</div>
-                    <div class="contact-label">Exhibitions</div>
-                    <div class="contact-value contact-link">View Upcoming Exhibitions</div>
+                    <div class="contact-label" data-i18n="contact.exhibitionsLabel">Exhibitions</div>
+                    <div class="contact-value contact-link" data-i18n="contact.exhibitionsValue">View Upcoming Exhibitions</div>
                 </div>
             </div>
             
@@ -1616,16 +1716,174 @@
     </section>
 
     <script>
+        // Internationalization (i18n) System
+        const translations = {
+            en: {
+                'nav.home': 'Home',
+                'nav.catalog': 'Catalog',
+                'nav.contact': 'Contact',
+                'hero.label': 'Welcome',
+                'hero.title': 'Where Nature Meets Washi',
+                'hero.bio1': 'Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in historic Kyoto and the scenic Shiga Prefecture on the shores of Lake Biwa. I practiced traditional Japanese arts directly in Japan: Japanese painting Nihonga, Shodō calligraphy, Haiku poetry and Nō theater. I have enriched my painting and drawing skills at the University of Fine Arts in Łódź.',
+                'hero.bio2': 'I work in traditional Japanese painting style - Nihonga. My work offers a unique and profound blend, a distinctive fusion of Eastern techniques and Western craftsmanship that creates an original bridge connecting the two cultures.',
+                'hero.signature': 'Thank you for being with me<br><strong>Dagmara Okła</strong>',
+                'hero.cta': 'View Collection',
+                'hero.scroll': 'Scroll to explore',
+                'nihonga.label': 'About the Art',
+                'nihonga.title': 'Nihonga – Japanese Traditional Painting',
+                'nihonga.intro': 'Nihonga is a style of Japanese painting that utilizes traditional techniques and natural materials.',
+                'nihonga.colorTitle': 'Color',
+                'nihonga.color1': 'Instead of oil or acrylic paints, I use natural pigments, gold and silver in form of leaf and powder. I mix them with nikawa glue in the appropriate proportion, achieving a unique texture of handmade paints that is impossible to replicate with other techniques.',
+                'nihonga.color2': 'The white pigment, known as gofun, is made by grinding Itaba oyster shells that have been dried for 10-30 years. Nakagawa Gofun in Kyoto (Uji), has been making pigments for over a century and is my favorite manufacturer of pigments.',
+                'nihonga.washiTitle': 'Washi Paper',
+                'nihonga.washi': 'I use exclusively Japanese washi paper, which I size myself with dōsa solution. The papers are handmade by Japanese artisans and mainly come from the Echizen region, which is the most famous paper-making region in Japan. Iwano Heizaburou in Echizen, has been making washi for over 150 years and is my favorite manufacturer of washi.',
+                'nihonga.cta': 'View the Gallery',
+                'catalog.label': 'Collection',
+                'catalog.title': 'Explore the Gallery',
+                'catalog.intro': '"Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.',
+                'catalog.loading': 'Loading artworks...',
+                'catalog.cta': 'Inquire About Works',
+                'lightbox.zoomHint': 'Click image to zoom',
+                'contact.label': 'Get in Touch',
+                'contact.title': "Let's Connect",
+                'contact.intro': "Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.",
+                'contact.emailLabel': 'Email',
+                'contact.exhibitionsLabel': 'Exhibitions',
+                'contact.exhibitionsValue': 'View Upcoming Exhibitions'
+            },
+            pl: {
+                'nav.home': 'Strona główna',
+                'nav.catalog': 'Katalog',
+                'nav.contact': 'Kontakt',
+                'hero.label': 'Witaj',
+                'hero.title': 'Tam, gdzie Natura Spotyka Washi',
+                'hero.bio1': 'Japonia i jej kultura i sztuka są mocno zakorzenione w moim sercu. Przez dwa lata mieszkałam w Kioto oraz prefekturze Shiga, nad jeziorem Biwa, zgłębiając esencję Japonii. To właśnie w Japonii zdobywałam umiejętności w tradycyjnych sztukach japońskich: malarstwie japońskim Nihonga, kaligrafii Shodō, poezji Haiku oraz teatrze Nō. Tworzenia dzieł malarskich i rysunkowych uczyłam się także w Akademii Sztuk Pięknych w Łodzi.',
+                'hero.bio2': 'Swoje prace tworzę w tradycyjnym stylu japońskiego malarstwa Nihonga. Unikalna fuzja wschodnich technik i zachodniego warsztatu sprawia, że moje prace są niezwykle oryginalne i pełne głębi, stanowiąc most między kulturami.',
+                'hero.signature': 'Dziękuję, że jesteś ze mną<br><strong>Dagmara Okła</strong>',
+                'hero.cta': 'Zobacz kolekcję',
+                'hero.scroll': 'Przewiń, aby odkrywać',
+                'nihonga.label': 'O sztuce',
+                'nihonga.title': 'Nihonga – Tradycyjne Malarstwo Japońskie',
+                'nihonga.intro': 'Nihonga to styl malarstwa japońskiego, w którym używa się tradycyjnych technik i naturalnych materiałów.',
+                'nihonga.colorTitle': 'Kolor',
+                'nihonga.color1': 'Zamiast farb olejnych czy akrylowych, używam ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach. Pigmenty mieszam z klejem nikawa w odpowiedniej proporcji, uzyskując unikalną teksturę, niemożliwą do osiągnięcia w innych technikach.',
+                'nihonga.color2': 'Biały pigment tzw. gofun, uzyskiwany jest ze zmielenia suszonych przez 10-30 lat muszli ostryg Itabo. Moim ulubionym wytwórcą jest Nakagawa Gofun z Kioto, który wytwarza pigmenty od ponad stu lat.',
+                'nihonga.washiTitle': 'Papier washi',
+                'nihonga.washi': 'Używam wyłącznie japońskiego papieru washi, który gruntuje za pomocą samodzielenie przygotowanego specjalnego gruntu dōsa. Papiery, ręcznie robione przez japońskich rzemieślników, pochodzą głównie z regionu Echizen, najsłynniejszego w Japonii regionu papierniczego. Moim ulubionym wytwórcą washi jest pracownia Iwano Heizaburou, która wytwarza papier w Echizen od ponad 150 lat.',
+                'nihonga.cta': 'Zobacz galerię',
+                'catalog.label': 'Kolekcja',
+                'catalog.title': 'Odkryj Galerię',
+                'catalog.intro': 'Seria "W Japońskim Ogrodzie" powstała w klasycznej technice japońskiego malarstwa Nihonga z użyciem ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach na wysokiej jakości japońskich papierach Kumohada Mashi, Shiromashi, Torinoko.',
+                'catalog.loading': 'Ładowanie dzieł...',
+                'catalog.cta': 'Zapytaj o prace',
+                'lightbox.zoomHint': 'Kliknij obraz, aby powiększyć',
+                'contact.label': 'Kontakt',
+                'contact.title': 'Skontaktuj się',
+                'contact.intro': 'Zainteresowany zamówieniem dzieła, zakupem pracy lub po prostu chcesz się przywitać? Chętnie nawiążę kontakt.',
+                'contact.emailLabel': 'E-mail',
+                'contact.exhibitionsLabel': 'Wystawy',
+                'contact.exhibitionsValue': 'Zobacz nadchodzące wystawy'
+            }
+        };
+
+        let currentLang = 'en'; // Default to English
+
+        function setLanguage(lang, savePreference = true, trackSwitch = false) {
+            const previousLang = currentLang;
+            currentLang = lang;
+            if (savePreference) {
+                localStorage.setItem('lang', lang);
+            }
+            document.documentElement.lang = lang;
+            
+            // Track language switch for analytics (only when user manually switches)
+            if (trackSwitch && previousLang !== lang) {
+                trackEvent('language_switch', {
+                    'from_language': previousLang,
+                    'to_language': lang
+                });
+            }
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = translations[lang][key];
+                if (translation) {
+                    if (el.hasAttribute('data-i18n-html')) {
+                        el.innerHTML = translation;
+                    } else {
+                        el.textContent = translation;
+                    }
+                }
+            });
+            
+            // Update active state on toggle buttons
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
+        }
+
+        // Initialize language toggle
+        const langToggle = document.getElementById('lang-toggle');
+        langToggle.addEventListener('click', () => {
+            const newLang = currentLang === 'en' ? 'pl' : 'en';
+            setLanguage(newLang, true, true); // save preference and track switch
+        });
+
+        // Detect language based on user's country (IP geolocation)
+        async function initializeLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            
+            // If user has a saved preference, use it
+            if (savedLang) {
+                setLanguage(savedLang, false);
+                return;
+            }
+            
+            // Quick initial guess from browser language (no network request)
+            const browserLang = navigator.language || navigator.userLanguage || '';
+            const browserIsPL = browserLang.toLowerCase().startsWith('pl');
+            if (browserIsPL) {
+                setLanguage('pl', false);
+            }
+            
+            // Then refine with IP geolocation for more accuracy
+            try {
+                const response = await fetch('https://ipapi.co/country/', { 
+                    signal: AbortSignal.timeout(3000) // 3 second timeout
+                });
+                if (response.ok) {
+                    const country = await response.text();
+                    const detectedLang = country.trim() === 'PL' ? 'pl' : 'en';
+                    // Only update if different from browser guess
+                    if (detectedLang !== currentLang) {
+                        setLanguage(detectedLang, false);
+                    }
+                }
+            } catch (error) {
+                // If geolocation fails, keep browser-detected or default language
+            }
+        }
+
+        // Initialize language
+        initializeLanguage();
+
         // Combined scroll handler with requestAnimationFrame for smooth performance
         const navbar = document.getElementById('navbar');
         const reveals = document.querySelectorAll('.reveal');
         const bgImages = document.querySelectorAll('.bg-image');
-        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
         let ticking = false;
+        
+        // Analytics scroll tracking state
+        let maxScrollDepth = 0;
+        const sections = ['hero', 'nihonga', 'catalog', 'contact'];
+        const trackedSections = new Set();
         
         function handleScroll() {
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
+            const isMobile = mobileMediaQuery.matches;
             
             // Navbar scroll effect
             if (scrollY > 100) {
@@ -1658,6 +1916,27 @@
                 });
             }
             
+            // Analytics: Track scroll depth milestones
+            const scrollPercent = Math.round((scrollY / (document.body.scrollHeight - windowHeight)) * 100);
+            [25, 50, 75, 100].forEach(milestone => {
+                if (scrollPercent >= milestone && maxScrollDepth < milestone) {
+                    maxScrollDepth = milestone;
+                    trackEvent('scroll_depth', { 'percent': milestone });
+                }
+            });
+
+            // Analytics: Track section views
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section && !trackedSections.has(sectionId)) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < windowHeight * 0.5 && rect.bottom > 0) {
+                        trackedSections.add(sectionId);
+                        trackEvent('section_view', { 'section': sectionId });
+                    }
+                }
+            });
+            
             ticking = false;
         }
         
@@ -1666,13 +1945,18 @@
                 requestAnimationFrame(handleScroll);
                 ticking = true;
             }
-        });
+        }, { passive: true });
         handleScroll(); // Initial check
 
         // Mobile hamburger menu
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileOverlay = document.getElementById('mobile-overlay');
+
+        // Get focusable elements in mobile menu for focus trap
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        const firstMenuLink = mobileMenuLinks[0];
+        const lastMenuLink = mobileMenuLinks[mobileMenuLinks.length - 1];
 
         function toggleMobileMenu() {
             const isActive = hamburger.classList.toggle('active');
@@ -1681,6 +1965,11 @@
             hamburger.setAttribute('aria-expanded', isActive);
             mobileMenu.setAttribute('aria-hidden', !isActive);
             document.body.style.overflow = isActive ? 'hidden' : '';
+            
+            // Focus first menu link when opening
+            if (isActive && firstMenuLink) {
+                setTimeout(() => firstMenuLink.focus(), 100);
+            }
         }
 
         function closeMobileMenu() {
@@ -1690,6 +1979,8 @@
             hamburger.setAttribute('aria-expanded', 'false');
             mobileMenu.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
+            // Return focus to hamburger button
+            hamburger.focus();
         }
 
         hamburger.addEventListener('click', toggleMobileMenu);
@@ -1698,6 +1989,25 @@
         // Close menu when clicking a link
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Focus trap for mobile menu
+        mobileMenu.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+            
+            if (e.shiftKey) {
+                // Shift + Tab: if on first link, go to last
+                if (document.activeElement === firstMenuLink) {
+                    e.preventDefault();
+                    lastMenuLink.focus();
+                }
+            } else {
+                // Tab: if on last link, go to first
+                if (document.activeElement === lastMenuLink) {
+                    e.preventDefault();
+                    firstMenuLink.focus();
+                }
+            }
         });
 
         // Smooth scroll for navigation links
@@ -1866,6 +2176,14 @@
             setTimeout(() => closeBtn.focus(), 100);
             // Prefetch adjacent images
             prefetchAdjacentImages();
+            // Analytics: Track artwork view
+            const artwork = artworks[index];
+            if (artwork) {
+                trackEvent('artwork_view', {
+                    'artwork_id': artwork.id,
+                    'artwork_title': artwork.title
+                });
+            }
         }
 
         let zoomLevel = 1;
@@ -2059,6 +2377,40 @@
                 if (e.key === 'ArrowRight') showNext();
                 if (e.key === 'ArrowLeft') showPrev();
             }
+        });
+
+        // Google Analytics Custom Event Tracking
+        function trackEvent(eventName, params = {}) {
+            if (typeof gtag === 'function') {
+                gtag('event', eventName, params);
+            }
+        }
+
+        // Track CTA button clicks
+        document.querySelectorAll('.cta-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const buttonText = btn.querySelector('[data-i18n]')?.textContent || btn.textContent.trim();
+                trackEvent('cta_click', {
+                    'button_text': buttonText,
+                    'destination': btn.getAttribute('href')
+                });
+            });
+        });
+
+        // Track contact link clicks
+        document.querySelectorAll('.contact-item-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const label = link.querySelector('.contact-label')?.textContent || 'unknown';
+                trackEvent('contact_click', {
+                    'contact_type': label,
+                    'destination': link.getAttribute('href')
+                });
+            });
+        });
+
+        // Track exhibitions modal opens
+        exhibitionsTrigger.addEventListener('click', () => {
+            trackEvent('exhibitions_view');
         });
     </script>
 </body>
