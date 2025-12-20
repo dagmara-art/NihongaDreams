@@ -1,0 +1,9 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Point to the sitemap
+Sitemap: https://dagmara-art.github.io/NihongaDreams/sitemap.xml
+
+# Disallow thumbnail directory (optional - they're just smaller versions)
+# Disallow: /Thumbnail/

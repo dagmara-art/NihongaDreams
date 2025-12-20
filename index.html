@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Nihonga artist working with mineral pigments on washi and gold leaf. Browse gallery, read Dagmara's statement, and get in touch for exhibitions or commissions.">
+    <title>Dagmara Dreams of Nihonga's Portfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="sakura_favicon.png?v=2">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Dagmara Dreams of Nihonga">
+    <meta property="og:description" content="Nihonga artist working with mineral pigments on washi and gold leaf. Browse gallery, read Dagmara's statement, and get in touch for exhibitions or commissions.">
+    <meta property="og:image" content="https://dagmara-art.github.io/NihongaDreams/Social%20Sharing%20Image/iris.jpeg">
+    <meta property="og:url" content="https://dagmara-art.github.io/NihongaDreams/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dagmara Dreams of Nihonga">
+    <meta name="twitter:description" content="Nihonga artist working with mineral pigments on washi and gold leaf.">
+    <meta name="twitter:image" content="https://dagmara-art.github.io/NihongaDreams/Social%20Sharing%20Image/iris.jpeg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="Background_Small/一 Ichi: 01.webp" fetchpriority="high">
+    <style>
+        :root {
+            --gold: #c9a227;
+            --sage: #8b9a7d;
+            --blush: #d4a5a5;
+            --cream: #faf8f5;
+            --charcoal: #2a2a2a;
+            --glass-bg: rgba(250, 248, 245, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Image protection - prevent easy saving */
+        img {
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Re-enable pointer events for containers that need click handling */
+        .gallery-item,
+        .lightbox-image-container {
+            pointer-events: auto;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--charcoal);
+            overflow-x: hidden;
+            background: var(--cream);
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Skip Link - Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 1rem 2rem;
+            border-radius: 0 0 8px 8px;
+            z-index: 9999;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Global Focus States */
+        *:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        *:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-left: max(3rem, env(safe-area-inset-left));
+            padding-right: max(3rem, env(safe-area-inset-right));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--cream);
+            text-transform: uppercase;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (min-width: 769px) {
+            .logo {
+                font-size: 1.1rem;
+            }
+        }
+
+        nav.scrolled .logo {
+            color: var(--charcoal);
+            text-shadow: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cream);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--charcoal);
+            text-shadow: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            width: 100%;
+        }
+
+        .nav-links a:focus-visible {
+            outline: none;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background: var(--cream);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        nav.scrolled .hamburger-line {
+            background: var(--charcoal);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            height: 100dvh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 100px 2rem 2rem;
+            padding-top: max(100px, calc(80px + env(safe-area-inset-top)));
+            padding-right: max(2rem, env(safe-area-inset-right));
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            text-decoration: none;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a:focus {
+            color: var(--gold);
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .mobile-overlay {
+                display: block;
+                pointer-events: none;
+            }
+
+            .mobile-overlay.active {
+                pointer-events: auto;
+            }
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Background Images */
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            will-change: transform;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        /* Hero Section */
+        #hero .bg-image {
+            background-image: url('Background_Small/一 Ichi: 01.webp');
+        }
+
+        #hero .bg-overlay {
+            background: 
+                linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.2) 15%,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    rgba(45, 58, 74, 0.3) 0%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(45, 58, 74, 0.4) 100%
+                );
+        }
+
+        /* Nihonga Section */
+        #nihonga .bg-image {
+            background-image: url('Background_Small/十六 Jū roku: 16.webp');
+            background-position: center 30%;
+        }
+
+        #nihonga .content-card {
+            max-width: 700px;
+        }
+
+        #nihonga h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #nihonga h3:first-of-type {
+            margin-top: 1rem;
+        }
+
+        #nihonga p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Push content cards down on inner pages to avoid nav overlap */
+        #nihonga .content-card,
+        #catalog .content-card {
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            #nihonga .content-card,
+            #catalog .content-card {
+                margin-top: 3rem;
+            }
+        }
+
+        /* Catalog Section */
+        #catalog .bg-image {
+            background-image: url('Background_Small/十七 Jū Shichi: 17.webp');
+        }
+
+        #catalog .bg-overlay {
+            background: linear-gradient(
+                180deg,
+                rgba(139, 154, 125, 0.2) 0%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+        }
+
+        /* Contact Section */
+        #contact .bg-image {
+            background-image: url('Background_Small/十九 Jū Kyu: 19.webp');
+        }
+
+        #contact .bg-overlay {
+            background: linear-gradient(
+                0deg,
+                rgba(201, 162, 39, 0.2) 0%,
+                rgba(0, 0, 0, 0.35) 100%
+            );
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2px;
+            padding: 2.5rem 3rem;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            animation: fadeSlideUp 1s ease-out;
+            position: relative;
+        }
+
+        #catalog .content-card {
+            max-width: 850px;
+        }
+
+        #contact .content-card {
+            max-width: 850px;
+        }
+
+        /* Hero card - accessible single column layout */
+        #hero .content-card {
+            max-width: 700px;
+            padding: 2.5rem 3rem;
+        }
+
+        #hero .content-card .bio-text {
+            text-align: left;
+        }
+
+        #hero .content-card .bio-text p {
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 1rem;
+            max-width: 65ch; /* Optimal reading length */
+        }
+
+        #hero .content-card .bio-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        #hero .content-card .bio-text .signature {
+            margin-top: 1.5rem;
+            font-style: italic;
+            text-align: right;
+        }
+
+        #hero .content-card .bio-text .signature strong {
+            display: block;
+            font-style: normal;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            #hero .content-card {
+                padding: 1.75rem 1.5rem;
+            }
+
+            #hero .content-card .bio-text p {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--blush), var(--sage));
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--charcoal);
+            opacity: 0.85;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            /* Firefox scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .gallery::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        .gallery::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        .gallery::-webkit-scrollbar-thumb:hover {
+            background: var(--sage);
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.12),
+                0 0 0 1px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #e8e4df 0%, #d4d0cb 100%);
+            contain: layout style paint;
+        }
+
+        .gallery-item:hover,
+        .gallery-item:focus-visible {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 12px 28px rgba(0, 0, 0, 0.2),
+                0 0 0 2px var(--gold);
+        }
+
+        .gallery-item:focus-visible {
+            outline: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .gallery-item img.loaded {
+            opacity: 1;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Loading skeleton animation */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                transparent 100%
+            );
+            animation: shimmer 1.5s infinite;
+            z-index: 1;
+        }
+
+        .gallery-item.loaded::before {
+            display: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 0.75rem;
+            z-index: 2;
+        }
+
+        /* Transparent protection layer over images */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background: transparent;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-title {
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--sage);
+            font-style: italic;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                max-height: none;
+                overflow-y: visible;
+                padding: 0.75rem;
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image-container {
+            overflow: hidden;
+            cursor: zoom-in;
+            position: relative;
+        }
+
+        /* Transparent protection layer over lightbox image - allows clicks through */
+        .lightbox-image-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .lightbox-image-container.zoomed {
+            cursor: grab;
+            overflow: auto;
+        }
+
+        .lightbox-image-container.zoomed:active {
+            cursor: grabbing;
+        }
+
+        .lightbox-image {
+            max-width: 85vw;
+            max-height: 85vh;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+        .lightbox-image-container.zoomed .lightbox-image {
+            max-width: none;
+            max-height: none;
+            transform: scale(2);
+            transform-origin: center center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-prev {
+            left: -4rem;
+        }
+
+        .lightbox-next {
+            right: -4rem;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -4.5rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+        }
+
+        .caption-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.1em;
+        }
+
+        .caption-details {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .caption-separator {
+            opacity: 0.5;
+        }
+
+        .lightbox-zoom-hint {
+            position: absolute;
+            bottom: -5.5rem;
+            right: 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+        }
+
+        /* Lightbox loading spinner */
+        .lightbox-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: lightbox-spin 0.8s linear infinite;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-loader.active {
+            opacity: 1;
+        }
+
+        @keyframes lightbox-spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .lightbox-image.loading {
+            opacity: 0;
+        }
+
+        .lightbox-image.loaded {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                display: none;
+            }
+            .lightbox-zoom-hint {
+                display: none;
+            }
+            .lightbox-image {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
+            .lightbox-caption {
+                bottom: -5.5rem;
+            }
+            .caption-title {
+                font-size: 1.1rem;
+            }
+            .caption-details {
+                font-size: 0.75rem;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .caption-separator {
+                display: none;
+            }
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-grid-2 {
+            grid-template-columns: auto auto;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contact-grid-centered {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .contact-item {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        .contact-item {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item-link {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .contact-item-link:hover .contact-value {
+            color: var(--sage);
+        }
+
+        .contact-item:focus-within {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--gold);
+        }
+
+        .contact-icon-img {
+            width: 1.5rem;
+            height: 1.5rem;
+            object-fit: contain;
+            /* pointer-events: none inherited from global img rule is intentional - 
+               clicks pass through to parent .contact-tile-link which handles navigation */
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 900px) {
+            .contact-value {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-value {
+                font-size: 0.9rem;
+            }
+        }
+
+        .contact-link {
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-link:hover {
+            color: var(--sage);
+        }
+
+        .exhibitions-item {
+            cursor: pointer;
+        }
+
+        .exhibitions-item:hover .contact-value,
+        .exhibitions-item:focus .contact-value {
+            color: var(--sage);
+        }
+
+        /* Exhibitions Modal */
+        .exhibitions-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .exhibitions-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .exhibitions-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .exhibitions-modal-image {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .exhibitions-modal-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .exhibitions-modal-close:hover {
+            opacity: 1;
+        }
+
+        /* Scroll Indicator - Inline below content */
+        .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            color: var(--charcoal);
+            text-decoration: none;
+            padding: 1rem 1.7rem;
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            align-self: center;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, var(--gold), var(--blush), var(--sage));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            filter: blur(6px);
+        }
+
+        .scroll-indicator:hover {
+            background: rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .scroll-indicator:hover::before {
+            opacity: 0.5;
+        }
+
+        .scroll-indicator:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+            background: rgba(0, 0, 0, 0.15);
+            animation: none;
+        }
+
+        /* Mouse icon */
+        .scroll-mouse {
+            width: 20px;
+            height: 34px;
+            border: 2px solid var(--charcoal);
+            border-radius: 10px;
+            position: relative;
+            opacity: 0.7;
+        }
+
+        .scroll-wheel {
+            width: 3px;
+            height: 6px;
+            background: var(--charcoal);
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollWheel 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollWheel {
+            0%, 100% {
+                opacity: 1;
+                top: 6px;
+            }
+            50% {
+                opacity: 0.3;
+                top: 14px;
+            }
+        }
+
+        .scroll-text {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            animation: arrowBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(3px);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .scroll-indicator {
+                padding: 0.85rem 1.4rem;
+                gap: 0.4rem;
+                margin-top: 1.5rem;
+            }
+
+            .scroll-mouse {
+                width: 18px;
+                height: 28px;
+            }
+
+            .scroll-wheel {
+                width: 3px;
+                height: 5px;
+                top: 5px;
+            }
+
+            @keyframes scrollWheel {
+                0%, 100% {
+                    opacity: 1;
+                    top: 5px;
+                }
+                50% {
+                    opacity: 0.3;
+                    top: 12px;
+                }
+            }
+
+            .scroll-text {
+                font-size: 0.6rem;
+            }
+
+            .scroll-arrow {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scroll-indicator {
+                display: none; /* Hide on very small screens */
+            }
+        }
+
+        /* Decorative Elements */
+        .decorative-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 1rem 0;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            min-height: 48px; /* Touch target minimum */
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            background: transparent;
+            border: 2px solid var(--gold);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: var(--gold);
+            color: var(--cream);
+        }
+
+        .cta-button:focus-visible {
+            outline: 3px solid var(--charcoal);
+            outline-offset: 2px;
+            background: var(--gold);
+            color: var(--cream);
+        }
+
+        .cta-button svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 768px) {
+            .cta-button {
+                width: 100%;
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* Disable scroll-snap on mobile - causes iOS Safari issues */
+            html {
+                scroll-snap-type: none;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+                padding-top: max(1rem, env(safe-area-inset-top));
+                padding-left: max(1.5rem, env(safe-area-inset-left));
+                padding-right: max(1.5rem, env(safe-area-inset-right));
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .content-card {
+                padding: 1.75rem 1.5rem;
+                width: 95%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .scroll-indicator {
+                animation: none;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Section reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="logo">Dagmara Dreams of Nihonga</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#nihonga">Nihonga</a></li>
+            <li><a href="#catalog">Catalog</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+            <a href="#hero">Home</a>
+            <a href="#nihonga">Nihonga</a>
+            <a href="#catalog">Catalog</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- Hero Section -->
+    <section id="hero" aria-label="About the artist">
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
+        
+        <main id="main-content" class="content-card">
+            <span class="section-label">Welcome</span>
+            <h1>Where Nature Meets Washi</h1>
+            
+            <div class="decorative-line" aria-hidden="true"></div>
+            
+            <div class="bio-text">
+                <p>
+                    Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in historic Kyoto and the scenic Shiga Prefecture on the shores of Lake Biwa. I practiced traditional Japanese arts directly in Japan: Japanese painting Nihonga, Shodō calligraphy, Haiku poetry and Nō theater. I have enriched my painting and drawing skills at the University of Fine Arts in Łódź.
+                </p>
+                <p>
+                    I work in traditional Japanese painting style - Nihonga. My work offers a unique and profound blend, a distinctive fusion of Eastern techniques and Western craftsmanship that creates an original bridge connecting the two cultures.
+                </p>
+                <p class="signature">
+                    Thank you for being with me<br>
+                    <strong>Dagmara Okła</strong>
+                </p>
+            </div>
+            
+            <a href="#catalog" class="cta-button">
+                View Collection
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+
+            <a href="#nihonga" class="scroll-indicator" aria-label="Scroll to Nihonga section">
+                <div class="scroll-mouse" aria-hidden="true">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span class="scroll-text" aria-hidden="true">Scroll to explore</span>
+                <svg class="scroll-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7" />
+                </svg>
+            </a>
+        </main>
+    </section>
+
+    <!-- Nihonga Section -->
+    <section id="nihonga">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+        
+        <div class="content-card reveal">
+            <span class="section-label">About the Art</span>
+            <h2>Nihonga – Japanese Traditional Painting</h2>
+            <p>
+                Nihonga is a style of Japanese painting that utilizes traditional techniques and natural materials.
+            </p>
+            
+            <h3>Color</h3>
+            <p>
+                Instead of oil or acrylic paints, I use natural pigments, gold and silver in form of leaf and powder. I mix them with nikawa glue in the appropriate proportion, achieving a unique texture of handmade paints that is impossible to replicate with other techniques.
+            </p>
+            <p>
+                The white pigment, known as gofun, is made by grinding Itaba oyster shells that have been dried for 10-30 years. Nakagawa Gofun in Kyoto (Uji), has been making pigments for over a century and is my favorite manufacturer of pigments.
+            </p>
+            
+            <h3>Washi Paper</h3>
+            <p>
+                I use exclusively Japanese washi paper, which I size myself with dōsa solution. The papers are handmade by Japanese artisans and mainly come from the Echizen region, which is the most famous paper-making region in Japan. Iwano Heizaburou in Echizen, has been making washi for over 150 years and is my favorite manufacturer of washi.
+            </p>
+            
+            <a href="#catalog" class="cta-button">
+                View the Gallery
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+        
+        <div class="content-card reveal">
+            <span class="section-label">Collection</span>
+            <h2>Explore the Gallery</h2>
+            <p>
+                "Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.
+            </p>
+            
+            <div class="gallery" id="gallery" role="list" aria-label="Artwork gallery">
+                <!-- Gallery items are loaded dynamically from artworks.json -->
+                <div class="gallery-loading" aria-label="Loading artworks">
+                    <span>Loading artworks...</span>
+                </div>
+                <noscript>
+                    <p style="text-align: center; padding: 2rem; color: var(--charcoal);">
+                        Please enable JavaScript to view the gallery, or contact <a href="mailto:dagmaraokla.art@gmail.com">dagmaraokla.art@gmail.com</a> to request a catalog.
+                    </p>
+                </noscript>
+            </div>
+            
+            <a href="#contact" class="cta-button">
+                Inquire About Works
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#8249;</button>
+            <div class="lightbox-image-container" id="lightbox-container">
+                <div class="lightbox-loader" id="lightbox-loader"></div>
+                <img src="" alt="" class="lightbox-image" id="lightbox-image">
+            </div>
+            <button class="lightbox-nav lightbox-next" aria-label="Next image">&#8250;</button>
+            <div class="lightbox-caption" id="lightbox-caption" aria-live="polite">
+                <div class="caption-title" id="caption-title"></div>
+                <div class="caption-details">
+                    <span class="caption-dimensions" id="caption-dimensions"></span>
+                    <span class="caption-separator">•</span>
+                    <span class="caption-material" id="caption-material"></span>
+                    <span class="caption-separator">•</span>
+                    <span class="caption-paper" id="caption-paper"></span>
+                </div>
+            </div>
+            <div class="lightbox-zoom-hint" aria-hidden="true">Click image to zoom</div>
+        </div>
+    </div>
+
+    <!-- Exhibitions Modal -->
+    <div class="exhibitions-modal" id="exhibitions-modal" role="dialog" aria-modal="true" aria-label="Exhibitions viewer" aria-hidden="true">
+        <div class="exhibitions-modal-content">
+            <button class="exhibitions-modal-close" aria-label="Close exhibitions">&times;</button>
+            <img src="Wystawy.jpg" alt="Exhibitions - Dagmara Dreams of Nihonga" class="exhibitions-modal-image" loading="lazy">
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+        
+        <div class="content-card reveal">
+            <span class="section-label">Get in Touch</span>
+            <h2>Let's Connect</h2>
+            <p>
+                Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.
+            </p>
+            
+            <div class="contact-grid contact-grid-2">
+                <a href="mailto:dagmaraokla.art@gmail.com" class="contact-item contact-item-link">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">dagmaraokla.art@gmail.com</div>
+                </a>
+                
+                <a href="https://www.instagram.com/dagmara_dreams_of_nihonga/" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-link">
+                    <div class="contact-icon"><img src="Instagram_icon.jpg" alt="Instagram" class="contact-icon-img"></div>
+                    <div class="contact-label">Instagram</div>
+                    <div class="contact-value">@dagmara_dreams_of_nihonga</div>
+                </a>
+            </div>
+            
+            <div class="contact-grid contact-grid-centered">
+                <div class="contact-item exhibitions-item" id="exhibitions-trigger" tabindex="0" role="button" aria-label="View exhibitions">
+                    <div class="contact-icon">🎭</div>
+                    <div class="contact-label">Exhibitions</div>
+                    <div class="contact-value contact-link">View Upcoming Exhibitions</div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        // Combined scroll handler with requestAnimationFrame for smooth performance
+        const navbar = document.getElementById('navbar');
+        const reveals = document.querySelectorAll('.reveal');
+        const bgImages = document.querySelectorAll('.bg-image');
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        let ticking = false;
+        
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // Navbar scroll effect
+            if (scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Reveal animations
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+            
+            // Parallax effect for background images (desktop only)
+            if (!isMobile) {
+                bgImages.forEach((bg) => {
+                    const section = bg.parentElement;
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollY >= sectionTop - windowHeight && 
+                        scrollY <= sectionTop + sectionHeight) {
+                        const yPos = (scrollY - sectionTop) * 0.3;
+                        bg.style.transform = `translateY(${yPos}px) scale(1.1)`;
+                    }
+                });
+            }
+            
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        });
+        handleScroll(); // Initial check
+
+        // Mobile hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        function toggleMobileMenu() {
+            const isActive = hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+            mobileMenu.setAttribute('aria-hidden', !isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Image protection - disable right-click context menu on images
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG' || 
+                e.target.closest('.gallery-item') || 
+                e.target.closest('.lightbox-image-container')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevent drag events on images
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Gallery - Load artworks from JSON
+        const gallery = document.getElementById('gallery');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxContainer = document.getElementById('lightbox-container');
+        const lightboxLoader = document.getElementById('lightbox-loader');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+
+        let currentIndex = 0;
+
+        // Fallback artwork data for local development (file:// protocol)
+        const fallbackArtworks = [
+            { id: "01", filename: "一 Ichi: 01", title: "一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "02", filename: "二 Ni: 02", title: "二 Ni", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "03", filename: "三 San: 03", title: "三 San", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "04", filename: "四 Yon: 04", title: "四 Yon", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "05", filename: "五　Go: 05", title: "五 Go", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "06", filename: "六 Roku: 06", title: "六 Roku", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "07", filename: "七 Shichi: 07", title: "七 Shichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "08", filename: "八 Hachi: 08", title: "八 Hachi", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "09", filename: "九 Kyū: 09", title: "九 Kyū", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "10", filename: "十 Jū: 10", title: "十 Jū", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "11", filename: "十一　Jū ichi: 11", title: "十一 Jū ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "12", filename: "十二　 Jū ni: 12", title: "十二 Jū ni", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "13", filename: "十三　Jū san: 13", title: "十三 Jū san", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "14", filename: "十四　 Jū  yon: 14", title: "十四 Jū yon", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "15", filename: "十五　Jū go: 15", title: "十五 Jū go", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "16", filename: "十六 Jū roku: 16", title: "十六 Jū roku", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "17", filename: "十七 Jū Shichi: 17", title: "十七 Jū Shichi", dimensions: "630×930 mm", material: "Wooden panel", paper: "Japanese paper Tosa Washi" },
+            { id: "18", filename: "十八 Jū Hachi: 18", title: "十八 Jū Hachi", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "19", filename: "十九 Jū Kyu: 19", title: "十九 Jū Kyu", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" }
+        ];
+
+        let artworks = [];
+
+        // Load artworks from JSON file (with fallback for local development)
+        async function loadArtworks() {
+            try {
+                const response = await fetch('artworks.json');
+                if (!response.ok) throw new Error('Fetch failed');
+                artworks = await response.json();
+            } catch (error) {
+                console.log('Using fallback artworks (local development mode)');
+                artworks = fallbackArtworks;
+            }
+            renderGallery();
+        }
+
+        // Render gallery items from artworks data
+        function renderGallery() {
+            gallery.innerHTML = artworks.map((artwork, index) => `
+                <div class="gallery-item" data-index="${index}" tabindex="0" role="listitem" aria-label="View ${artwork.title}">
+                    <img src="Thumbnail/${artwork.filename}.webp" alt="${artwork.title} - Nihonga painting" loading="lazy">
+                    <div class="gallery-item-overlay" aria-hidden="true">
+                        <span class="gallery-item-title">${artwork.title}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Setup event listeners for gallery items
+            setupGalleryEvents();
+            
+            // Setup lazy loading fade-in
+            setupImageLoading();
+        }
+
+        function setupImageLoading() {
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            galleryImages.forEach(img => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                    img.parentElement.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                        this.parentElement.classList.add('loaded');
+                    });
+                }
+            });
+        }
+
+        function setupGalleryEvents() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach((item) => {
+                item.addEventListener('click', () => {
+                    const index = parseInt(item.dataset.index);
+                    openLightbox(index);
+                });
+
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const index = parseInt(item.dataset.index);
+                        openLightbox(index);
+                    }
+                });
+            });
+        }
+
+        // Initialize gallery
+        loadArtworks();
+
+        let lastFocusedElement = null;
+        // Tracks prefetched images to avoid redundant requests. Not cleared intentionally -
+        // with only 19 images, memory is negligible (~1KB) and prevents re-prefetching on navigation.
+        const prefetchedImages = new Set();
+
+        function prefetchAdjacentImages() {
+            if (artworks.length === 0) return;
+            const prevIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+            const nextIndex = (currentIndex + 1) % artworks.length;
+            
+            [prevIndex, nextIndex].forEach(idx => {
+                const src = `Background/${artworks[idx].filename}.webp`;
+                if (!prefetchedImages.has(src)) {
+                    const img = new Image();
+                    img.src = src;
+                    prefetchedImages.add(src);
+                }
+            });
+        }
+
+        function openLightbox(index) {
+            lastFocusedElement = document.activeElement;
+            currentIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            // Focus the close button for accessibility
+            setTimeout(() => closeBtn.focus(), 100);
+            // Prefetch adjacent images
+            prefetchAdjacentImages();
+        }
+
+        let zoomLevel = 1;
+        const minZoom = 1;
+        const maxZoom = 4;
+
+        function resetZoom() {
+            zoomLevel = 1;
+            lightboxContainer.classList.remove('zoomed');
+            lightboxImage.style.transform = 'scale(1)';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            resetZoom();
+            document.body.style.overflow = '';
+            // Return focus to the element that opened the lightbox
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
+        }
+
+        function updateLightboxImage() {
+            const artwork = artworks[currentIndex];
+            
+            // Show loader, hide image
+            lightboxLoader.classList.add('active');
+            lightboxImage.classList.remove('loaded');
+            lightboxImage.classList.add('loading');
+            
+            // Update image source
+            lightboxImage.src = `Background/${artwork.filename}.webp`;
+            lightboxImage.alt = artwork.title;
+            
+            // Update caption
+            document.getElementById('caption-title').textContent = artwork.title;
+            document.getElementById('caption-dimensions').textContent = artwork.dimensions;
+            document.getElementById('caption-material').textContent = artwork.material;
+            document.getElementById('caption-paper').textContent = artwork.paper;
+            resetZoom();
+        }
+
+        // Hide loader when image loads
+        lightboxImage.addEventListener('load', () => {
+            lightboxLoader.classList.remove('active');
+            lightboxImage.classList.remove('loading');
+            lightboxImage.classList.add('loaded');
+        });
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % artworks.length;
+            updateLightboxImage();
+            prefetchAdjacentImages();
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+            updateLightboxImage();
+            prefetchAdjacentImages();
+        }
+
+        // Toggle zoom on container click
+        lightboxContainer.addEventListener('click', (e) => {
+            // Only toggle if clicking the container itself (not nav buttons)
+            if (e.target === lightboxContainer || e.target === lightboxImage) {
+                if (zoomLevel === 1) {
+                    zoomLevel = 2;
+                    lightboxContainer.classList.add('zoomed');
+                } else {
+                    zoomLevel = 1;
+                    lightboxContainer.classList.remove('zoomed');
+                }
+                lightboxImage.style.transform = `scale(${zoomLevel})`;
+            }
+        });
+
+        // Scroll wheel zoom for desktop
+        lightboxContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            
+            if (e.deltaY < 0) {
+                // Zoom in
+                zoomLevel = Math.min(maxZoom, zoomLevel + 0.25);
+            } else {
+                // Zoom out
+                zoomLevel = Math.max(minZoom, zoomLevel - 0.25);
+            }
+            
+            if (zoomLevel > 1) {
+                lightboxContainer.classList.add('zoomed');
+            } else {
+                lightboxContainer.classList.remove('zoomed');
+            }
+            
+            lightboxImage.style.transform = `scale(${zoomLevel})`;
+        }, { passive: false });
+
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const swipeThreshold = 50; // Minimum distance for a swipe
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            
+            if (Math.abs(swipeDistance) < swipeThreshold) return;
+            
+            if (swipeDistance > 0) {
+                // Swiped right - show previous
+                showPrev();
+            } else {
+                // Swiped left - show next
+                showNext();
+            }
+        }
+
+        // Lightbox button event listeners
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Exhibitions Modal
+        const exhibitionsModal = document.getElementById('exhibitions-modal');
+        const exhibitionsTrigger = document.getElementById('exhibitions-trigger');
+        const exhibitionsClose = document.querySelector('.exhibitions-modal-close');
+
+        function openExhibitions() {
+            exhibitionsModal.classList.add('active');
+            exhibitionsModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            exhibitionsClose.focus();
+        }
+
+        function closeExhibitions() {
+            exhibitionsModal.classList.remove('active');
+            exhibitionsModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            exhibitionsTrigger.focus();
+        }
+
+        exhibitionsTrigger.addEventListener('click', openExhibitions);
+        exhibitionsTrigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openExhibitions();
+            }
+        });
+
+        exhibitionsClose.addEventListener('click', closeExhibitions);
+
+        exhibitionsModal.addEventListener('click', (e) => {
+            if (e.target === exhibitionsModal) {
+                closeExhibitions();
+            }
+        });
+
+        // Consolidated keyboard event handler
+        document.addEventListener('keydown', (e) => {
+            // Mobile menu - Escape to close
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+                return;
+            }
+            
+            // Exhibitions modal - Escape to close
+            if (e.key === 'Escape' && exhibitionsModal.classList.contains('active')) {
+                closeExhibitions();
+                return;
+            }
+            
+            // Lightbox - Escape to close, arrows to navigate
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNext();
+                if (e.key === 'ArrowLeft') showPrev();
+            }
+        });
+    </script>
+</body>
+</html>
+
