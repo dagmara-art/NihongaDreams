@@ -623,6 +623,19 @@
             }
         }
 
+        /* Orchestrated hero entrance animation */
+        #hero .content-card > * {
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+
+        #hero .section-label { animation-delay: 0.1s; }
+        #hero h1 { animation-delay: 0.2s; }
+        #hero .decorative-line { animation-delay: 0.3s; }
+        #hero .bio-text { animation-delay: 0.4s; }
+        #hero .cta-button { animation-delay: 0.5s; }
+        #hero .scroll-indicator { animation-delay: 0.6s; }
+
         /* Typography */
         .section-label {
             font-size: 0.7rem;
@@ -1091,7 +1104,9 @@
 
         .contact-item:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 0 0 1px var(--gold);
         }
 
         .contact-item-link {
@@ -1521,6 +1536,67 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Footer - positioned at bottom of contact section */
+        #contact {
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0;
+        }
+
+        .site-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 3rem;
+            padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--cream);
+            opacity: 0.8;
+            margin: 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-link {
+            font-size: 0.8rem;
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, color 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .site-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+                padding: 1rem 1.5rem;
+            }
+
+            .footer-copyright {
+                font-size: 0.75rem;
+            }
+
+            .footer-link {
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1734,6 +1810,12 @@
             </div>
             
         </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p class="footer-copyright" data-i18n="footer.copyright">© 2025 Dagmara Okła. All rights reserved.</p>
+            <a href="#hero" class="footer-link" data-i18n="footer.backToTop">↑ Back to Top</a>
+        </footer>
     </section>
 
     <script>
@@ -1770,7 +1852,9 @@
                 'contact.intro': "Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.",
                 'contact.emailLabel': 'Email',
                 'contact.exhibitionsLabel': 'Exhibitions',
-                'contact.exhibitionsValue': 'View Upcoming Exhibitions'
+                'contact.exhibitionsValue': 'View Upcoming Exhibitions',
+                'footer.copyright': '© 2025 Dagmara Okła. All rights reserved.',
+                'footer.backToTop': '↑ Back to Top'
             },
             pl: {
                 'nav.home': 'Strona główna',
@@ -1803,7 +1887,9 @@
                 'contact.intro': 'Zainteresowany zamówieniem dzieła, zakupem pracy lub po prostu chcesz się przywitać? Chętnie nawiążę kontakt.',
                 'contact.emailLabel': 'E-mail',
                 'contact.exhibitionsLabel': 'Wystawy',
-                'contact.exhibitionsValue': 'Zobacz nadchodzące wystawy'
+                'contact.exhibitionsValue': 'Zobacz nadchodzące wystawy',
+                'footer.copyright': '© 2025 Dagmara Okła. Wszelkie prawa zastrzeżone.',
+                'footer.backToTop': '↑ Powrót na górę'
             }
         };
 
