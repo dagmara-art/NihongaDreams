@@ -25,11 +25,27 @@
     <!-- Cookiebot Consent Management -->
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="8e1425ff-1262-4a01-be6d-92a6bccb9142" type="text/javascript" async></script>
     
-    <!-- Google tag (gtag.js) - controlled by Cookiebot -->
-    <script data-cookieconsent="statistics" async src="https://www.googletagmanager.com/gtag/js?id=G-JV04ELD31R"></script>
-    <script data-cookieconsent="statistics">
+    <!-- Google Consent Mode v2 - Default consent state (runs before GA) -->
+    <script data-cookieconsent="ignore">
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
+      gtag("consent", "default", {
+        ad_personalization: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        analytics_storage: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV04ELD31R"></script>
+    <script>
       gtag('js', new Date());
       gtag('config', 'G-JV04ELD31R');
     </script>
