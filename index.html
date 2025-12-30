@@ -891,12 +891,31 @@
             cursor: grabbing;
         }
 
-        .lightbox-image {
+        .lightbox-placeholder {
+            position: absolute;
             max-width: 85vw;
             max-height: 85vh;
             object-fit: contain;
-            transition: transform 0.3s ease;
+            filter: blur(20px);
+            transform: scale(1.1);
+            opacity: 1;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .lightbox-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .lightbox-image {
+            position: relative;
+            max-width: 85vw;
+            max-height: 85vh;
+            object-fit: contain;
+            transition: transform 0.3s ease, opacity 0.4s ease;
             display: block;
+            z-index: 2;
         }
 
         .lightbox-image-container.zoomed .lightbox-image {
@@ -904,6 +923,10 @@
             max-height: none;
             transform: scale(2);
             transform-origin: center center;
+        }
+
+        .lightbox-image-container.zoomed .lightbox-placeholder {
+            display: none;
         }
 
         .lightbox-close {
@@ -1750,6 +1773,7 @@
             <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#8249;</button>
             <div class="lightbox-image-container" id="lightbox-container">
                 <div class="lightbox-loader" id="lightbox-loader"></div>
+                <img src="" alt="" class="lightbox-placeholder" id="lightbox-placeholder">
                 <img src="" alt="" class="lightbox-image" id="lightbox-image">
             </div>
             <button class="lightbox-nav lightbox-next" aria-label="Next image">&#8250;</button>
@@ -2161,6 +2185,7 @@
         const gallery = document.getElementById('gallery');
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxPlaceholder = document.getElementById('lightbox-placeholder');
         const lightboxContainer = document.getElementById('lightbox-container');
         const lightboxLoader = document.getElementById('lightbox-loader');
         const closeBtn = document.querySelector('.lightbox-close');
@@ -2272,7 +2297,7 @@
             const nextIndex = (currentIndex + 1) % artworks.length;
             
             [prevIndex, nextIndex].forEach(idx => {
-                const src = `Background/${artworks[idx].filename}.webp`;
+                const src = `Lightbox/${artworks[idx].filename}.webp`;
                 if (!prefetchedImages.has(src)) {
                     const img = new Image();
                     img.src = src;
@@ -2326,14 +2351,22 @@
         function updateLightboxImage() {
             const artwork = artworks[currentIndex];
             
-            // Show loader, hide image
+            // Show placeholder immediately (thumbnail, blurred)
+            lightboxPlaceholder.src = `Thumbnail/${artwork.filename}.webp`;
+            lightboxPlaceholder.alt = artwork.title;
+            lightboxPlaceholder.classList.remove('hidden');
+            
+            // Show loader, prepare main image
             lightboxLoader.classList.add('active');
             lightboxImage.classList.remove('loaded');
             lightboxImage.classList.add('loading');
             
-            // Update image source
-            lightboxImage.src = `Background/${artwork.filename}.webp`;
+            // Load optimized lightbox image (medium resolution)
+            lightboxImage.src = `Lightbox/${artwork.filename}.webp`;
             lightboxImage.alt = artwork.title;
+            
+            // Store high-res path for zoom functionality
+            lightboxImage.dataset.highres = `Background/${artwork.filename}.webp`;
             
             // Update caption
             document.getElementById('caption-title').textContent = artwork.title;
@@ -2343,11 +2376,13 @@
             resetZoom();
         }
 
-        // Hide loader when image loads
+        // Hide loader and placeholder when main image loads
         lightboxImage.addEventListener('load', () => {
             lightboxLoader.classList.remove('active');
             lightboxImage.classList.remove('loading');
             lightboxImage.classList.add('loaded');
+            // Fade out the blurred placeholder
+            lightboxPlaceholder.classList.add('hidden');
         });
 
         function showNext() {
@@ -2365,10 +2400,15 @@
         // Toggle zoom on container click
         lightboxContainer.addEventListener('click', (e) => {
             // Only toggle if clicking the container itself (not nav buttons)
-            if (e.target === lightboxContainer || e.target === lightboxImage) {
+            if (e.target === lightboxContainer || e.target === lightboxImage || e.target === lightboxPlaceholder) {
                 if (zoomLevel === 1) {
                     zoomLevel = 2;
                     lightboxContainer.classList.add('zoomed');
+                    // Load high-res image for zoom
+                    const highresSrc = lightboxImage.dataset.highres;
+                    if (highresSrc && lightboxImage.src !== highresSrc) {
+                        lightboxImage.src = highresSrc;
+                    }
                 } else {
                     zoomLevel = 1;
                     lightboxContainer.classList.remove('zoomed');
@@ -2391,6 +2431,11 @@
             
             if (zoomLevel > 1) {
                 lightboxContainer.classList.add('zoomed');
+                // Load high-res image for zoom
+                const highresSrc = lightboxImage.dataset.highres;
+                if (highresSrc && lightboxImage.src !== highresSrc) {
+                    lightboxImage.src = highresSrc;
+                }
             } else {
                 lightboxContainer.classList.remove('zoomed');
             }
