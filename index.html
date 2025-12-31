@@ -89,7 +89,7 @@
         }
 
         html {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity;
             scroll-behavior: smooth;
         }
 
@@ -494,13 +494,15 @@
 
         /* Push content cards down on inner pages to avoid nav overlap */
         #nihonga .content-card,
-        #catalog .content-card {
+        #catalog .content-card,
+        #contact .content-card {
             margin-top: 4rem;
         }
 
         @media (max-width: 768px) {
             #nihonga .content-card,
-            #catalog .content-card {
+            #catalog .content-card,
+            #contact .content-card {
                 margin-top: 3rem;
             }
         }
@@ -895,6 +897,7 @@
             position: absolute;
             max-width: 85vw;
             max-height: 85vh;
+            max-height: 85dvh; /* Dynamic viewport height for mobile browsers */
             object-fit: contain;
             filter: blur(20px);
             transform: scale(1.1);
@@ -912,6 +915,7 @@
             position: relative;
             max-width: 85vw;
             max-height: 85vh;
+            max-height: 85dvh; /* Dynamic viewport height for mobile browsers */
             object-fit: contain;
             transition: transform 0.3s ease, opacity 0.4s ease;
             display: block;
@@ -1056,6 +1060,24 @@
             transition: opacity 0.3s ease;
         }
 
+        /* Landscape tablets (iPad, etc.) - reduce image height for caption visibility */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .lightbox-placeholder,
+            .lightbox-image {
+                max-height: 65vh;
+                max-height: 65dvh;
+            }
+            .lightbox-caption {
+                bottom: -4rem;
+            }
+            .caption-title {
+                font-size: 1.1rem;
+            }
+            .caption-details {
+                font-size: 0.8rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .lightbox-nav {
                 display: none;
@@ -1063,9 +1085,11 @@
             .lightbox-zoom-hint {
                 display: none;
             }
-            .lightbox-image {
+            .lightbox-image,
+            .lightbox-placeholder {
                 max-width: 95vw;
-                max-height: 80vh;
+                max-height: 70vh;
+                max-height: 70dvh;
             }
             .lightbox-caption {
                 bottom: -5.5rem;
@@ -1561,10 +1585,12 @@
         }
 
         /* Footer - positioned at bottom of contact section */
+        /* Remove scroll-snap from last section for natural scrolling */
         #contact {
             flex-direction: column;
             justify-content: space-between;
             padding-bottom: 0;
+            scroll-snap-align: none;
         }
 
         .site-footer {
