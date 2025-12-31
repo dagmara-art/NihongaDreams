@@ -22,7 +22,22 @@
     <meta name="twitter:description" content="Nihonga artist working with mineral pigments on washi and gold leaf.">
     <meta name="twitter:image" content="https://nihongadreams.com/Social%20Sharing%20Image/iris.jpeg">
     
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://consent.cookiebot.com https://www.googletagmanager.com https://www.google-analytics.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com;
+        connect-src 'self' https://ipapi.co https://www.google-analytics.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+        frame-src https://consentcdn.cookiebot.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+    ">
+    
     <!-- Cookiebot Consent Management -->
+    <!-- Note: SRI (integrity) hashes not used for Cookiebot/GA as these scripts are dynamically generated and change frequently -->
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="8e1425ff-1262-4a01-be6d-92a6bccb9142" type="text/javascript" async></script>
     
     <!-- Google Consent Mode v2 - Default consent state (runs before GA) -->
@@ -1778,7 +1793,7 @@
                 </div>
                 <noscript>
                     <p style="text-align: center; padding: 2rem; color: var(--charcoal);">
-                        Please enable JavaScript to view the gallery, or contact <a href="mailto:dagmaraokla.art@gmail.com">dagmaraokla.art@gmail.com</a> to request a catalog.
+                        Please enable JavaScript to view the gallery, or contact us via Instagram to request a catalog.
                     </p>
                 </noscript>
             </div>
@@ -1838,10 +1853,10 @@
             </p>
             
             <div class="contact-grid contact-grid-2">
-                <a href="mailto:dagmaraokla.art@gmail.com" class="contact-item contact-item-link">
+                <a href="javascript:void(0)" class="contact-item contact-item-link" id="email-link">
                     <div class="contact-icon">✉️</div>
                     <div class="contact-label" data-i18n="contact.emailLabel">Email</div>
-                    <div class="contact-value">dagmaraokla.art@gmail.com</div>
+                    <div class="contact-value" id="email-display">Loading...</div>
                 </a>
                 
                 <a href="https://www.instagram.com/dagmara_dreams_of_nihonga/" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-link">
@@ -2599,6 +2614,19 @@
         exhibitionsTrigger.addEventListener('click', () => {
             trackEvent('exhibitions_view');
         });
+
+        // Email obfuscation - assembles email from parts to prevent scraping
+        (function() {
+            const emailLink = document.getElementById('email-link');
+            const emailDisplay = document.getElementById('email-display');
+            if (emailLink && emailDisplay) {
+                // Split into parts that bots won't recognize as email
+                const parts = ['dagmaraokla', '.', 'art', '@', 'gmail', '.', 'com'];
+                const assembled = parts.join('');
+                emailLink.href = 'mailto:' + assembled;
+                emailDisplay.textContent = assembled;
+            }
+        })();
     </script>
 </body>
 </html>
