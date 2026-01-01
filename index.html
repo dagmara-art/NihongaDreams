@@ -22,6 +22,9 @@
     <meta name="twitter:description" content="Nihonga artist working with mineral pigments on washi and gold leaf.">
     <meta name="twitter:image" content="https://nihongadreams.com/Social%20Sharing%20Image/iris.jpeg">
     
+    <!-- Referrer Policy - controls what info is sent when clicking external links -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
@@ -65,6 +68,30 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-JV04ELD31R');
+    </script>
+    
+    <!-- Cookiebot Consent Mode Integration -->
+    <script data-cookieconsent="ignore">
+      // Update Google Consent Mode based on Cookiebot consent state
+      function updateConsentFromCookiebot() {
+          if (typeof Cookiebot !== 'undefined' && Cookiebot.consent) {
+              gtag('consent', 'update', {
+                  'analytics_storage': Cookiebot.consent.statistics ? 'granted' : 'denied',
+                  'ad_storage': Cookiebot.consent.marketing ? 'granted' : 'denied',
+                  'ad_user_data': Cookiebot.consent.marketing ? 'granted' : 'denied',
+                  'ad_personalization': Cookiebot.consent.marketing ? 'granted' : 'denied'
+              });
+          }
+      }
+
+      // Fires when consent state is ready (returning visitors)
+      window.addEventListener('CookiebotOnConsentReady', updateConsentFromCookiebot);
+
+      // Fires when user accepts (initial or modified consent)
+      window.addEventListener('CookiebotOnAccept', updateConsentFromCookiebot);
+
+      // Fires when user declines
+      window.addEventListener('CookiebotOnDecline', updateConsentFromCookiebot);
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
