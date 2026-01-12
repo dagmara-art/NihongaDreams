@@ -7,12 +7,12 @@
     <title>Dagmara Dreams of Nihonga's Portfolio</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="sakura_favicon.png?v=2">
+    <link rel="icon" type="image/png" href="Data/sakura_favicon.png?v=2">
     
     <!-- Open Graph tags for social sharing -->
     <meta property="og:title" content="Dagmara Dreams of Nihonga">
     <meta property="og:description" content="Nihonga artist working with mineral pigments on washi and gold leaf. Browse gallery, read Dagmara's statement, and get in touch for exhibitions or commissions.">
-    <meta property="og:image" content="https://nihongadreams.com/Social%20Sharing%20Image/iris.jpeg">
+    <meta property="og:image" content="https://nihongadreams.com/Data/Social%20Sharing%20Image/iris.jpeg">
     <meta property="og:url" content="https://nihongadreams.com/">
     <meta property="og:type" content="website">
     
@@ -20,24 +20,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Dagmara Dreams of Nihonga">
     <meta name="twitter:description" content="Nihonga artist working with mineral pigments on washi and gold leaf.">
-    <meta name="twitter:image" content="https://nihongadreams.com/Social%20Sharing%20Image/iris.jpeg">
+    <meta name="twitter:image" content="https://nihongadreams.com/Data/Social%20Sharing%20Image/iris.jpeg">
     
     <!-- Referrer Policy - controls what info is sent when clicking external links -->
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline' https://consent.cookiebot.com https://www.googletagmanager.com https://www.google-analytics.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        font-src 'self' https://fonts.gstatic.com;
-        img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com;
-        connect-src 'self' https://ipapi.co https://www.google-analytics.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
-        frame-src https://consentcdn.cookiebot.com;
-        object-src 'none';
-        base-uri 'self';
-        form-action 'self';
-    ">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://consent.cookiebot.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://ipapi.co https://www.google-analytics.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     
     <!-- Cookiebot Consent Management -->
     <!-- Note: SRI (integrity) hashes not used for Cookiebot/GA as these scripts are dynamically generated and change frequently -->
@@ -64,8 +53,7 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV04ELD31R"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      // gtag function already defined in Consent Mode block above
       gtag('js', new Date());
       gtag('config', 'G-JV04ELD31R');
     </script>
@@ -97,7 +85,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="Background_Small/一 Ichi: 01.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="Data/Background_Small/一 Ichi: 01.webp" fetchpriority="high">
     <style>
         :root {
             --gold: #c9a227;
@@ -487,7 +475,7 @@
 
         /* Hero Section */
         #hero .bg-image {
-            background-image: url('Background_Small/一 Ichi: 01.webp');
+            background-image: url('Data/Background_Small/一 Ichi: 01.webp');
         }
 
         #hero .bg-overlay {
@@ -508,7 +496,7 @@
 
         /* Nihonga Section */
         #nihonga .bg-image {
-            background-image: url('Background_Small/十六 Jū roku: 16.webp');
+            background-image: url('Data/Background_Small/十六 Jū roku: 16.webp');
             background-position: center 30%;
         }
 
@@ -551,7 +539,7 @@
 
         /* Catalog Section */
         #catalog .bg-image {
-            background-image: url('Background_Small/十七 Jū Shichi: 17.webp');
+            background-image: url('Data/Background_Small/十七 Jū Shichi: 17.webp');
         }
 
         #catalog .bg-overlay {
@@ -564,7 +552,7 @@
 
         /* Contact Section */
         #contact .bg-image {
-            background-image: url('Background_Small/十九 Jū Kyu: 19.webp');
+            background-image: url('Data/Background_Small/十九 Jū Kyu: 19.webp');
         }
 
         #contact .bg-overlay {
@@ -906,6 +894,7 @@
             max-width: 90vw;
             max-height: 90vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
@@ -1031,12 +1020,11 @@
         }
 
         .lightbox-caption {
-            position: absolute;
-            bottom: -4.5rem;
-            left: 0;
-            right: 0;
+            position: relative;
+            margin-top: 1.5rem;
             text-align: center;
             color: white;
+            flex-shrink: 0;
         }
 
         .caption-title {
@@ -1110,7 +1098,7 @@
                 max-height: 65dvh;
             }
             .lightbox-caption {
-                bottom: -4rem;
+                margin-top: 1.2rem;
             }
             .caption-title {
                 font-size: 1.1rem;
@@ -1134,7 +1122,7 @@
                 max-height: 70dvh;
             }
             .lightbox-caption {
-                bottom: -5.5rem;
+                margin-top: 1rem;
             }
             .caption-title {
                 font-size: 1.1rem;
@@ -1887,7 +1875,7 @@
                 </a>
                 
                 <a href="https://www.instagram.com/dagmara_dreams_of_nihonga/" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-link">
-                    <div class="contact-icon"><img src="Instagram_icon.jpg" alt="Instagram" class="contact-icon-img"></div>
+                    <div class="contact-icon"><img src="Data/Instagram_icon.jpg" alt="Instagram" class="contact-icon-img"></div>
                     <div class="contact-label">Instagram</div>
                     <div class="contact-value">@dagmara_dreams_of_nihonga</div>
                 </a>
@@ -2264,25 +2252,32 @@
 
         // Fallback artwork data for local development (file:// protocol)
         const fallbackArtworks = [
-            { id: "01", filename: "一 Ichi: 01", title: "一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "02", filename: "二 Ni: 02", title: "二 Ni", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "03", filename: "三 San: 03", title: "三 San", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "04", filename: "四 Yon: 04", title: "四 Yon", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "05", filename: "五　Go: 05", title: "五 Go", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "06", filename: "六 Roku: 06", title: "六 Roku", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "07", filename: "七 Shichi: 07", title: "七 Shichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "08", filename: "八 Hachi: 08", title: "八 Hachi", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "09", filename: "九 Kyū: 09", title: "九 Kyū", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "10", filename: "十 Jū: 10", title: "十 Jū", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "11", filename: "十一　Jū ichi: 11", title: "十一 Jū ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "12", filename: "十二　 Jū ni: 12", title: "十二 Jū ni", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "13", filename: "十三　Jū san: 13", title: "十三 Jū san", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "14", filename: "十四　 Jū  yon: 14", title: "十四 Jū yon", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "15", filename: "十五　Jū go: 15", title: "十五 Jū go", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "16", filename: "十六 Jū roku: 16", title: "十六 Jū roku", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "17", filename: "十七 Jū Shichi: 17", title: "十七 Jū Shichi", dimensions: "630×930 mm", material: "Wooden panel", paper: "Japanese paper Tosa Washi" },
-            { id: "18", filename: "十八 Jū Hachi: 18", title: "十八 Jū Hachi", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "19", filename: "十九 Jū Kyu: 19", title: "十九 Jū Kyu", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" }
+            { id: "01", filename: "Mokuren 一 Ichi: 01", title: "Mokuren 一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "02", filename: "Mokuren 二 Ni: 02", title: "Mokuren 二 Ni", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "03", filename: "Mokuren 三 San: 03", title: "Mokuren 三 San", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "04", filename: "Mokuren 四 Yon: 04", title: "Mokuren 四 Yon", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "05", filename: "Mokuren 五 Go: 05", title: "Mokuren 五 Go", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "06", filename: "Mokuren 六 Roku: 06", title: "Mokuren 六 Roku", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "07", filename: "Mokuren 七 Shichi: 07", title: "Mokuren 七 Shichi", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "08", filename: "Mokuren 八 Hachi: 08", title: "Mokuren 八 Hachi", dimensions: "500×200 mm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
+            { id: "09", filename: "Sakura 一 Ichi: 01", title: "Sakura 一 Ichi", dimensions: "630×930 mm", material: "Wooden panel", paper: "Japanese paper Tosa Washi" },
+            { id: "10", filename: "Sakura 二 Ni: 02", title: "Sakura 二 Ni", dimensions: "630×930 mm", material: "Wooden panel", paper: "Japanese paper Tosa Washi" },
+            { id: "11", filename: "Sakura 三 San: 03", title: "Sakura 三 San", dimensions: "630×930 mm", material: "Wooden panel", paper: "Japanese paper Tosa Washi" },
+            { id: "12", filename: "Kiku  一 Ichi: 01", title: "Kiku 一 Ichi", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "13", filename: "Kiku  二 Ni: 02 ", title: "Kiku 二 Ni", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "14", filename: "Tsubaki 一 Ichi: 01", title: "Tsubaki 一 Ichi", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "15", filename: "Tsubaki 二 Ni: 02", title: "Tsubaki 二 Ni", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "16", filename: "Tsubaki 三 San: 03", title: "Tsubaki 三 San", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "17", filename: "Tsubaki 四 Yon: 04", title: "Tsubaki 四 Yon", dimensions: "150×210 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "18", filename: "Yuri  一 Ichi: 01", title: "Yuri 一 Ichi", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
+            { id: "19", filename: "Egonoki 一 Ichi: 01", title: "Egonoki 一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "20", filename: "Suiren  一 Ichi: 01", title: "Suiren 一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "21", filename: "Suiren  二 Ni: 02", title: "Suiren 二 Ni", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "22", filename: "Suiren  三 San: 03", title: "Suiren 三 San", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "23", filename: "Ayame 一 Ichi: 01", title: "Ayame 一 Ichi", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "24", filename: "Suiren  四 Yon: 04", title: "Suiren 四 Yon", dimensions: "300×400 mm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
+            { id: "25", filename: "Suiren  五 Go: 05", title: "Suiren 五 Go", dimensions: "300×420 mm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
+            { id: "26", filename: "Yuri  二 Ni: 02 ", title: "Yuri 二 Ni", dimensions: "600×870 mm", material: "Wooden panel", paper: "Japanese paper Shiromashi" }
         ];
 
         let artworks = [];
@@ -2290,7 +2285,7 @@
         // Load artworks from JSON file (with fallback for local development)
         async function loadArtworks() {
             try {
-                const response = await fetch('artworks.json');
+                const response = await fetch('Data/artworks.json');
                 if (!response.ok) throw new Error('Fetch failed');
                 artworks = await response.json();
             } catch (error) {
@@ -2304,7 +2299,7 @@
         function renderGallery() {
             gallery.innerHTML = artworks.map((artwork, index) => `
                 <div class="gallery-item" data-index="${index}" tabindex="0" role="listitem" aria-label="View ${artwork.title}">
-                    <img src="Thumbnail/${artwork.filename}.webp" alt="${artwork.title} - Nihonga painting" loading="lazy">
+                    <img src="Data/Lightbox_new/Thumbnails/${artwork.filename}.webp" alt="${artwork.title} - Nihonga painting" loading="lazy">
                     <div class="gallery-item-overlay" aria-hidden="true">
                         <span class="gallery-item-title">${artwork.title}</span>
                     </div>
@@ -2356,7 +2351,7 @@
 
         let lastFocusedElement = null;
         // Tracks prefetched images to avoid redundant requests. Not cleared intentionally -
-        // with only 19 images, memory is negligible (~1KB) and prevents re-prefetching on navigation.
+        // with only 26 images, memory is negligible (~1KB) and prevents re-prefetching on navigation.
         const prefetchedImages = new Set();
 
         function prefetchAdjacentImages() {
@@ -2365,7 +2360,7 @@
             const nextIndex = (currentIndex + 1) % artworks.length;
             
             [prevIndex, nextIndex].forEach(idx => {
-                const src = `Lightbox/${artworks[idx].filename}.webp`;
+                const src = `Data/Lightbox_new/Preview/${artworks[idx].filename}.webp`;
                 if (!prefetchedImages.has(src)) {
                     const img = new Image();
                     img.src = src;
@@ -2420,7 +2415,7 @@
             const artwork = artworks[currentIndex];
             
             // Show placeholder immediately (thumbnail, blurred)
-            lightboxPlaceholder.src = `Thumbnail/${artwork.filename}.webp`;
+            lightboxPlaceholder.src = `Data/Lightbox_new/Thumbnails/${artwork.filename}.webp`;
             lightboxPlaceholder.alt = artwork.title;
             lightboxPlaceholder.classList.remove('hidden');
             
@@ -2430,11 +2425,11 @@
             lightboxImage.classList.add('loading');
             
             // Load optimized lightbox image (medium resolution)
-            lightboxImage.src = `Lightbox/${artwork.filename}.webp`;
+            lightboxImage.src = `Data/Lightbox_new/Preview/${artwork.filename}.webp`;
             lightboxImage.alt = artwork.title;
             
             // Store high-res path for zoom functionality
-            lightboxImage.dataset.highres = `Background/${artwork.filename}.webp`;
+            lightboxImage.dataset.highres = `Data/Lightbox_new/Original/${artwork.filename}.webp`;
             
             // Update caption
             document.getElementById('caption-title').textContent = artwork.title;
