@@ -2397,11 +2397,22 @@
         let zoomLevel = 1;
         const minZoom = 1;
         const maxZoom = 4;
+        
+        // Pan/drag state variables
+        let isDragging = false;
+        let wasDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let translateX = 0;
+        let translateY = 0;
 
         function resetZoom() {
             zoomLevel = 1;
+            translateX = 0;
+            translateY = 0;
+            isDragging = false;
             lightboxContainer.classList.remove('zoomed');
-            lightboxImage.style.transform = 'scale(1)';
+            lightboxImage.style.transform = 'scale(1) translate(0px, 0px)';
         }
 
         function closeLightbox() {
@@ -2479,10 +2490,15 @@
 
         // Toggle zoom on container click
         lightboxContainer.addEventListener('click', (e) => {
+            // Don't toggle zoom if we just finished dragging
+            if (wasDragging) return;
+            
             // Only toggle if clicking the container itself (not nav buttons)
             if (e.target === lightboxContainer || e.target === lightboxImage || e.target === lightboxPlaceholder) {
                 if (zoomLevel === 1) {
                     zoomLevel = 2;
+                    translateX = 0;
+                    translateY = 0;
                     lightboxContainer.classList.add('zoomed');
                     // Load high-res image for zoom
                     const highresSrc = lightboxImage.dataset.highres;
@@ -2491,9 +2507,11 @@
                     }
                 } else {
                     zoomLevel = 1;
+                    translateX = 0;
+                    translateY = 0;
                     lightboxContainer.classList.remove('zoomed');
                 }
-                lightboxImage.style.transform = `scale(${zoomLevel})`;
+                lightboxImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
             }
         });
 
@@ -2518,23 +2536,86 @@
                 }
             } else {
                 lightboxContainer.classList.remove('zoomed');
+                translateX = 0;
+                translateY = 0;
             }
             
-            lightboxImage.style.transform = `scale(${zoomLevel})`;
+            lightboxImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
         }, { passive: false });
 
-        // Touch swipe support for mobile
+        // Mouse drag for desktop panning
+        let dragStartX = 0;
+        let dragStartY = 0;
+        
+        lightboxContainer.addEventListener('mousedown', (e) => {
+            if (zoomLevel > 1 && (e.target === lightboxImage || e.target === lightboxContainer)) {
+                isDragging = true;
+                wasDragging = false;
+                dragStartX = e.clientX - translateX;
+                dragStartY = e.clientY - translateY;
+                lightboxContainer.style.cursor = 'grabbing';
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            wasDragging = true;
+            translateX = e.clientX - dragStartX;
+            translateY = e.clientY - dragStartY;
+            lightboxImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                lightboxContainer.style.cursor = 'grab';
+                // Delay resetting wasDragging to prevent click from firing
+                setTimeout(() => { wasDragging = false; }, 10);
+            }
+        });
+
+        // Touch swipe and pan support for mobile
         let touchStartX = 0;
+        let touchStartY = 0;
         let touchEndX = 0;
+        let isTouchPanning = false;
+        let touchDragStartX = 0;
+        let touchDragStartY = 0;
         const swipeThreshold = 50; // Minimum distance for a swipe
 
         lightbox.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            
+            // If zoomed, prepare for panning
+            if (zoomLevel > 1) {
+                isTouchPanning = true;
+                touchDragStartX = touchStartX - translateX;
+                touchDragStartY = touchStartY - translateY;
+            }
+        }, { passive: true });
+
+        lightbox.addEventListener('touchmove', (e) => {
+            // Pan when zoomed
+            if (zoomLevel > 1 && isTouchPanning) {
+                const currentX = e.changedTouches[0].screenX;
+                const currentY = e.changedTouches[0].screenY;
+                translateX = currentX - touchDragStartX;
+                translateY = currentY - touchDragStartY;
+                lightboxImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+            }
         }, { passive: true });
 
         lightbox.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            
+            // Only handle swipe if NOT zoomed
+            if (zoomLevel === 1) {
+                handleSwipe();
+            }
+            
+            isTouchPanning = false;
         }, { passive: true });
 
         function handleSwipe() {
