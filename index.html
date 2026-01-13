@@ -1858,7 +1858,7 @@
     <div class="exhibitions-modal" id="exhibitions-modal" role="dialog" aria-modal="true" aria-label="Exhibitions viewer" aria-hidden="true">
         <div class="exhibitions-modal-content">
             <button class="exhibitions-modal-close" aria-label="Close exhibitions">&times;</button>
-            <img src="Wystawy.jpg" alt="Exhibitions - Dagmara Dreams of Nihonga" class="exhibitions-modal-image" loading="lazy">
+            <img src="Data/Exhibitions/Exhibitions_EN.jpg" alt="Exhibitions - Dagmara Dreams of Nihonga" class="exhibitions-modal-image" id="exhibitions-image" loading="lazy">
         </div>
     </div>
 
@@ -2019,6 +2019,12 @@
             document.querySelectorAll('.lang-option').forEach(opt => {
                 opt.classList.toggle('active', opt.dataset.lang === lang);
             });
+            
+            // Update exhibitions image based on language
+            const exhibitionsImage = document.getElementById('exhibitions-image');
+            if (exhibitionsImage) {
+                exhibitionsImage.src = lang === 'pl' ? 'Data/Exhibitions/Exhibitions_PL.jpeg' : 'Data/Exhibitions/Exhibitions_EN.jpg';
+            }
         }
 
         // Initialize language toggle
