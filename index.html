@@ -586,6 +586,13 @@
 
         #contact .content-card {
             max-width: 850px;
+            padding-bottom: 5rem; /* Space for footer */
+        }
+        
+        @media (max-width: 768px) {
+            #contact .content-card {
+                padding-bottom: 6rem; /* More space for stacked footer on mobile */
+            }
         }
 
         /* Hero card - accessible single column layout */
