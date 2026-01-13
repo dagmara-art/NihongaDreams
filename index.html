@@ -1927,6 +1927,8 @@
                 'catalog.loading': 'Loading artworks...',
                 'catalog.cta': 'Inquire About Works',
                 'lightbox.zoomHint': 'Click image to zoom',
+                'lightbox.woodenPanel': 'Wooden panel',
+                'lightbox.japanesePaper': 'Japanese paper',
                 'contact.label': 'Get in Touch',
                 'contact.title': "Let's Connect",
                 'contact.intro': "Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.",
@@ -1962,6 +1964,8 @@
                 'catalog.loading': 'Ładowanie dzieł...',
                 'catalog.cta': 'Zapytaj o prace',
                 'lightbox.zoomHint': 'Kliknij obraz, aby powiększyć',
+                'lightbox.woodenPanel': 'Panel drewniany',
+                'lightbox.japanesePaper': 'Papier japoński',
                 'contact.label': 'Kontakt',
                 'contact.title': 'Skontaktuj się',
                 'contact.intro': 'Zainteresowany zamówieniem dzieła, zakupem pracy lub po prostu chcesz się przywitać? Chętnie nawiążę kontakt.',
@@ -2431,11 +2435,24 @@
             // Store high-res path for zoom functionality
             lightboxImage.dataset.highres = `Data/Lightbox_new/Original/${artwork.filename}.webp`;
             
-            // Update caption
+            // Update caption with localization
             document.getElementById('caption-title').textContent = artwork.title;
             document.getElementById('caption-dimensions').textContent = artwork.dimensions;
-            document.getElementById('caption-material').textContent = artwork.material;
-            document.getElementById('caption-paper').textContent = artwork.paper;
+            
+            // Translate material
+            const materialText = artwork.material === 'Wooden panel' 
+                ? translations[currentLang]['lightbox.woodenPanel'] 
+                : artwork.material;
+            document.getElementById('caption-material').textContent = materialText;
+            
+            // Translate paper (keep paper name, translate prefix)
+            let paperText = artwork.paper;
+            if (artwork.paper.startsWith('Japanese paper ')) {
+                const paperName = artwork.paper.replace('Japanese paper ', '');
+                paperText = `${translations[currentLang]['lightbox.japanesePaper']} ${paperName}`;
+            }
+            document.getElementById('caption-paper').textContent = paperText;
+            
             resetZoom();
         }
 
