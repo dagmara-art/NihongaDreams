@@ -9,10 +9,15 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="Data/sakura_favicon.png?v=2">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nihongadreams.com/">
+    
     <!-- Open Graph tags for social sharing -->
     <meta property="og:title" content="Dagmara Dreams of Nihonga">
     <meta property="og:description" content="Nihonga artist working with mineral pigments on washi and gold leaf. Browse gallery, read Dagmara's statement, and get in touch for exhibitions or commissions.">
     <meta property="og:image" content="https://nihongadreams.com/Data/Social%20Sharing%20Image/iris.jpeg">
+    <meta property="og:image:width" content="470">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://nihongadreams.com/">
     <meta property="og:type" content="website">
     
@@ -80,6 +85,28 @@
 
       // Fires when user declines
       window.addEventListener('CookiebotOnDecline', updateConsentFromCookiebot);
+    </script>
+    
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dagmara Okła",
+        "alternateName": "Dagmara Dreams of Nihonga",
+        "description": "Nihonga artist working with mineral pigments on washi and gold leaf",
+        "url": "https://nihongadreams.com/",
+        "image": "https://nihongadreams.com/Data/Social%20Sharing%20Image/iris.jpeg",
+        "sameAs": [
+            "https://www.instagram.com/nihongadreams/"
+        ],
+        "knowsAbout": ["Nihonga", "Japanese painting", "Mineral pigments", "Washi paper", "Gold leaf art"],
+        "jobTitle": "Nihonga Artist",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Dagmara Dreams of Nihonga"
+        }
+    }
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -494,6 +521,54 @@
                 );
         }
 
+        /* About Section */
+        #about .bg-image {
+            background-image: url('Data/Background_Small/Sakura 一 Ichi: 01.webp');
+            background-position: center 40%;
+        }
+
+        #about .bg-overlay {
+            background: linear-gradient(
+                180deg,
+                rgba(212, 165, 165, 0.15) 0%,
+                rgba(0, 0, 0, 0.35) 100%
+            );
+        }
+
+        #about .content-card {
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        /* Allow about section to grow beyond viewport when content is long */
+        #about {
+            min-height: auto;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
+        }
+
+        #about .about-text {
+            text-align: justify;
+            text-align-last: left;
+            hyphens: none;
+            -webkit-hyphens: none;
+            word-break: keep-all;
+        }
+
+        #about .about-text p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            orphans: 2;
+            widows: 2;
+        }
+
+        #about .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
         /* Nihonga Section */
         #nihonga .bg-image {
             background-image: url('Data/Background_Small/十六 Jū roku: 16.webp');
@@ -502,27 +577,45 @@
 
         #nihonga .content-card {
             max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        
+        /* Allow nihonga section to grow beyond viewport when content is long */
+        #nihonga {
+            min-height: auto;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
         }
 
         #nihonga h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--gold);
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.4rem;
         }
 
         #nihonga h3:first-of-type {
-            margin-top: 1rem;
+            margin-top: 0.75rem;
         }
 
         #nihonga p {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 0.75rem;
+            font-size: 0.92rem;
+            line-height: 1.75;
+            margin-bottom: 0.5rem;
+            text-align: justify;
+            text-align-last: left;
+            hyphens: none;
+            -webkit-hyphens: none;
+            word-break: keep-all;
+            orphans: 2;
+            widows: 2;
         }
 
         /* Push content cards down on inner pages to avoid nav overlap */
+        #about .content-card,
         #nihonga .content-card,
         #catalog .content-card,
         #contact .content-card {
@@ -530,6 +623,7 @@
         }
 
         @media (max-width: 768px) {
+            #about .content-card,
             #nihonga .content-card,
             #catalog .content-card,
             #contact .content-card {
@@ -603,7 +697,11 @@
         }
 
         #hero .content-card .bio-text {
-            text-align: left;
+            text-align: justify;
+            text-align-last: left;
+            hyphens: none;
+            -webkit-hyphens: none;
+            word-break: keep-all;
         }
 
         #hero .content-card .bio-text p {
@@ -611,6 +709,8 @@
             line-height: 1.9;
             margin-bottom: 1rem;
             max-width: 65ch; /* Optimal reading length */
+            orphans: 2;
+            widows: 2;
         }
 
         #hero .content-card .bio-text p:last-child {
@@ -1694,6 +1794,7 @@
         <div class="logo">Dagmara Dreams of Nihonga</div>
         <ul class="nav-links">
             <li><a href="#hero" data-i18n="nav.home">Home</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
             <li><a href="#nihonga">Nihonga</a></li>
             <li><a href="#catalog" data-i18n="nav.catalog">Catalog</a></li>
             <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
@@ -1712,6 +1813,7 @@
         </div>
         <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
             <a href="#hero" data-i18n="nav.home">Home</a>
+            <a href="#about" data-i18n="nav.about">About</a>
             <a href="#nihonga">Nihonga</a>
             <a href="#catalog" data-i18n="nav.catalog">Catalog</a>
             <a href="#contact" data-i18n="nav.contact">Contact</a>
@@ -1726,19 +1828,16 @@
         
         <main id="main-content" class="content-card">
             <span class="section-label" data-i18n="hero.label">Welcome</span>
-            <h1 data-i18n="hero.title">Where Nature Meets Washi</h1>
+            <h1 data-i18n="hero.title">The alchemy of Nihonga Japanese painting</h1>
             
             <div class="decorative-line" aria-hidden="true"></div>
             
             <div class="bio-text">
                 <p data-i18n="hero.bio1">
-                    Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in historic Kyoto and the scenic Shiga Prefecture on the shores of Lake Biwa. I practiced traditional Japanese arts directly in Japan: Japanese painting Nihonga, Shodō calligraphy, Haiku poetry and Nō theater. I have enriched my painting and drawing skills at the University of Fine Arts in Łódź.
-                </p>
-                <p data-i18n="hero.bio2">
-                    I work in traditional Japanese painting style - Nihonga. My work offers a unique and profound blend, a distinctive fusion of Eastern techniques and Western craftsmanship that creates an original bridge connecting the two cultures.
+                    Nihonga painting is a traditional Japanese technique in which I create my works, combining mineral pigments, gold and silver leaf, and washi paper with the experience I gained in Kyoto and Japanese studios. My paintings grow out of a deep fascination with Japanese culture and a love of craftsmanship, where the process of preparing my own paints becomes a form of contemporary alchemy.
                 </p>
                 <p class="signature" data-i18n="hero.signature" data-i18n-html="true">
-                    Thank you for being with me<br>
+                    Thank you for being here with me<br>
                     <strong>Dagmara Okła</strong>
                 </p>
             </div>
@@ -1750,7 +1849,7 @@
                 </svg>
             </a>
 
-            <a href="#nihonga" class="scroll-indicator" aria-label="Scroll to Nihonga section">
+            <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
                 <div class="scroll-mouse" aria-hidden="true">
                     <div class="scroll-wheel"></div>
                 </div>
@@ -1762,24 +1861,62 @@
         </main>
     </section>
 
+    <!-- About Me Section -->
+    <section id="about">
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
+        
+        <div class="content-card reveal">
+            <span class="section-label" data-i18n="about.label">About the Artist</span>
+            <h2 data-i18n="about.title">About Me</h2>
+            
+            <div class="about-text">
+                <p data-i18n="about.intro">
+                    Traditional Japanese painting Nihonga has become the central focus of my artistic practice and life's passion.
+                </p>
+                <p data-i18n="about.japan">
+                    Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in Kyoto, where I learned traditional Japanese arts: shodō calligraphy, haiku poetry, nō theater, kintsugi ceramics repair with lacquer, and ikebana flower arrangement. My knowledge of Japanese allows me to continue learning directly from Japanese masters.
+                </p>
+                <p data-i18n="about.education">
+                    I have enriched my painting and drawing skills at the University of Fine Arts in Łódź. A particularly significant moment in my artistic journey was my practice at the legendary Nakagawa Gofun Enogu pigment manufacturer in Kyoto, where I immersed myself in traditional methods of working with pigments, cultivated through generations.
+                </p>
+                <p data-i18n="about.process">
+                    I create my works in the traditional style of Japanese painting Nihonga. For me, this process is a contemporary form of alchemy, where Japanese culture and artistic intuition meet pharmaceutical precision. Preparing my own paints reminds me of developing ancient medicinal recipes - from careful selection of mineral pigments to laboratory accuracy in combining raw materials. From this harmony emerge works of extraordinary depth and permanence.
+                </p>
+            </div>
+            
+            <a href="#nihonga" class="cta-button">
+                <span data-i18n="about.cta">Learn About Nihonga</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
     <!-- Nihonga Section -->
     <section id="nihonga">
-        <div class="bg-image"></div>
-        <div class="bg-overlay"></div>
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
         
         <div class="content-card reveal">
             <span class="section-label" data-i18n="nihonga.label">About the Art</span>
-            <h2 data-i18n="nihonga.title">Nihonga – Japanese Traditional Painting</h2>
+            <h2 data-i18n="nihonga.title">Nihonga – traditional Japanese painting</h2>
             <p data-i18n="nihonga.intro">
                 Nihonga is a style of Japanese painting that utilizes traditional techniques and natural materials.
             </p>
             
             <h3 data-i18n="nihonga.colorTitle">Color</h3>
             <p data-i18n="nihonga.color1">
-                Instead of oil or acrylic paints, I use natural pigments, gold and silver in form of leaf and powder. I mix them with nikawa glue in the appropriate proportion, achieving a unique texture of handmade paints that is impossible to replicate with other techniques.
+                Instead of oil or acrylic paints, I handcraft my paints by combining pigments with natural nikawa glue, completely eliminating synthetic additives. These pigments are naturally sourced – from stones, shells, soils, and metal ores – then ground into powders of varying fineness. Unlike synthetic oil or acrylic paints, they remain unchanged over time, ensuring centuries-long durability.
             </p>
             <p data-i18n="nihonga.color2">
-                The white pigment, known as gofun, is made by grinding Itaba oyster shells that have been dried for 10-30 years. Nakagawa Gofun in Kyoto (Uji), has been making pigments for over a century and is my favorite manufacturer of pigments.
+                A special place in my palette is reserved for gofun, the white pigment made by grinding Itabo oyster shells dried for 10–30 years. It captivates with its delicate, pearlescent glow, lending paintings an ethereal depth and natural luminosity impossible with synthetic whites.
+            </p>
+            
+            <h3 data-i18n="nihonga.goldTitle">Gold and silver leaf</h3>
+            <p data-i18n="nihonga.gold">
+                Gold and silver leaf in Nihonga technique are ultra-thin noble metal flakes, just 0.1 micrometers thick, applied to create a diffused shimmer. They come from Kanazawa – the world's center for haku (metal leaf) – where Hakuichi has crafted them for four centuries.
             </p>
             
             <h3 data-i18n="nihonga.washiTitle">Washi Paper</h3>
@@ -1798,8 +1935,8 @@
 
     <!-- Catalog Section -->
     <section id="catalog">
-        <div class="bg-image"></div>
-        <div class="bg-overlay"></div>
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
         
         <div class="content-card reveal">
             <span class="section-label" data-i18n="catalog.label">Collection</span>
@@ -1864,8 +2001,8 @@
 
     <!-- Contact Section -->
     <section id="contact">
-        <div class="bg-image"></div>
-        <div class="bg-overlay"></div>
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
         
         <div class="content-card reveal">
             <span class="section-label" data-i18n="contact.label">Get in Touch</span>
@@ -1900,7 +2037,7 @@
 
         <!-- Footer -->
         <footer class="site-footer">
-            <p class="footer-copyright" data-i18n="footer.copyright">© 2025 Dagmara Okła. All rights reserved.</p>
+            <p class="footer-copyright" data-i18n="footer.copyright">© 2026 Dagmara Okła. All rights reserved.</p>
             <a href="#hero" class="footer-link" data-i18n="footer.backToTop">↑ Back to Top</a>
         </footer>
     </section>
@@ -1910,21 +2047,30 @@
         const translations = {
             en: {
                 'nav.home': 'Home',
+                'nav.about': 'About',
                 'nav.catalog': 'Catalog',
                 'nav.contact': 'Contact',
                 'hero.label': 'Welcome',
-                'hero.title': 'Where Nature Meets Washi',
-                'hero.bio1': 'Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in historic Kyoto and the scenic Shiga Prefecture on the shores of Lake Biwa. I practiced traditional Japanese arts directly in Japan: Japanese painting Nihonga, Shodō calligraphy, Haiku poetry and Nō theater. I have enriched my painting and drawing skills at the University of Fine Arts in Łódź.',
-                'hero.bio2': 'I work in traditional Japanese painting style - Nihonga. My work offers a unique and profound blend, a distinctive fusion of Eastern techniques and Western craftsmanship that creates an original bridge connecting the two cultures.',
-                'hero.signature': 'Thank you for being with me<br><strong>Dagmara Okła</strong>',
+                'hero.title': 'The alchemy of Nihonga Japanese painting',
+                'hero.bio1': 'Nihonga painting is a traditional Japanese technique in which I create my works, combining mineral pigments, gold and silver leaf, and washi paper with the experience I gained in Kyoto and Japanese studios. My paintings grow out of a deep fascination with Japanese culture and a love of craftsmanship, where the process of preparing my own paints becomes a form of contemporary alchemy.',
+                'hero.signature': 'Thank you for being here with me<br><strong>Dagmara Okła</strong>',
                 'hero.cta': 'View Collection',
                 'hero.scroll': 'Scroll to explore',
+                'about.label': 'About the Artist',
+                'about.title': 'About Me',
+                'about.intro': 'Traditional Japanese painting Nihonga has become the central focus of my artistic practice and life\'s passion.',
+                'about.japan': 'Japanese culture and art hold a profound place in my heart. My deep connection began during the two years I spent living in Kyoto, where I learned traditional Japanese arts: shodō calligraphy, haiku poetry, nō theater, kintsugi ceramics repair with lacquer, and ikebana flower arrangement. My knowledge of Japanese allows me to continue learning directly from Japanese masters.',
+                'about.education': 'I have enriched my painting and drawing skills at the University of Fine Arts in Łódź. A particularly significant moment in my artistic journey was my practice at the legendary Nakagawa Gofun Enogu pigment manufacturer in Kyoto, where I immersed myself in traditional methods of working with pigments, cultivated through generations.',
+                'about.process': 'I create my works in the traditional style of Japanese painting Nihonga. For me, this process is a contemporary form of alchemy, where Japanese culture and artistic intuition meet pharmaceutical precision. Preparing my own paints reminds me of developing ancient medicinal recipes - from careful selection of mineral pigments to laboratory accuracy in combining raw materials. From this harmony emerge works of extraordinary depth and permanence.',
+                'about.cta': 'Learn About Nihonga',
                 'nihonga.label': 'About the Art',
-                'nihonga.title': 'Nihonga – Japanese Traditional Painting',
+                'nihonga.title': 'Nihonga – traditional Japanese painting',
                 'nihonga.intro': 'Nihonga is a style of Japanese painting that utilizes traditional techniques and natural materials.',
                 'nihonga.colorTitle': 'Color',
-                'nihonga.color1': 'Instead of oil or acrylic paints, I use natural pigments, gold and silver in form of leaf and powder. I mix them with nikawa glue in the appropriate proportion, achieving a unique texture of handmade paints that is impossible to replicate with other techniques.',
-                'nihonga.color2': 'The white pigment, known as gofun, is made by grinding Itaba oyster shells that have been dried for 10-30 years. Nakagawa Gofun in Kyoto (Uji), has been making pigments for over a century and is my favorite manufacturer of pigments.',
+                'nihonga.color1': 'Instead of oil or acrylic paints, I handcraft my paints by combining pigments with natural nikawa glue, completely eliminating synthetic additives. These pigments are naturally sourced – from stones, shells, soils, and metal ores – then ground into powders of varying fineness. Unlike synthetic oil or acrylic paints, they remain unchanged over time, ensuring centuries-long durability.',
+                'nihonga.color2': 'A special place in my palette is reserved for gofun, the white pigment made by grinding Itabo oyster shells dried for 10–30 years. It captivates with its delicate, pearlescent glow, lending paintings an ethereal depth and natural luminosity impossible with synthetic whites.',
+                'nihonga.goldTitle': 'Gold and silver leaf',
+                'nihonga.gold': 'Gold and silver leaf in Nihonga technique are ultra-thin noble metal flakes, just 0.1 micrometers thick, applied to create a diffused shimmer. They come from Kanazawa – the world\'s center for haku (metal leaf) – where Hakuichi has crafted them for four centuries.',
                 'nihonga.washiTitle': 'Washi Paper',
                 'nihonga.washi': 'I use exclusively Japanese washi paper, which I size myself with dōsa solution. The papers are handmade by Japanese artisans and mainly come from the Echizen region, which is the most famous paper-making region in Japan. Iwano Heizaburou in Echizen, has been making washi for over 150 years and is my favorite manufacturer of washi.',
                 'nihonga.cta': 'View the Gallery',
@@ -1942,26 +2088,35 @@
                 'contact.emailLabel': 'Email',
                 'contact.exhibitionsLabel': 'Exhibitions',
                 'contact.exhibitionsValue': 'View Upcoming Exhibitions',
-                'footer.copyright': '© 2025 Dagmara Okła. All rights reserved.',
+                'footer.copyright': '© {year} Dagmara Okła. All rights reserved.',
                 'footer.backToTop': '↑ Back to Top'
             },
             pl: {
                 'nav.home': 'Strona główna',
+                'nav.about': 'O mnie',
                 'nav.catalog': 'Katalog',
                 'nav.contact': 'Kontakt',
                 'hero.label': 'Witaj',
-                'hero.title': 'Tam, gdzie Natura Spotyka Washi',
-                'hero.bio1': 'Japonia i jej kultura i sztuka są mocno zakorzenione w moim sercu. Przez dwa lata mieszkałam w Kioto oraz prefekturze Shiga, nad jeziorem Biwa, zgłębiając esencję Japonii. To właśnie w Japonii zdobywałam umiejętności w tradycyjnych sztukach japońskich: malarstwie japońskim Nihonga, kaligrafii Shodō, poezji Haiku oraz teatrze Nō. Tworzenia dzieł malarskich i rysunkowych uczyłam się także w Akademii Sztuk Pięknych w Łodzi.',
-                'hero.bio2': 'Swoje prace tworzę w tradycyjnym stylu japońskiego malarstwa Nihonga. Unikalna fuzja wschodnich technik i zachodniego warsztatu sprawia, że moje prace są niezwykle oryginalne i pełne głębi, stanowiąc most między kulturami.',
+                'hero.title': 'Alchemia japońskiego malarstwa Nihonga',
+                'hero.bio1': 'Malarstwo Nihonga to tradycyjna japońska technika, w której tworzę swoje prace, łącząc pigmenty mineralne, płatki złota i srebra oraz papier washi z doświadczeniem zdobytym w Kioto i japońskich pracowniach. Moje obrazy wyrastają z fascynacji kulturą Japonii oraz z zamiłowania do rzemiosła, w którym proces przygotowywania własnych farb staje się współczesną alchemią.',
                 'hero.signature': 'Dziękuję, że jesteś ze mną<br><strong>Dagmara Okła</strong>',
                 'hero.cta': 'Zobacz kolekcję',
                 'hero.scroll': 'Przewiń, aby odkrywać',
+                'about.label': 'O artystce',
+                'about.title': 'O mnie',
+                'about.intro': 'Malarstwo Nihonga - tradycyjna japońska sztuka malarska - stało się głównym nurtem mojej twórczości i życiowej pasji.',
+                'about.japan': 'Japonia, jej kultura i sztuka są głęboko zakorzenione w moim sercu. Przez dwa lata mieszkałam w Kioto, gdzie zgłębiałam tradycyjne japońskie dziedziny sztuki: kaligrafię shodō, poezję haiku, teatr nō, sztukę naprawy ceramiki laką kintsugi oraz sztukę układania kwiatów ikebana. Znajomość języka japońskiego pozwala mi kontynuować naukę bezpośrednio u japońskich mistrzów.',
+                'about.education': 'Umiejętności malarskie i rysunkowe rozwijałam także na Akademii Sztuk Pięknych w Łodzi. Szczególnym momentem mojej artystycznej drogi była praktyka w legendarnej wytwórni pigmentów Nakagawa Gofun Enogu w Kioto, gdzie zgłębiłam tradycyjne metody pracy z pigmentami, kultywowane od pokoleń.',
+                'about.process': 'Swoje prace tworzę w tradycyjnym stylu japońskiego malarstwa Nihonga. Proces ten jest dla mnie współczesną formą alchemii, w której kultura Wschodu i artystyczna intuicja spotykają się z farmaceutyczną precyzją. Tworzenie własnych farb przypomina mi opracowywanie dawnych receptur leków - od starannej selekcji pigmentów z minerałów, muszli i ziem, po laboratoryjną dokładność w łączeniu surowców. Z tej harmonii rodzą się dzieła o niezwykłej głębi i trwałości.',
+                'about.cta': 'Poznaj technikę Nihonga',
                 'nihonga.label': 'O sztuce',
-                'nihonga.title': 'Nihonga – Tradycyjne Malarstwo Japońskie',
+                'nihonga.title': 'Nihonga - tradycyjne malarstwo japońskie',
                 'nihonga.intro': 'Nihonga to styl malarstwa japońskiego, w którym używa się tradycyjnych technik i naturalnych materiałów.',
                 'nihonga.colorTitle': 'Kolor',
-                'nihonga.color1': 'Zamiast farb olejnych czy akrylowych, używam ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach. Pigmenty mieszam z klejem nikawa w odpowiedniej proporcji, uzyskując unikalną teksturę, niemożliwą do osiągnięcia w innych technikach.',
-                'nihonga.color2': 'Biały pigment tzw. gofun, uzyskiwany jest ze zmielenia suszonych przez 10-30 lat muszli ostryg Itabo. Moim ulubionym wytwórcą jest Nakagawa Gofun z Kioto, który wytwarza pigmenty od ponad stu lat.',
+                'nihonga.color1': 'Zamiast farb olejnych czy akrylowych własnoręcznie przygotowuję farby, łącząc pigmenty z naturalnym klejem nikawa, co pozwala całkowicie wyeliminować sztuczne dodatki. Pigmenty te mają naturalne pochodzenie - są pozyskiwane z kamieni, muszli, gleb i rud metali, a następnie mielone na proszek o różnej gradacji. W przeciwieństwie do syntetycznych farb olejnych i akrylowych nie zmieniają się z czasem, zachowując trwałość przez stulecia.',
+                'nihonga.color2': 'Szczególne miejsce w mojej palecie zajmuje biały pigment gofun, uzyskiwany ze zmielenia muszli ostryg Itabo suszonych przez 10-30 lat. Zachwyca delikatną, perłową poświatą, która nadaje obrazom eteryczną głębię i naturalny blask, niemożliwy do osiągnięcia przy użyciu syntetycznych farb.',
+                'nihonga.goldTitle': 'Płatki złota i srebra',
+                'nihonga.gold': 'Płatki złota i srebra w technice Nihonga to ultra cienkie listki metali szlachetnych o grubości zaledwie 0,1 mikrometra, aplikowane na obrazy dla uzyskania efektu rozproszonego blasku. Pochodzą z Kanazawy - światowego centrum produkcji haku (płatków metalowych), gdzie wytwórnia Hakuichi wytwarza je od czterech stuleci.',
                 'nihonga.washiTitle': 'Papier washi',
                 'nihonga.washi': 'Używam wyłącznie japońskiego papieru washi, który gruntuje za pomocą samodzielenie przygotowanego specjalnego gruntu dōsa. Papiery, ręcznie robione przez japońskich rzemieślników, pochodzą głównie z regionu Echizen, najsłynniejszego w Japonii regionu papierniczego. Moim ulubionym wytwórcą washi jest pracownia Iwano Heizaburou, która wytwarza papier w Echizen od ponad 150 lat.',
                 'nihonga.cta': 'Zobacz galerię',
@@ -1979,7 +2134,7 @@
                 'contact.emailLabel': 'E-mail',
                 'contact.exhibitionsLabel': 'Wystawy',
                 'contact.exhibitionsValue': 'Zobacz nadchodzące wystawy',
-                'footer.copyright': '© 2025 Dagmara Okła. Wszelkie prawa zastrzeżone.',
+                'footer.copyright': '© {year} Dagmara Okła. Wszelkie prawa zastrzeżone.',
                 'footer.backToTop': '↑ Powrót na górę'
             }
         };
@@ -2003,10 +2158,13 @@
             }
             
             // Update all translatable elements
+            const currentYear = new Date().getFullYear();
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                const translation = translations[lang][key];
+                let translation = translations[lang][key];
                 if (translation) {
+                    // Replace dynamic placeholders
+                    translation = translation.replace('{year}', currentYear);
                     if (el.hasAttribute('data-i18n-html')) {
                         el.innerHTML = translation;
                     } else {
@@ -2090,7 +2248,7 @@
         
         // Analytics scroll tracking state
         let maxScrollDepth = 0;
-        const sections = ['hero', 'nihonga', 'catalog', 'contact'];
+        const sections = ['hero', 'about', 'nihonga', 'catalog', 'contact'];
         const trackedSections = new Set();
         
         function handleScroll() {
