@@ -17,3 +17,7 @@ Thumbs.db
 
 # Mock/prototype files
 exhibitions-mock.html
+
+# Development assets
+sold-overlay.png
+sold-overlay.svg
