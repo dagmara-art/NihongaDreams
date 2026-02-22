@@ -617,6 +617,7 @@
         /* Push content cards down on inner pages to avoid nav overlap */
         #about .content-card,
         #nihonga .content-card,
+        #exhibitions .content-card,
         #catalog .content-card,
         #contact .content-card {
             margin-top: 4rem;
@@ -625,9 +626,491 @@
         @media (max-width: 768px) {
             #about .content-card,
             #nihonga .content-card,
+            #exhibitions .content-card,
             #catalog .content-card,
             #contact .content-card {
                 margin-top: 3rem;
+            }
+        }
+
+        /* Exhibitions Section */
+        #exhibitions {
+            min-height: auto;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
+        }
+
+        #exhibitions .bg-image {
+            background-image: url('Data/Background_Small/Kiku 一 Ichi: 01.webp');
+            background-position: center 40%;
+        }
+
+        #exhibitions .bg-overlay {
+            background: linear-gradient(
+                180deg,
+                rgba(26, 26, 26, 0.75) 0%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+        }
+
+        #exhibitions .content-card {
+            max-width: 950px;
+            margin-bottom: 2rem;
+        }
+
+        .exhibitions-year-nav {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .exhibitions-year-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 24px;
+            border: 1px solid var(--gold-muted, rgba(201, 162, 39, 0.4));
+            background: transparent;
+            color: var(--charcoal);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .exhibitions-year-btn:hover {
+            background: rgba(201, 162, 39, 0.15);
+            border-color: var(--gold);
+        }
+
+        .exhibitions-year-btn.active {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+        }
+
+        .exhibitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .exhibition-card {
+            background: rgba(42, 42, 42, 0.06);
+            border: 1px solid rgba(42, 42, 42, 0.12);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .exhibition-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+            border-color: rgba(201, 162, 39, 0.4);
+        }
+
+        .exhibition-card-hero {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .exhibition-card-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .exhibition-card:hover .exhibition-card-hero img {
+            transform: scale(1.05);
+        }
+
+        .exhibition-status-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .badge-past {
+            background: rgba(42, 42, 42, 0.7);
+            color: var(--gold);
+            border: 1px solid rgba(201, 162, 39, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .badge-current {
+            background: rgba(20, 60, 35, 0.75);
+            color: #8be8a8;
+            border: 1px solid rgba(100, 200, 150, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .badge-upcoming {
+            background: rgba(30, 35, 60, 0.75);
+            color: #b8c8f0;
+            border: 1px solid rgba(140, 160, 220, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .exhibition-card-body {
+            padding: 1.25rem;
+        }
+
+        .exhibition-card-date {
+            font-size: 0.78rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+        }
+
+        .exhibition-card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 0.4rem;
+            line-height: 1.35;
+        }
+
+        .exhibition-card-venue {
+            font-size: 0.85rem;
+            color: rgba(42, 42, 42, 0.6);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.3rem;
+        }
+
+        .exhibition-card-venue svg {
+            width: 14px;
+            height: 14px;
+            fill: rgba(201, 162, 39, 0.6);
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        .exhibition-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            font-size: 0.82rem;
+            color: var(--gold);
+            transition: gap 0.3s ease;
+        }
+
+        .exhibition-card:hover .exhibition-card-cta {
+            gap: 0.7rem;
+        }
+
+        .exhibition-card-cta svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Exhibition Detail Modal */
+        .exhibition-detail-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .exhibition-detail-modal.active {
+            display: block;
+        }
+
+        .exhibition-detail-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 44px;
+            height: 44px;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #f5f0e8;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .exhibition-detail-close:hover {
+            background: rgba(60, 60, 60, 0.9);
+            border-color: var(--gold);
+        }
+
+        .exhibition-detail-inner {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .exhibition-detail-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .exhibition-detail-date {
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .exhibition-detail-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 300;
+            color: #f5f0e8;
+            margin: 0.75rem 0;
+            line-height: 1.3;
+            white-space: pre-line;
+        }
+
+        .exhibition-detail-venue {
+            font-size: 1rem;
+            color: rgba(245, 240, 232, 0.7);
+        }
+
+        .exhibition-detail-venue a {
+            color: rgba(245, 240, 232, 0.7);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(201, 162, 39, 0.4);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .exhibition-detail-venue a:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .exhibition-detail-event-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid rgba(201, 162, 39, 0.4);
+            border-radius: 24px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .exhibition-detail-event-link:hover {
+            background: rgba(201, 162, 39, 0.15);
+            border-color: var(--gold);
+        }
+
+        .exhibition-detail-event-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .exhibition-gallery-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .exhibition-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .exhibition-gallery-thumb {
+            aspect-ratio: 4 / 3;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: none;
+            padding: 0;
+            background: none;
+        }
+
+        .exhibition-gallery-thumb:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .exhibition-gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .exhibition-gallery-thumb:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Exhibition Photo Lightbox */
+        .exhibition-photo-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exhibition-photo-lightbox.active {
+            display: flex;
+        }
+
+        .exhibition-photo-lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .exhibition-photo-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(40, 40, 40, 0.6);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #f5f0e8;
+            transition: background 0.3s ease;
+        }
+
+        .exhibition-photo-nav:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .exhibition-photo-nav.prev { left: 1rem; }
+        .exhibition-photo-nav.next { right: 1rem; }
+
+        .exhibition-photo-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+            background: rgba(40, 40, 40, 0.6);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #f5f0e8;
+            transition: background 0.3s ease;
+        }
+
+        .exhibition-photo-close:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .exhibition-photo-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: rgba(245, 240, 232, 0.6);
+            letter-spacing: 0.1em;
+        }
+
+        .exhibition-coming-soon {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border: 1px dashed rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .coming-soon-text {
+            font-size: 1.05rem;
+            color: rgba(245, 240, 232, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .coming-soon-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .coming-soon-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid rgba(201, 162, 39, 0.4);
+            border-radius: 24px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .coming-soon-link:hover {
+            background: rgba(201, 162, 39, 0.15);
+            border-color: var(--gold);
+        }
+
+        .coming-soon-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .exhibitions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exhibition-detail-inner {
+                padding: 1rem;
+                margin: 3rem auto;
+            }
+
+            .exhibition-gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
         }
 
@@ -1370,64 +1853,6 @@
             color: var(--sage);
         }
 
-        /* Exhibitions Modal */
-        .exhibitions-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .exhibitions-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .exhibitions-modal-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-
-        .exhibitions-modal-image {
-            max-width: 90vw;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 4px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .exhibitions-modal-close {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem 0.75rem;
-            opacity: 0.9;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-            z-index: 10;
-        }
-
-        .exhibitions-modal-close:hover {
-            opacity: 1;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
         /* Scroll Indicator - Inline below content */
         .scroll-indicator {
             display: flex;
@@ -1796,6 +2221,7 @@
             <li><a href="#hero" data-i18n="nav.home">Home</a></li>
             <li><a href="#about" data-i18n="nav.about">About</a></li>
             <li><a href="#nihonga">Nihonga</a></li>
+            <li><a href="#exhibitions" data-i18n="nav.exhibitions">Exhibitions</a></li>
             <li><a href="#catalog" data-i18n="nav.catalog">Catalog</a></li>
             <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
@@ -1815,6 +2241,7 @@
             <a href="#hero" data-i18n="nav.home">Home</a>
             <a href="#about" data-i18n="nav.about">About</a>
             <a href="#nihonga">Nihonga</a>
+            <a href="#exhibitions" data-i18n="nav.exhibitions">Exhibitions</a>
             <a href="#catalog" data-i18n="nav.catalog">Catalog</a>
             <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
@@ -1933,6 +2360,62 @@
         </div>
     </section>
 
+    <!-- Exhibitions Section -->
+    <section id="exhibitions">
+        <div class="bg-image" aria-hidden="true"></div>
+        <div class="bg-overlay" aria-hidden="true"></div>
+
+        <div class="content-card reveal">
+            <span class="section-label" data-i18n="exhibitions.label">展覧会</span>
+            <h2 data-i18n="exhibitions.title">Exhibitions</h2>
+
+            <div class="exhibitions-year-nav" id="exhibitions-year-nav" aria-label="Filter exhibitions by year"></div>
+            <div class="exhibitions-grid" id="exhibitions-grid"></div>
+        </div>
+    </section>
+
+    <!-- Exhibition Detail Modal -->
+    <div class="exhibition-detail-modal" id="exhibition-detail-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="exhibition-detail-close" aria-label="Close exhibition details">&times;</button>
+        <div class="exhibition-detail-inner">
+            <div class="exhibition-detail-header">
+                <div class="exhibition-detail-date" id="exh-detail-date"></div>
+                <h2 class="exhibition-detail-title" id="exh-detail-title"></h2>
+                <p class="exhibition-detail-venue" id="exh-detail-venue"></p>
+                <a class="exhibition-detail-event-link" id="exh-detail-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    <span data-i18n="exhibitions.eventPage">Event Page</span>
+                </a>
+            </div>
+            <div id="exh-detail-gallery-section" style="display:none">
+                <div class="exhibition-gallery-label" data-i18n="exhibitions.galleryLabel">Gallery</div>
+                <div class="exhibition-gallery-grid" id="exh-detail-gallery"></div>
+            </div>
+            <div id="exh-detail-coming-soon" class="exhibition-coming-soon" style="display:none">
+                <p class="coming-soon-text" id="exh-coming-soon-text"></p>
+                <div class="coming-soon-links">
+                    <a href="https://www.instagram.com/dagmara_dreams_of_nihonga/" target="_blank" rel="noopener noreferrer" class="coming-soon-link">
+                        <img src="Data/Instagram_icon.jpg" alt="Instagram" class="coming-soon-icon">
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61585187930590" target="_blank" rel="noopener noreferrer" class="coming-soon-link">
+                        <img src="Data/FB icon.png" alt="Facebook" class="coming-soon-icon">
+                        <span>Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exhibition Photo Lightbox -->
+    <div class="exhibition-photo-lightbox" id="exhibition-photo-lightbox" aria-hidden="true">
+        <button class="exhibition-photo-close" aria-label="Close photo">&times;</button>
+        <button class="exhibition-photo-nav prev" aria-label="Previous photo">&#8249;</button>
+        <img src="" alt="" id="exhibition-photo-img">
+        <button class="exhibition-photo-nav next" aria-label="Next photo">&#8250;</button>
+        <div class="exhibition-photo-counter" id="exhibition-photo-counter"></div>
+    </div>
+
     <!-- Catalog Section -->
     <section id="catalog">
         <div class="bg-image" aria-hidden="true"></div>
@@ -1991,14 +2474,6 @@
         </div>
     </div>
 
-    <!-- Exhibitions Modal -->
-    <div class="exhibitions-modal" id="exhibitions-modal" role="dialog" aria-modal="true" aria-label="Exhibitions viewer" aria-hidden="true">
-        <div class="exhibitions-modal-content">
-            <button class="exhibitions-modal-close" aria-label="Close exhibitions">&times;</button>
-            <img src="Data/Exhibitions/Exhibitions_EN.jpg" alt="Exhibitions - Dagmara Dreams of Nihonga" class="exhibitions-modal-image" id="exhibitions-image" loading="lazy">
-        </div>
-    </div>
-
     <!-- Contact Section -->
     <section id="contact">
         <div class="bg-image" aria-hidden="true"></div>
@@ -2012,10 +2487,10 @@
             </p>
             
             <div class="contact-grid contact-grid-2">
-                <a href="javascript:void(0)" class="contact-item contact-item-link" id="email-link">
+                <a href="#contact" class="contact-item contact-item-link" id="email-link">
                     <div class="contact-icon">✉️</div>
                     <div class="contact-label" data-i18n="contact.emailLabel">Email</div>
-                    <div class="contact-value" id="email-display">Loading...</div>
+                    <div class="contact-value" id="email-display">Enable JavaScript to see email</div>
                 </a>
                 
                 <a href="https://www.instagram.com/dagmara_dreams_of_nihonga/" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-link">
@@ -2026,11 +2501,11 @@
             </div>
             
             <div class="contact-grid contact-grid-centered">
-                <div class="contact-item exhibitions-item" id="exhibitions-trigger" tabindex="0" role="button" aria-label="View exhibitions">
-                    <div class="contact-icon">🎭</div>
-                    <div class="contact-label" data-i18n="contact.exhibitionsLabel">Exhibitions</div>
-                    <div class="contact-value contact-link" data-i18n="contact.exhibitionsValue">View Upcoming Exhibitions</div>
-                </div>
+                <a href="https://www.facebook.com/profile.php?id=61585187930590" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-link">
+                    <div class="contact-icon"><img src="Data/FB icon.png" alt="Facebook" class="contact-icon-img"></div>
+                    <div class="contact-label">Facebook</div>
+                    <div class="contact-value">Dagmara dreams of Nihonga</div>
+                </a>
             </div>
             
         </div>
@@ -2048,6 +2523,7 @@
             en: {
                 'nav.home': 'Home',
                 'nav.about': 'About',
+                'nav.exhibitions': 'Exhibitions',
                 'nav.catalog': 'Catalog',
                 'nav.contact': 'Contact',
                 'hero.label': 'Welcome',
@@ -2074,6 +2550,18 @@
                 'nihonga.washiTitle': 'Washi Paper',
                 'nihonga.washi': 'I use exclusively Japanese washi paper, which I size myself with dōsa solution. The papers are handmade by Japanese artisans and mainly come from the Echizen region, which is the most famous paper-making region in Japan. Iwano Heizaburou in Echizen, has been making washi for over 150 years and is my favorite manufacturer of washi.',
                 'nihonga.cta': 'View the Gallery',
+                'exhibitions.label': '展覧会',
+                'exhibitions.title': 'Exhibitions',
+                'exhibitions.eventPage': 'Event Page',
+                'exhibitions.galleryLabel': 'Gallery',
+                'exhibitions.viewDetails': 'View Details',
+                'exhibitions.learnMore': 'Learn More',
+                'exhibitions.past': 'Past',
+                'exhibitions.current': 'Now',
+                'exhibitions.upcoming': 'Upcoming',
+                'exhibitions.currentFilter': 'Current',
+                'exhibitions.upcomingFilter': 'Upcoming',
+                'exhibitions.comingSoon': 'More details coming soon! Check my social media for all the updates!',
                 'catalog.label': 'Collection',
                 'catalog.title': 'Explore the Gallery',
                 'catalog.intro': '"Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.',
@@ -2086,14 +2574,13 @@
                 'contact.title': "Let's Connect",
                 'contact.intro': "Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.",
                 'contact.emailLabel': 'Email',
-                'contact.exhibitionsLabel': 'Exhibitions',
-                'contact.exhibitionsValue': 'View Upcoming Exhibitions',
                 'footer.copyright': '© {year} Dagmara Okła. All rights reserved.',
                 'footer.backToTop': '↑ Back to Top'
             },
             pl: {
                 'nav.home': 'Strona główna',
                 'nav.about': 'O mnie',
+                'nav.exhibitions': 'Wystawy',
                 'nav.catalog': 'Katalog',
                 'nav.contact': 'Kontakt',
                 'hero.label': 'Witaj',
@@ -2120,6 +2607,18 @@
                 'nihonga.washiTitle': 'Papier washi',
                 'nihonga.washi': 'Używam wyłącznie japońskiego papieru washi, który gruntuje za pomocą samodzielenie przygotowanego specjalnego gruntu dōsa. Papiery, ręcznie robione przez japońskich rzemieślników, pochodzą głównie z regionu Echizen, najsłynniejszego w Japonii regionu papierniczego. Moim ulubionym wytwórcą washi jest pracownia Iwano Heizaburou, która wytwarza papier w Echizen od ponad 150 lat.',
                 'nihonga.cta': 'Zobacz galerię',
+                'exhibitions.label': '展覧会',
+                'exhibitions.title': 'Wystawy',
+                'exhibitions.eventPage': 'Strona wydarzenia',
+                'exhibitions.galleryLabel': 'Galeria',
+                'exhibitions.viewDetails': 'Zobacz szczegóły',
+                'exhibitions.learnMore': 'Dowiedz się więcej',
+                'exhibitions.past': 'Miniona',
+                'exhibitions.current': 'Trwa',
+                'exhibitions.upcoming': 'Nadchodząca',
+                'exhibitions.currentFilter': 'Trwaj\u0105ce',
+                'exhibitions.upcomingFilter': 'Nadchodz\u0105ce',
+                'exhibitions.comingSoon': 'Wi\u0119cej szczeg\u00f3\u0142\u00f3w ju\u017c wkr\u00f3tce! Odwied\u017a moje social media, aby by\u0107 na bie\u017c\u0105co!',
                 'catalog.label': 'Kolekcja',
                 'catalog.title': 'Odkryj Galerię',
                 'catalog.intro': 'Seria "W Japońskim Ogrodzie" powstała w klasycznej technice japońskiego malarstwa Nihonga z użyciem ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach na wysokiej jakości japońskich papierach Kumohada Mashi, Shiromashi, Torinoko.',
@@ -2132,8 +2631,6 @@
                 'contact.title': 'Skontaktuj się',
                 'contact.intro': 'Zainteresowany zamówieniem dzieła, zakupem pracy lub po prostu chcesz się przywitać? Chętnie nawiążę kontakt.',
                 'contact.emailLabel': 'E-mail',
-                'contact.exhibitionsLabel': 'Wystawy',
-                'contact.exhibitionsValue': 'Zobacz nadchodzące wystawy',
                 'footer.copyright': '© {year} Dagmara Okła. Wszelkie prawa zastrzeżone.',
                 'footer.backToTop': '↑ Powrót na górę'
             }
@@ -2178,10 +2675,10 @@
                 opt.classList.toggle('active', opt.dataset.lang === lang);
             });
             
-            // Update exhibitions image based on language
-            const exhibitionsImage = document.getElementById('exhibitions-image');
-            if (exhibitionsImage) {
-                exhibitionsImage.src = lang === 'pl' ? 'Data/Exhibitions/Exhibitions_PL.jpeg' : 'Data/Exhibitions/Exhibitions_EN.jpg';
+            // Re-render exhibitions section with new language
+            if (typeof renderExhibitions === 'function' && exhibitionsData.length > 0) {
+                const activeYearBtn = document.querySelector('.exhibitions-year-btn.active');
+                renderExhibitions(activeYearBtn ? activeYearBtn.dataset.year : getDefaultFilter());
             }
         }
 
@@ -2232,63 +2729,72 @@
                     }
                 }
             } catch (error) {
-                // If geolocation fails, keep browser-detected or default language
+                console.warn('Language geolocation unavailable');
             }
         }
 
         // Initialize language
         initializeLanguage();
 
-        // Combined scroll handler with requestAnimationFrame for smooth performance
+        // Reveal animations via IntersectionObserver (fire-and-forget)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Section view analytics via IntersectionObserver (fire-and-forget)
+        const trackedSections = new Set();
+        const sectionIds = ['hero', 'about', 'nihonga', 'exhibitions', 'catalog', 'contact'];
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    if (!trackedSections.has(id)) {
+                        trackedSections.add(id);
+                        trackEvent('section_view', { 'section': id });
+                    }
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        sectionIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
+
+        // Slim scroll handler: navbar, parallax, scroll depth only
         const navbar = document.getElementById('navbar');
-        const reveals = document.querySelectorAll('.reveal');
         const bgImages = document.querySelectorAll('.bg-image');
         const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
         let ticking = false;
-        
-        // Analytics scroll tracking state
         let maxScrollDepth = 0;
-        const sections = ['hero', 'about', 'nihonga', 'catalog', 'contact'];
-        const trackedSections = new Set();
-        
+
         function handleScroll() {
             const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const isMobile = mobileMediaQuery.matches;
-            
+
             // Navbar scroll effect
-            if (scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Reveal animations
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const revealPoint = 150;
-                if (elementTop < windowHeight - revealPoint) {
-                    element.classList.add('active');
-                }
-            });
-            
+            navbar.classList.toggle('scrolled', scrollY > 100);
+
             // Parallax effect for background images (desktop only)
-            if (!isMobile) {
+            if (!mobileMediaQuery.matches) {
+                const windowHeight = window.innerHeight;
                 bgImages.forEach((bg) => {
                     const section = bg.parentElement;
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.offsetHeight;
-                    
-                    if (scrollY >= sectionTop - windowHeight && 
-                        scrollY <= sectionTop + sectionHeight) {
-                        const yPos = (scrollY - sectionTop) * 0.3;
-                        bg.style.transform = `translateY(${yPos}px) scale(1.1)`;
+                    if (scrollY >= sectionTop - windowHeight && scrollY <= sectionTop + sectionHeight) {
+                        bg.style.transform = `translateY(${(scrollY - sectionTop) * 0.3}px) scale(1.1)`;
                     }
                 });
             }
-            
+
             // Analytics: Track scroll depth milestones
-            const scrollPercent = Math.round((scrollY / (document.body.scrollHeight - windowHeight)) * 100);
+            const scrollPercent = Math.round((scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
             [25, 50, 75, 100].forEach(milestone => {
                 if (scrollPercent >= milestone && maxScrollDepth < milestone) {
                     maxScrollDepth = milestone;
@@ -2296,28 +2802,16 @@
                 }
             });
 
-            // Analytics: Track section views
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section && !trackedSections.has(sectionId)) {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top < windowHeight * 0.5 && rect.bottom > 0) {
-                        trackedSections.add(sectionId);
-                        trackEvent('section_view', { 'section': sectionId });
-                    }
-                }
-            });
-            
             ticking = false;
         }
-        
+
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 requestAnimationFrame(handleScroll);
                 ticking = true;
             }
         }, { passive: true });
-        handleScroll(); // Initial check
+        handleScroll();
 
         // Mobile hamburger menu
         const hamburger = document.getElementById('hamburger');
@@ -2334,7 +2828,7 @@
             mobileMenu.classList.toggle('active');
             mobileOverlay.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', isActive);
-            mobileMenu.setAttribute('aria-hidden', !isActive);
+            mobileMenu.setAttribute('aria-hidden', isActive ? 'false' : 'true');
             document.body.style.overflow = isActive ? 'hidden' : '';
             
             // Focus first menu link when opening
@@ -2381,12 +2875,368 @@
             }
         });
 
+        // ========================================
+        // Sanitization helpers
+        // ========================================
+        function escapeHtml(str) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+            return String(str).replace(/[&<>"']/g, c => map[c]);
+        }
+
+        function sanitizeUrl(url) {
+            if (!url) return '#';
+            if (/^javascript:/i.test(url) || /^data:/i.test(url) || /^vbscript:/i.test(url)) return '#';
+            try {
+                const parsed = new URL(url, window.location.href);
+                if (['http:', 'https:', 'mailto:', 'file:'].includes(parsed.protocol)) return url;
+            } catch (e) { /* invalid URL */ }
+            return '#';
+        }
+
+        // ========================================
+        // Exhibitions Section
+        // ========================================
+        let exhibitionsData = [];
+        let currentExhPhotoIndex = 0;
+        let currentExhGallery = [];
+
+        const fallbackExhibitions = [
+            { id: "2025-12-aki", status: "past", title_pl: "Nihonga w Aki", title_en: "Nihonga at Aki", venue_pl: "Aki Restauracja Japońska, Kielce", venue_en: "Aki Japanese Restaurant, Kielce", venue_link: "https://maps.app.goo.gl/LWca63u3hhcpX3yg6", date_start: "2025-12-09", date_end: "2025-12-09", date_display_en: "December 9, 2025", date_display_pl: "9 grudnia 2025", event_link: "https://fb.me/e/6c6b2akDq", hero: "Data/Exhibitions/9.12.2025/Aki 0.webp", gallery: ["Data/Exhibitions/9.12.2025/Aki 0.webp","Data/Exhibitions/9.12.2025/Aki 1.webp","Data/Exhibitions/9.12.2025/Aki 2.webp","Data/Exhibitions/9.12.2025/Aki 3.webp","Data/Exhibitions/9.12.2025/Aki 4.webp","Data/Exhibitions/9.12.2025/Aki 5.webp","Data/Exhibitions/9.12.2025/Aki 6.webp"] },
+            { id: "2026-02-smolna", status: "current", title_pl: "Japonia \u2013 forma i do\u015bwiadczenie | Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Japan \u2013 Form and Experience | Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Galeria na Smolnej, Warszawa", venue_en: "Galeria na Smolnej, Warsaw", venue_link: "https://maps.app.goo.gl/WLxyPTH2UeunoX956", date_start: "2026-02-06", date_end: "2026-02-28", date_display_en: "February 6 \u2013 28, 2026", date_display_pl: "6 \u2013 28 lutego 2026", event_link: "https://www.facebook.com/events/906417675128074/", hero: "Data/Exhibitions/9.2.2026/Smolna 0.webp", gallery: ["Data/Exhibitions/9.2.2026/Smolna 0.webp","Data/Exhibitions/9.2.2026/Smolna 01.webp","Data/Exhibitions/9.2.2026/Smolna 02.webp","Data/Exhibitions/9.2.2026/Smolna 03.webp","Data/Exhibitions/9.2.2026/Smolna 5.webp","Data/Exhibitions/9.2.2026/Smolna 6.webp","Data/Exhibitions/9.2.2026/Smolna 8.webp","Data/Exhibitions/9.2.2026/Smolna 9.webp","Data/Exhibitions/9.2.2026/Smolna 10.webp","Data/Exhibitions/9.2.2026/Smolna 11.webp","Data/Exhibitions/9.2.2026/Smolna 40.webp","Data/Exhibitions/9.2.2026/Smolna 41.webp","Data/Exhibitions/9.2.2026/Smolna 42.webp","Data/Exhibitions/9.2.2026/Smolna 43.webp"] },
+            { id: "2026-04-wojslawice", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Arboretum Wojs\u0142awice", venue_en: "Arboretum Wojs\u0142awice", venue_link: "https://maps.app.goo.gl/5yf1QaTn9PbN5wkB6", date_start: "2026-04-11", date_end: "2026-05-14", date_display_en: "April 11 \u2013 May 14, 2026", date_display_pl: "11 kwietnia \u2013 14 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Suiren  \u4e00 Ichi: 01.webp", gallery: [] },
+            { id: "2026-05-siruwia", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Ogr\u00f3d Japo\u0144ski Siruwia", venue_en: "Siruwia Japanese Garden", venue_link: "https://maps.app.goo.gl/3xq7LRYPpnrg4rgL9", date_start: "2026-05-01", date_end: "2026-05-03", date_display_en: "May 1 \u2013 3, 2026", date_display_pl: "1 \u2013 3 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Mokuren \u4e00 Ichi: 01.webp", gallery: [] },
+            { id: "2026-05-wroclaw", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Muzeum Miejskie Wroc\u0142awia", venue_en: "Wroc\u0142aw City Museum", venue_link: "https://maps.app.goo.gl/E1oKPSK3X8S7c96F7", date_start: "2026-05-06", date_end: "2026-05-31", date_display_en: "May 6 \u2013 31, 2026", date_display_pl: "6 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Yuri  \u4e00 Ichi: 01.webp", gallery: [] },
+            { id: "2026-05-fama", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Centrum Biblioteczno-Kulturalne FAMA", venue_en: "FAMA Library & Cultural Center", venue_link: "https://maps.app.goo.gl/ALdLZ9v2JCY3TfVRA", date_start: "2026-05-14", date_end: "2026-05-31", date_display_en: "May 14 \u2013 31, 2026", date_display_pl: "14 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Tsubaki \u4e00 Ichi: 01.webp", gallery: [] },
+            { id: "2026-06-konskie", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Koneckie Centrum Kultury", venue_en: "Ko\u0144skie Cultural Center", venue_link: "https://maps.app.goo.gl/eQzYBpQ5UE8CoeVY7", date_start: "2026-06-12", date_end: "2026-06-12", date_display_en: "June 12, 2026", date_display_pl: "12 czerwca 2026", hero: "Data/Lightbox_new/Thumbnails/Kiku  \u4e00 Ichi: 01.webp", gallery: [] },
+            { id: "2026-10-skarzysko", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Miejskie Centrum Kultury w Skar\u017cysku-Kamiennej", venue_en: "Municipal Cultural Center in Skar\u017cysko-Kamienna", venue_link: "https://maps.app.goo.gl/SCN6G184J8B5PBxJ6", date_start: "2026-10-09", date_end: "2026-10-31", date_display_en: "October 9 \u2013 31, 2026", date_display_pl: "9 \u2013 31 pa\u017adziernika 2026", hero: "Data/Lightbox_new/Thumbnails/Egonoki \u4e00 Ichi: 01.webp", gallery: [] }
+        ];
+
+        function computeExhibitionStatus(ex) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const start = new Date(ex.date_start + 'T00:00:00');
+            const end = ex.date_end ? new Date(ex.date_end + 'T23:59:59') : start;
+            if (today > end) return 'past';
+            if (today >= start && today <= end) return 'current';
+            return 'upcoming';
+        }
+
+        async function loadExhibitions() {
+            try {
+                const response = await fetch('Data/exhibitions.json');
+                if (!response.ok) throw new Error('Failed to load');
+                exhibitionsData = await response.json();
+            } catch (e) {
+                console.warn('Using fallback exhibitions data');
+                exhibitionsData = fallbackExhibitions;
+            }
+            exhibitionsData.forEach(ex => { ex.status = computeExhibitionStatus(ex); });
+            renderExhibitions();
+        }
+
+        function getExhibitionYears() {
+            const years = new Set();
+            exhibitionsData.forEach(ex => {
+                years.add(ex.date_start.substring(0, 4));
+                if (ex.date_end) years.add(ex.date_end.substring(0, 4));
+            });
+            return Array.from(years).sort();
+        }
+
+        function renderYearNav(years, activeFilter) {
+            const nav = document.getElementById('exhibitions-year-nav');
+            if (!nav) return;
+            const t = translations[currentLang] || translations.en;
+
+            const hasCurrent = exhibitionsData.some(ex => ex.status === 'current');
+            const hasUpcoming = exhibitionsData.some(ex => ex.status === 'upcoming');
+
+            let html = '';
+            if (hasCurrent) {
+                html += `<button class="exhibitions-year-btn${activeFilter === 'current' ? ' active' : ''}" data-year="current" aria-pressed="${activeFilter === 'current'}">${t['exhibitions.currentFilter'] || 'Current'}</button>`;
+            }
+            if (hasUpcoming) {
+                html += `<button class="exhibitions-year-btn${activeFilter === 'upcoming' ? ' active' : ''}" data-year="upcoming" aria-pressed="${activeFilter === 'upcoming'}">${t['exhibitions.upcomingFilter'] || 'Upcoming'}</button>`;
+            }
+            years.forEach(y => {
+                html += `<button class="exhibitions-year-btn${activeFilter === y ? ' active' : ''}" data-year="${y}" aria-pressed="${activeFilter === y}">${y}</button>`;
+            });
+            nav.innerHTML = html;
+            nav.querySelectorAll('.exhibitions-year-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    trackEvent('exhibition_filter', { filter: btn.dataset.year });
+                    renderExhibitions(btn.dataset.year);
+                });
+            });
+        }
+
+        function getDefaultFilter() {
+            const hasCurrent = exhibitionsData.some(ex => ex.status === 'current');
+            if (hasCurrent) return 'current';
+            const hasUpcoming = exhibitionsData.some(ex => ex.status === 'upcoming');
+            if (hasUpcoming) return 'upcoming';
+            return getExhibitionYears().pop() || '2026';
+        }
+
+        function renderExhibitions(filterYear) {
+            if (!filterYear) filterYear = getDefaultFilter();
+            const years = getExhibitionYears();
+            renderYearNav(years, filterYear);
+
+            const grid = document.getElementById('exhibitions-grid');
+            if (!grid) return;
+
+            const lang = currentLang || 'en';
+            const t = translations[lang] || translations.en;
+
+            const sorted = [...exhibitionsData].sort((a, b) => {
+                const statusOrder = { current: 0, upcoming: 1, past: 2 };
+                const sa = statusOrder[a.status] ?? 1;
+                const sb = statusOrder[b.status] ?? 1;
+                if (sa !== sb) return sa - sb;
+                if (a.status === 'past') return b.date_start.localeCompare(a.date_start);
+                return a.date_start.localeCompare(b.date_start);
+            });
+
+            let filtered;
+            if (filterYear === 'current') {
+                filtered = sorted.filter(ex => ex.status === 'current');
+            } else if (filterYear === 'upcoming') {
+                filtered = sorted.filter(ex => ex.status === 'upcoming');
+            } else {
+                filtered = sorted.filter(ex => ex.date_start.startsWith(filterYear) || (ex.date_end && ex.date_end.startsWith(filterYear)));
+            }
+
+            const pinSvg = '<svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+            const arrowSvg = '<svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>';
+
+            let html = '';
+            filtered.forEach(ex => {
+                const fullTitle = lang === 'pl' ? ex.title_pl : ex.title_en;
+                const title = fullTitle.includes('|') ? fullTitle.split('|')[0].trim() : fullTitle;
+                const venue = lang === 'pl' ? ex.venue_pl : ex.venue_en;
+                const dateStr = lang === 'pl' ? ex.date_display_pl : ex.date_display_en;
+
+                let badgeClass = 'badge-upcoming';
+                let badgeText = t['exhibitions.upcoming'] || 'Upcoming';
+                if (ex.status === 'past') { badgeClass = 'badge-past'; badgeText = t['exhibitions.past'] || 'Past'; }
+                else if (ex.status === 'current') { badgeClass = 'badge-current'; badgeText = t['exhibitions.current'] || 'Now'; }
+
+                const hasGallery = ex.gallery && ex.gallery.length > 0;
+                const ctaText = hasGallery ? (t['exhibitions.viewDetails'] || 'View Details') : (t['exhibitions.learnMore'] || 'Learn More');
+
+                const safeTitle = escapeHtml(title);
+                const safeVenue = escapeHtml(venue);
+                const safeDate = escapeHtml(dateStr);
+                const safeHero = sanitizeUrl(ex.hero);
+                const safeId = escapeHtml(ex.id);
+
+                html += `
+                <article class="exhibition-card" data-exh-id="${safeId}" tabindex="0" role="button" aria-label="${safeTitle} – ${safeVenue}">
+                    <div class="exhibition-card-hero">
+                        <img src="${safeHero}" alt="${safeTitle}" loading="lazy">
+                        <span class="exhibition-status-badge ${badgeClass}">${escapeHtml(badgeText)}</span>
+                    </div>
+                    <div class="exhibition-card-body">
+                        <div class="exhibition-card-date">${safeDate}</div>
+                        <div class="exhibition-card-title">${safeTitle}</div>
+                        <div class="exhibition-card-venue">${pinSvg}<span>${safeVenue}</span></div>
+                        <div class="exhibition-card-cta">${escapeHtml(ctaText)} ${arrowSvg}</div>
+                    </div>
+                </article>`;
+            });
+
+            grid.innerHTML = html;
+
+            grid.querySelectorAll('.exhibition-card').forEach(card => {
+                const handler = () => openExhibitionDetail(card.dataset.exhId);
+                card.addEventListener('click', handler);
+                card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } });
+            });
+        }
+
+        let exhDetailTrigger = null;
+        let exhDetailFocusTrapHandler = null;
+        let exhPhotoTrigger = null;
+        let exhPhotoFocusTrapHandler = null;
+
+        function trapFocus(container) {
+            return function(e) {
+                if (e.key !== 'Tab') return;
+                const focusable = container.querySelectorAll('a[href]:not([style*="display:none"]):not([style*="display: none"]), button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+                if (focusable.length === 0) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+                } else {
+                    if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+            };
+        }
+
+        function openExhibitionDetail(id) {
+            const ex = exhibitionsData.find(e => e.id === id);
+            if (!ex) return;
+
+            exhDetailTrigger = document.activeElement;
+            const lang = currentLang || 'en';
+            const modal = document.getElementById('exhibition-detail-modal');
+            const fullTitle = lang === 'pl' ? ex.title_pl : ex.title_en;
+            const title = fullTitle.replace(' | ', '\n');
+            const venue = lang === 'pl' ? ex.venue_pl : ex.venue_en;
+            const dateStr = lang === 'pl' ? ex.date_display_pl : ex.date_display_en;
+
+            document.getElementById('exh-detail-date').textContent = dateStr;
+            document.getElementById('exh-detail-title').textContent = title;
+
+            const venueEl = document.getElementById('exh-detail-venue');
+            venueEl.textContent = '';
+            if (ex.venue_link) {
+                const venueLink = document.createElement('a');
+                venueLink.href = sanitizeUrl(ex.venue_link);
+                venueLink.target = '_blank';
+                venueLink.rel = 'noopener noreferrer';
+                venueLink.textContent = venue;
+                venueLink.addEventListener('click', () => {
+                    trackEvent('exhibition_venue_click', { exhibition_id: id, venue: venue });
+                });
+                venueEl.appendChild(venueLink);
+            } else {
+                venueEl.textContent = venue;
+            }
+
+            const eventLink = document.getElementById('exh-detail-link');
+            if (ex.event_link) {
+                eventLink.href = sanitizeUrl(ex.event_link);
+                eventLink.style.display = 'inline-flex';
+                eventLink.onclick = () => {
+                    trackEvent('exhibition_event_page_click', { exhibition_id: id, url: ex.event_link });
+                };
+            } else {
+                eventLink.href = '#';
+                eventLink.style.display = 'none';
+                eventLink.onclick = null;
+            }
+
+            const gallerySection = document.getElementById('exh-detail-gallery-section');
+            const galleryGrid = document.getElementById('exh-detail-gallery');
+            const comingSoon = document.getElementById('exh-detail-coming-soon');
+            const t = translations[lang] || translations.en;
+
+            if (ex.gallery && ex.gallery.length > 0) {
+                gallerySection.style.display = 'block';
+                comingSoon.style.display = 'none';
+                currentExhGallery = ex.gallery;
+                let galleryHtml = '';
+                ex.gallery.forEach((src, i) => {
+                    galleryHtml += `<button type="button" class="exhibition-gallery-thumb" data-photo-index="${i}" aria-label="View photo ${i + 1}"><img src="${sanitizeUrl(src)}" alt="Exhibition photo ${i + 1}" loading="lazy"></button>`;
+                });
+                galleryGrid.innerHTML = galleryHtml;
+                galleryGrid.querySelectorAll('.exhibition-gallery-thumb').forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        openExhibitionPhoto(parseInt(thumb.dataset.photoIndex));
+                    });
+                });
+            } else {
+                gallerySection.style.display = 'none';
+                currentExhGallery = [];
+                comingSoon.style.display = 'block';
+                document.getElementById('exh-coming-soon-text').textContent = t['exhibitions.comingSoon'] || 'More details coming soon!';
+            }
+
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+
+            if (exhDetailFocusTrapHandler) document.removeEventListener('keydown', exhDetailFocusTrapHandler);
+            exhDetailFocusTrapHandler = trapFocus(modal);
+            document.addEventListener('keydown', exhDetailFocusTrapHandler);
+
+            const closeBtn = modal.querySelector('.exhibition-detail-close');
+            if (closeBtn) closeBtn.focus();
+
+            trackEvent('exhibition_view', { exhibition_id: id, exhibition_title: title });
+        }
+
+        function closeExhibitionDetail() {
+            const modal = document.getElementById('exhibition-detail-modal');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+
+            if (exhDetailFocusTrapHandler) {
+                document.removeEventListener('keydown', exhDetailFocusTrapHandler);
+                exhDetailFocusTrapHandler = null;
+            }
+            if (exhDetailTrigger) { exhDetailTrigger.focus(); exhDetailTrigger = null; }
+        }
+
+        function openExhibitionPhoto(index) {
+            if (currentExhGallery.length === 0) return;
+            exhPhotoTrigger = document.activeElement;
+            currentExhPhotoIndex = index;
+            const lb = document.getElementById('exhibition-photo-lightbox');
+            const img = document.getElementById('exhibition-photo-img');
+            img.src = sanitizeUrl(currentExhGallery[index]);
+            img.alt = `Exhibition photo ${index + 1}`;
+            document.getElementById('exhibition-photo-counter').textContent = `${index + 1} / ${currentExhGallery.length}`;
+            lb.classList.add('active');
+            lb.setAttribute('aria-hidden', 'false');
+
+            if (exhPhotoFocusTrapHandler) document.removeEventListener('keydown', exhPhotoFocusTrapHandler);
+            exhPhotoFocusTrapHandler = trapFocus(lb);
+            document.addEventListener('keydown', exhPhotoFocusTrapHandler);
+
+            lb.querySelector('.exhibition-photo-close').focus();
+
+            trackEvent('exhibition_photo_view', { photo_index: index + 1, total_photos: currentExhGallery.length });
+        }
+
+        function closeExhibitionPhoto() {
+            const lb = document.getElementById('exhibition-photo-lightbox');
+            lb.classList.remove('active');
+            lb.setAttribute('aria-hidden', 'true');
+
+            if (exhPhotoFocusTrapHandler) {
+                document.removeEventListener('keydown', exhPhotoFocusTrapHandler);
+                exhPhotoFocusTrapHandler = null;
+            }
+            if (exhPhotoTrigger) { exhPhotoTrigger.focus(); exhPhotoTrigger = null; }
+        }
+
+        function nextExhibitionPhoto() {
+            openExhibitionPhoto((currentExhPhotoIndex + 1) % currentExhGallery.length);
+        }
+
+        function prevExhibitionPhoto() {
+            openExhibitionPhoto((currentExhPhotoIndex - 1 + currentExhGallery.length) % currentExhGallery.length);
+        }
+
+        // Exhibition detail modal events
+        document.querySelector('.exhibition-detail-close').addEventListener('click', closeExhibitionDetail);
+        document.getElementById('exhibition-detail-modal').addEventListener('click', e => {
+            if (e.target.id === 'exhibition-detail-modal') closeExhibitionDetail();
+        });
+
+        // Exhibition photo lightbox events
+        document.querySelector('.exhibition-photo-close').addEventListener('click', closeExhibitionPhoto);
+        document.querySelector('.exhibition-photo-nav.prev').addEventListener('click', prevExhibitionPhoto);
+        document.querySelector('.exhibition-photo-nav.next').addEventListener('click', nextExhibitionPhoto);
+        document.getElementById('exhibition-photo-lightbox').addEventListener('click', e => {
+            if (e.target.id === 'exhibition-photo-lightbox') closeExhibitionPhoto();
+        });
+
+        loadExhibitions();
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href === '#' || !href.startsWith('#')) return;
+                const target = document.querySelector(href);
                 if (target) {
+                    e.preventDefault();
                     target.scrollIntoView({
                         behavior: 'smooth'
                     });
@@ -2464,7 +3314,7 @@
                 if (!response.ok) throw new Error('Fetch failed');
                 artworks = await response.json();
             } catch (error) {
-                console.log('Using fallback artworks (local development mode)');
+                console.warn('Using fallback artworks data');
                 artworks = fallbackArtworks;
             }
             renderGallery();
@@ -2825,41 +3675,6 @@
             }
         });
 
-        // Exhibitions Modal
-        const exhibitionsModal = document.getElementById('exhibitions-modal');
-        const exhibitionsTrigger = document.getElementById('exhibitions-trigger');
-        const exhibitionsClose = document.querySelector('.exhibitions-modal-close');
-
-        function openExhibitions() {
-            exhibitionsModal.classList.add('active');
-            exhibitionsModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            exhibitionsClose.focus();
-        }
-
-        function closeExhibitions() {
-            exhibitionsModal.classList.remove('active');
-            exhibitionsModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-            exhibitionsTrigger.focus();
-        }
-
-        exhibitionsTrigger.addEventListener('click', openExhibitions);
-        exhibitionsTrigger.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openExhibitions();
-            }
-        });
-
-        exhibitionsClose.addEventListener('click', closeExhibitions);
-
-        exhibitionsModal.addEventListener('click', (e) => {
-            if (e.target === exhibitionsModal) {
-                closeExhibitions();
-            }
-        });
-
         // Consolidated keyboard event handler
         document.addEventListener('keydown', (e) => {
             // Mobile menu - Escape to close
@@ -2868,12 +3683,22 @@
                 return;
             }
             
-            // Exhibitions modal - Escape to close
-            if (e.key === 'Escape' && exhibitionsModal.classList.contains('active')) {
-                closeExhibitions();
+            // Exhibition photo lightbox - Escape/arrows
+            const exhPhotoLb = document.getElementById('exhibition-photo-lightbox');
+            if (exhPhotoLb && exhPhotoLb.classList.contains('active')) {
+                if (e.key === 'Escape') closeExhibitionPhoto();
+                if (e.key === 'ArrowRight') nextExhibitionPhoto();
+                if (e.key === 'ArrowLeft') prevExhibitionPhoto();
                 return;
             }
-            
+
+            // Exhibition detail modal - Escape to close
+            const exhDetailModal = document.getElementById('exhibition-detail-modal');
+            if (exhDetailModal && exhDetailModal.classList.contains('active')) {
+                if (e.key === 'Escape') closeExhibitionDetail();
+                return;
+            }
+
             // Lightbox - Escape to close, arrows to navigate
             if (lightbox.classList.contains('active')) {
                 if (e.key === 'Escape') closeLightbox();
@@ -2909,11 +3734,6 @@
                     'destination': link.getAttribute('href')
                 });
             });
-        });
-
-        // Track exhibitions modal opens
-        exhibitionsTrigger.addEventListener('click', () => {
-            trackEvent('exhibitions_view');
         });
 
         // Email obfuscation - assembles email from parts to prevent scraping
