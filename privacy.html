@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Privacy Policy — Dagmara Dreams of Nihonga">
+    <title>Privacy Policy — Dagmara Dreams of Nihonga</title>
+
+    <link rel="icon" type="image/png" href="Data/sakura_favicon.png?v=2">
+    <link rel="canonical" href="https://nihongadreams.com/privacy.html">
+
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #c9a227;
+            --cream: #faf8f5;
+            --charcoal: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--charcoal);
+            background: var(--cream);
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        *:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Header */
+        .page-header {
+            padding: 1.25rem 2rem;
+            padding-top: max(1.25rem, env(safe-area-inset-top));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .page-header-logo {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .page-header-logo:hover {
+            color: var(--gold);
+        }
+
+        .lang-toggle {
+            background: none;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            transition: border-color 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--gold);
+        }
+
+        .lang-option {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-option.active {
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        .lang-divider {
+            opacity: 0.3;
+            margin: 0 0.15rem;
+        }
+
+        /* Content */
+        .privacy-page {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        .privacy-page h1 {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-page .last-updated {
+            font-size: 0.78rem;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+        }
+
+        .privacy-page h2 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-page p,
+        .privacy-page ul {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            margin-bottom: 0.75rem;
+        }
+
+        .privacy-page ul {
+            padding-left: 1.25rem;
+        }
+
+        .privacy-page li {
+            margin-bottom: 0.3rem;
+        }
+
+        .privacy-page a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .privacy-page a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .page-footer {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .page-footer a {
+            color: var(--charcoal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .page-footer a:hover {
+            color: var(--gold);
+        }
+
+        @media (max-width: 600px) {
+            .privacy-page {
+                padding: 1.5rem 1rem 3rem;
+            }
+
+            .page-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="page-header">
+        <a href="index.html" class="page-header-logo">Dagmara Dreams of Nihonga</a>
+        <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+            <span class="lang-option" data-lang="en">EN</span>
+            <span class="lang-divider">|</span>
+            <span class="lang-option" data-lang="pl">PL</span>
+        </button>
+    </header>
+
+    <!-- English version -->
+    <main class="privacy-page" id="privacy-en">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: April 2026</p>
+
+        <h2>1. Who we are</h2>
+        <p>This website is operated by Dagmara Okła ("Dagmara Dreams of Nihonga"). For privacy-related questions, contact <span id="email-en"></span>.</p>
+
+        <h2>2. What data we collect and why</h2>
+
+        <p><strong>Reservation requests</strong></p>
+        <p>When you submit a reservation request through the artwork page, we collect:</p>
+        <ul>
+            <li>Your email address (required) — to respond to your inquiry</li>
+            <li>Your phone number (optional) — to contact you about the reservation</li>
+        </ul>
+        <p>This data is collected through Google Forms and stored in Google Sheets, both operated by Google LLC. Submission is voluntary and based on your explicit consent (privacy checkbox). I use this data solely to respond to your inquiry and process a potential artwork reservation.</p>
+
+        <p><strong>Website analytics</strong></p>
+        <p>This website uses Google Analytics to understand how visitors interact with the site. Analytics cookies are only set if you consent through the Cookiebot consent banner. If you decline, no analytics data is collected. Google Analytics may collect anonymised usage data such as pages visited, time on site, and approximate geographic region.</p>
+
+        <p><strong>Cookies and consent</strong></p>
+        <p>We use Cookiebot to manage cookie consent. Cookiebot itself may set a strictly necessary cookie to remember your consent choice. No marketing or advertising cookies are used on this website.</p>
+
+        <h2>3. How long we keep your data</h2>
+        <p>Reservation request data is kept for up to 12 months after the inquiry is resolved. If you purchase an artwork, order-related data may be kept longer as required for tax and accounting purposes. You may request earlier deletion at any time.</p>
+
+        <h2>4. Who receives your data</h2>
+        <ul>
+            <li><strong>Dagmara Okła</strong> — to process your reservation request</li>
+            <li><strong>Google LLC</strong> — as the operator of Google Forms and Google Sheets (data processor). Google's privacy policy: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
+            <li><strong>Cookiebot (Cybot A/S)</strong> — for consent management</li>
+            <li><strong>Google Analytics (Google LLC)</strong> — for website usage analytics, only with your consent</li>
+        </ul>
+        <p>Your data is not sold, rented, or shared with any other third parties.</p>
+
+        <h2>5. Your rights</h2>
+        <p>Under the GDPR, you have the right to:</p>
+        <ul>
+            <li>Access the personal data we hold about you</li>
+            <li>Correct inaccurate data</li>
+            <li>Request deletion of your data</li>
+            <li>Withdraw consent at any time</li>
+            <li>Lodge a complaint with a data protection authority</li>
+        </ul>
+        <p>To exercise any of these rights, contact <span id="email-en-2"></span>.</p>
+
+        <h2>6. Data transfers</h2>
+        <p>Google Forms, Google Sheets, and Google Analytics may process data outside the European Economic Area. Google participates in the EU-U.S. Data Privacy Framework. For more information, see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.</p>
+
+        <h2>7. Changes to this policy</h2>
+        <p>This policy may be updated from time to time. The "Last updated" date at the top of this page reflects the most recent revision.</p>
+    </main>
+
+    <!-- Polish version -->
+    <main class="privacy-page" id="privacy-pl" style="display: none;">
+        <h1>Polityka prywatności</h1>
+        <p class="last-updated">Ostatnia aktualizacja: kwiecień 2026</p>
+
+        <h2>1. Kim jesteśmy</h2>
+        <p>Strona jest prowadzona przez Dagmarę Okła („Dagmara Dreams of Nihonga"). W sprawach dotyczących prywatności prosimy o kontakt: <span id="email-pl"></span>.</p>
+
+        <h2>2. Jakie dane zbieramy i dlaczego</h2>
+
+        <p><strong>Zapytania o rezerwację</strong></p>
+        <p>Gdy przesyłasz formularz zapytania o rezerwację dzieła, zbieramy:</p>
+        <ul>
+            <li>Twój adres e-mail (wymagany) — aby odpowiedzieć na zapytanie</li>
+            <li>Twój numer telefonu (opcjonalny) — aby skontaktować się w sprawie rezerwacji</li>
+        </ul>
+        <p>Dane te są zbierane za pośrednictwem Google Forms i przechowywane w Google Sheets (operator: Google LLC). Przesłanie formularza jest dobrowolne i opiera się na Twojej wyraźnej zgodzie (checkbox prywatności). Dane te wykorzystuję wyłącznie do odpowiedzi na zapytanie i ewentualnej rezerwacji dzieła.</p>
+
+        <p><strong>Analityka strony</strong></p>
+        <p>Strona korzysta z Google Analytics w celu analizy ruchu. Pliki cookie analityczne są ustawiane wyłącznie po wyrażeniu zgody w banerze Cookiebot. W przypadku odmowy żadne dane analityczne nie są zbierane. Google Analytics może zbierać zanonimizowane dane dotyczące odwiedzonych stron, czasu na stronie i przybliżonej lokalizacji geograficznej.</p>
+
+        <p><strong>Pliki cookie i zgoda</strong></p>
+        <p>Stosujemy Cookiebot do zarządzania zgodami na pliki cookie. Cookiebot może ustawić niezbędny plik cookie w celu zapamiętania Twojego wyboru. Strona nie wykorzystuje plików cookie marketingowych ani reklamowych.</p>
+
+        <h2>3. Jak długo przechowujemy dane</h2>
+        <p>Dane z zapytań o rezerwację przechowujemy do 12 miesięcy po zakończeniu obsługi zapytania. W przypadku zakupu dzieła dane związane z zamówieniem mogą być przechowywane dłużej ze względów podatkowych i księgowych. Możesz w każdej chwili poprosić o wcześniejsze usunięcie danych.</p>
+
+        <h2>4. Kto otrzymuje Twoje dane</h2>
+        <ul>
+            <li><strong>Dagmara Okła</strong> — w celu obsługi zapytania o rezerwację</li>
+            <li><strong>Google LLC</strong> — jako operator Google Forms i Google Sheets (podmiot przetwarzający). Polityka prywatności Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
+            <li><strong>Cookiebot (Cybot A/S)</strong> — do zarządzania zgodami na pliki cookie</li>
+            <li><strong>Google Analytics (Google LLC)</strong> — do analizy ruchu na stronie, wyłącznie za Twoją zgodą</li>
+        </ul>
+        <p>Twoje dane nie są sprzedawane, wynajmowane ani udostępniane żadnym innym podmiotom trzecim.</p>
+
+        <h2>5. Twoje prawa</h2>
+        <p>Zgodnie z RODO masz prawo do:</p>
+        <ul>
+            <li>Dostępu do swoich danych osobowych</li>
+            <li>Sprostowania nieprawidłowych danych</li>
+            <li>Żądania usunięcia danych</li>
+            <li>Wycofania zgody w dowolnym momencie</li>
+            <li>Złożenia skargi do organu ochrony danych osobowych</li>
+        </ul>
+        <p>Aby skorzystać z tych praw, skontaktuj się: <span id="email-pl-2"></span>.</p>
+
+        <h2>6. Przekazywanie danych</h2>
+        <p>Google Forms, Google Sheets i Google Analytics mogą przetwarzać dane poza Europejskim Obszarem Gospodarczym. Google uczestniczy w EU-U.S. Data Privacy Framework. Więcej informacji: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">polityka prywatności Google</a>.</p>
+
+        <h2>7. Zmiany w polityce</h2>
+        <p>Niniejsza polityka może być aktualizowana. Data „Ostatnia aktualizacja" na górze strony wskazuje datę ostatniej zmiany.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <span>&copy; 2026 Dagmara Okła</span>
+        <a href="index.html" id="footer-back-link">Back to portfolio</a>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function initLanguage() {
+            const saved = localStorage.getItem('lang');
+            if (saved === 'pl' || saved === 'en') {
+                currentLang = saved;
+            } else {
+                const browserLang = (navigator.language || '').toLowerCase();
+                if (browserLang.startsWith('pl')) currentLang = 'pl';
+            }
+            applyLanguage();
+        }
+
+        function applyLanguage() {
+            document.getElementById('privacy-en').style.display = currentLang === 'en' ? '' : 'none';
+            document.getElementById('privacy-pl').style.display = currentLang === 'pl' ? '' : 'none';
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === currentLang);
+            });
+
+            const backLink = document.getElementById('footer-back-link');
+            if (backLink) backLink.textContent = currentLang === 'pl' ? 'Powrót do portfolio' : 'Back to portfolio';
+
+            populateEmails();
+        }
+
+        function populateEmails() {
+            const parts = ['dagmaraokla', '.', 'art', '@', 'gmail', '.', 'com'];
+            const email = parts.join('');
+            const ids = ['email-en', 'email-en-2', 'email-pl', 'email-pl-2'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+                }
+            });
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'pl' : 'en';
+            localStorage.setItem('lang', currentLang);
+            applyLanguage();
+        });
+
+        initLanguage();
+    </script>
+</body>
+</html>

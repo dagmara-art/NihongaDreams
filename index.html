@@ -98,7 +98,7 @@
         "url": "https://nihongadreams.com/",
         "image": "https://nihongadreams.com/Data/Social%20Sharing%20Image/iris.jpeg",
         "sameAs": [
-            "https://www.instagram.com/nihongadreams/"
+            "https://www.instagram.com/dagmara_dreams_of_nihonga/"
         ],
         "knowsAbout": ["Nihonga", "Japanese painting", "Mineral pigments", "Washi paper", "Gold leaf art"],
         "jobTitle": "Nihonga Artist",
@@ -1348,6 +1348,9 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: linear-gradient(135deg, #e8e4df 0%, #d4d0cb 100%);
             contain: layout style paint;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .gallery-item:hover,
@@ -2178,6 +2181,12 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
         .footer-link {
             font-size: 0.8rem;
             color: var(--cream);
@@ -2198,6 +2207,10 @@
                 gap: 0.5rem;
                 text-align: center;
                 padding: 1rem 1.5rem;
+            }
+
+            .footer-links {
+                gap: 1rem;
             }
 
             .footer-copyright {
@@ -2425,7 +2438,7 @@
             <span class="section-label" data-i18n="catalog.label">Collection</span>
             <h2 data-i18n="catalog.title">Explore the Gallery</h2>
             <p data-i18n="catalog.intro">
-                "Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.
+                "Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada-mashi, Shiromashi, and Torinoko.
             </p>
             
             <div class="gallery" id="gallery" role="list" aria-label="Artwork gallery">
@@ -2464,8 +2477,6 @@
                 <div class="caption-title" id="caption-title"></div>
                 <div class="caption-details">
                     <span class="caption-dimensions" id="caption-dimensions"></span>
-                    <span class="caption-separator">•</span>
-                    <span class="caption-material" id="caption-material"></span>
                     <span class="caption-separator">•</span>
                     <span class="caption-paper" id="caption-paper"></span>
                 </div>
@@ -2513,7 +2524,10 @@
         <!-- Footer -->
         <footer class="site-footer">
             <p class="footer-copyright" data-i18n="footer.copyright">© 2026 Dagmara Okła. All rights reserved.</p>
-            <a href="#hero" class="footer-link" data-i18n="footer.backToTop">↑ Back to Top</a>
+            <div class="footer-links">
+                <a href="privacy.html" class="footer-link" data-i18n="footer.privacy">Privacy Policy</a>
+                <a href="#hero" class="footer-link" data-i18n="footer.backToTop">↑ Back to Top</a>
+            </div>
         </footer>
     </section>
 
@@ -2564,17 +2578,17 @@
                 'exhibitions.comingSoon': 'More details coming soon! Check my social media for all the updates!',
                 'catalog.label': 'Collection',
                 'catalog.title': 'Explore the Gallery',
-                'catalog.intro': '"Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada Mashi, Shiromashi, and Torinoko.',
+                'catalog.intro': '"Inside the Japanese garden" employs the classic Nihonga technique, featuring paints manually prepared from mineral pigments, gold and silver powder and leaf, on high-quality Japanese papers: Kumohada-mashi, Shiromashi, and Torinoko.',
                 'catalog.loading': 'Loading artworks...',
                 'catalog.cta': 'Inquire About Works',
                 'lightbox.zoomHint': 'Click image to zoom',
-                'lightbox.woodenPanel': 'Wooden panel',
                 'lightbox.japanesePaper': 'Japanese paper',
                 'contact.label': 'Get in Touch',
                 'contact.title': "Let's Connect",
                 'contact.intro': "Interested in commissioning a piece, purchasing artwork, or simply want to say hello? I'd love to hear from you.",
                 'contact.emailLabel': 'Email',
                 'footer.copyright': '© {year} Dagmara Okła. All rights reserved.',
+                'footer.privacy': 'Privacy Policy',
                 'footer.backToTop': '↑ Back to Top'
             },
             pl: {
@@ -2621,17 +2635,17 @@
                 'exhibitions.comingSoon': 'Wi\u0119cej szczeg\u00f3\u0142\u00f3w ju\u017c wkr\u00f3tce! Odwied\u017a moje social media, aby by\u0107 na bie\u017c\u0105co!',
                 'catalog.label': 'Kolekcja',
                 'catalog.title': 'Odkryj Galerię',
-                'catalog.intro': 'Seria "W Japońskim Ogrodzie" powstała w klasycznej technice japońskiego malarstwa Nihonga z użyciem ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach na wysokiej jakości japońskich papierach Kumohada Mashi, Shiromashi, Torinoko.',
+                'catalog.intro': 'Seria "W Japońskim Ogrodzie" powstała w klasycznej technice japońskiego malarstwa Nihonga z użyciem ręcznie robionych farb z pigmentów mineralnych, złota i srebra w formie sproszkowanej i w płatkach na wysokiej jakości japońskich papierach Kumohada-mashi, Shiromashi, Torinoko.',
                 'catalog.loading': 'Ładowanie dzieł...',
                 'catalog.cta': 'Zapytaj o prace',
                 'lightbox.zoomHint': 'Kliknij obraz, aby powiększyć',
-                'lightbox.woodenPanel': 'Panel drewniany',
                 'lightbox.japanesePaper': 'Papier japoński',
                 'contact.label': 'Kontakt',
                 'contact.title': 'Skontaktuj się',
                 'contact.intro': 'Zainteresowany zamówieniem dzieła, zakupem pracy lub po prostu chcesz się przywitać? Chętnie nawiążę kontakt.',
                 'contact.emailLabel': 'E-mail',
                 'footer.copyright': '© {year} Dagmara Okła. Wszelkie prawa zastrzeżone.',
+                'footer.privacy': 'Polityka prywatności',
                 'footer.backToTop': '↑ Powrót na górę'
             }
         };
@@ -2888,7 +2902,7 @@
             if (/^javascript:/i.test(url) || /^data:/i.test(url) || /^vbscript:/i.test(url)) return '#';
             try {
                 const parsed = new URL(url, window.location.href);
-                if (['http:', 'https:', 'mailto:', 'file:'].includes(parsed.protocol)) return url;
+                if (['http:', 'https:', 'mailto:'].includes(parsed.protocol)) return url;
             } catch (e) { /* invalid URL */ }
             return '#';
         }
@@ -3277,32 +3291,32 @@
 
         // Fallback artwork data for local development (file:// protocol)
         const fallbackArtworks = [
-            { id: "01", filename: "Mokuren 一 Ichi: 01", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "02", filename: "Mokuren 二 Ni: 02", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "03", filename: "Mokuren 三 San: 03", title: "Mokuren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "04", filename: "Mokuren 四 Yon: 04", title: "Mokuren 四 Yon", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "05", filename: "Mokuren 五 Go: 05", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "06", filename: "Mokuren 六 Roku: 06", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "07", filename: "Mokuren 七 Shichi: 07", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "08", filename: "Mokuren 八 Hachi: 08", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko" },
-            { id: "09", filename: "Sakura 一 Ichi: 01", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi" },
-            { id: "10", filename: "Sakura 二 Ni: 02", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi" },
-            { id: "11", filename: "Sakura 三 San: 03", title: "Sakura 三 San", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi" },
-            { id: "12", filename: "Kiku  一 Ichi: 01", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "13", filename: "Kiku  二 Ni: 02 ", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "14", filename: "Tsubaki 一 Ichi: 01", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "15", filename: "Tsubaki 二 Ni: 02", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "16", filename: "Tsubaki 三 San: 03", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "17", filename: "Tsubaki 四 Yon: 04", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", material: "", paper: "Japanese paper Shiromashi" },
-            { id: "18", filename: "Yuri  一 Ichi: 01", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi" },
-            { id: "19", filename: "Egonoki 一 Ichi: 01", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "20", filename: "Suiren  一 Ichi: 01", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "21", filename: "Suiren  二 Ni: 02", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "22", filename: "Suiren  三 San: 03", title: "Suiren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "23", filename: "Ayame 一 Ichi: 01", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "24", filename: "Suiren  四 Yon: 04", title: "Suiren 四 Yon", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada Mashi" },
-            { id: "25", filename: "Suiren  五 Go: 05", title: "Suiren 五 Go", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi" },
-            { id: "26", filename: "Yuri  二 Ni: 02 ", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi" }
+            { id: "01", slug: "mokuren-ichi", filename: "Mokuren 一 Ichi: 01", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "02", slug: "mokuren-ni", filename: "Mokuren 二 Ni: 02", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "03", slug: "mokuren-san", filename: "Mokuren 三 San: 03", title: "Mokuren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "04", slug: "mokuren-yon", filename: "Mokuren 四 Yon: 04", title: "Mokuren 四 Yon", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "05", slug: "mokuren-go", filename: "Mokuren 五 Go: 05", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "06", slug: "mokuren-roku", filename: "Mokuren 六 Roku: 06", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "07", slug: "mokuren-shichi", filename: "Mokuren 七 Shichi: 07", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "08", slug: "mokuren-hachi", filename: "Mokuren 八 Hachi: 08", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "09", slug: "sakura-ichi", filename: "Sakura 一 Ichi: 01", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "10", slug: "sakura-ni", filename: "Sakura 二 Ni: 02", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "11", slug: "sakura-san", filename: "Sakura 三 San: 03", title: "Sakura 三 San", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "12", slug: "kiku-ichi", filename: "Kiku  一 Ichi: 01", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "13", slug: "kiku-ni", filename: "Kiku  二 Ni: 02 ", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "14", slug: "tsubaki-ichi", filename: "Tsubaki 一 Ichi: 01", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "15", slug: "tsubaki-ni", filename: "Tsubaki 二 Ni: 02", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "16", slug: "tsubaki-san", filename: "Tsubaki 三 San: 03", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "17", slug: "tsubaki-yon", filename: "Tsubaki 四 Yon: 04", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", material: "", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "18", slug: "yuri-ichi", filename: "Yuri  一 Ichi: 01", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
+            { id: "19", slug: "egonoki-ichi", filename: "Egonoki 一 Ichi: 01", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Egonoki" },
+            { id: "20", slug: "suiren-ichi", filename: "Suiren  一 Ichi: 01", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "21", slug: "suiren-ni", filename: "Suiren  二 Ni: 02", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "22", slug: "suiren-san", filename: "Suiren  三 San: 03", title: "Suiren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "23", slug: "ayame-ichi", filename: "Ayame 一 Ichi: 01", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Ayame" },
+            { id: "24", slug: "suiren-yon", filename: "Suiren  四 Yon: 04", title: "Suiren 四 Yon", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "25", slug: "suiren-go", filename: "Suiren  五 Go: 05", title: "Suiren 五 Go", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "26", slug: "yuri-ni", filename: "Yuri  二 Ni: 02 ", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" }
         ];
 
         let artworks = [];
@@ -3323,12 +3337,12 @@
         // Render gallery items from artworks data
         function renderGallery() {
             gallery.innerHTML = artworks.map((artwork, index) => `
-                <div class="gallery-item" data-index="${index}" tabindex="0" role="listitem" aria-label="View ${artwork.title}">
+                <a class="gallery-item" href="artwork.html?slug=${encodeURIComponent(artwork.slug)}" data-index="${index}" role="listitem" aria-label="View ${artwork.title}">
                     <img src="Data/Lightbox_new/Thumbnails/${artwork.filename}.webp" alt="${artwork.title} - Nihonga painting" loading="lazy">
                     <div class="gallery-item-overlay" aria-hidden="true">
                         <span class="gallery-item-title">${artwork.title}</span>
                     </div>
-                </div>
+                </a>
             `).join('');
 
             // Setup event listeners for gallery items
@@ -3356,17 +3370,10 @@
         function setupGalleryEvents() {
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach((item) => {
-                item.addEventListener('click', () => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const index = parseInt(item.dataset.index);
                     openLightbox(index);
-                });
-
-                item.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        const index = parseInt(item.dataset.index);
-                        openLightbox(index);
-                    }
                 });
             });
         }
@@ -3470,22 +3477,6 @@
             // Update caption with localization
             document.getElementById('caption-title').textContent = artwork.title;
             document.getElementById('caption-dimensions').textContent = artwork.dimensions;
-            
-            // Translate material (handle empty material)
-            const materialSpan = document.getElementById('caption-material');
-            const materialSeparators = materialSpan.previousElementSibling;
-            if (artwork.material && artwork.material.trim() !== '') {
-                const materialText = artwork.material === 'Wooden panel' 
-                    ? translations[currentLang]['lightbox.woodenPanel'] 
-                    : artwork.material;
-                materialSpan.textContent = materialText;
-                materialSpan.style.display = '';
-                if (materialSeparators) materialSeparators.style.display = '';
-            } else {
-                materialSpan.textContent = '';
-                materialSpan.style.display = 'none';
-                if (materialSeparators) materialSeparators.style.display = 'none';
-            }
             
             // Translate paper (keep paper name, translate prefix)
             let paperText = artwork.paper;
