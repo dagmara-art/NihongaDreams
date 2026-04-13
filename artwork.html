@@ -140,6 +140,24 @@
             color: var(--gold);
         }
 
+        .back-nav {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 0;
+        }
+
+        .back-nav a {
+            font-size: 0.82rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-nav a:hover {
+            opacity: 0.7;
+        }
+
         .lang-toggle {
             background: none;
             border: 1px solid rgba(0, 0, 0, 0.15);
@@ -506,6 +524,10 @@
 
         /* Responsive */
         @media (max-width: 600px) {
+            .back-nav {
+                padding: 0.75rem 1rem 0;
+            }
+
             .artwork-page {
                 padding: 1.25rem 1rem 2rem;
             }
@@ -553,6 +575,10 @@
             <span class="lang-option" data-lang="pl">PL</span>
         </button>
     </header>
+
+    <nav class="back-nav">
+        <a href="index.html#catalog" id="back-link">← Back to gallery</a>
+    </nav>
 
     <!-- Main content (populated by JS) -->
     <main class="artwork-page" id="artwork-page">
@@ -947,10 +973,13 @@
             }, sig);
         }
 
-        // ── Footer text update ──
+        // ── Footer & nav text update ──
         function updateFooterText() {
             const link = document.getElementById('footer-privacy-link');
             if (link) link.textContent = t('footer.privacy');
+
+            const backNav = document.getElementById('back-link');
+            if (backNav) backNav.textContent = currentLang === 'pl' ? '← Powrót do galerii' : '← Back to gallery';
         }
 
         // ── Image protection ──

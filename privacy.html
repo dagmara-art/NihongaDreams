@@ -71,6 +71,24 @@
             color: var(--gold);
         }
 
+        .back-nav {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 0;
+        }
+
+        .back-nav a {
+            font-size: 0.82rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-nav a:hover {
+            opacity: 0.7;
+        }
+
         .lang-toggle {
             background: none;
             border: 1px solid rgba(0, 0, 0, 0.15);
@@ -179,6 +197,10 @@
         }
 
         @media (max-width: 600px) {
+            .back-nav {
+                padding: 0.75rem 1rem 0;
+            }
+
             .privacy-page {
                 padding: 1.5rem 1rem 3rem;
             }
@@ -202,6 +224,10 @@
             <span class="lang-option" data-lang="pl">PL</span>
         </button>
     </header>
+
+    <nav class="back-nav">
+        <a href="index.html" id="back-link">← Back to portfolio</a>
+    </nav>
 
     <!-- English version -->
     <main class="privacy-page" id="privacy-en">
@@ -342,6 +368,9 @@
 
             const backLink = document.getElementById('footer-back-link');
             if (backLink) backLink.textContent = currentLang === 'pl' ? 'Powrót do portfolio' : 'Back to portfolio';
+
+            const backNav = document.getElementById('back-link');
+            if (backNav) backNav.textContent = currentLang === 'pl' ? '← Powrót do portfolio' : '← Back to portfolio';
 
             populateEmails();
         }
