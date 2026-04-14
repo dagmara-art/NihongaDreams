@@ -1,0 +1,47 @@
+---
+description: Prevent JavaScript variable access before initialization errors
+globs: ["*.html", "*.js"]
+alwaysApply: false
+---
+
+# JavaScript Variable Ordering Rule
+
+## Critical: Temporal Dead Zone (TDZ) Awareness
+
+When modifying JavaScript code in this project, be aware of variable declaration order.
+
+### The Problem
+
+Variables declared with `let` or `const` cannot be accessed before their declaration line (Temporal Dead Zone). This causes:
+```
+ReferenceError: Cannot access 'variableName' before initialization
+```
+
+### This Project's Specific Risk
+
+In `index.html`, the code structure is:
+1. `setLanguage()` function (line ~2662) - references `exhibitionsData`
+2. `initializeLanguage()` function (line ~2713) - calls `setLanguage()`
+3. `exhibitionsData` declaration (line ~2923)
+
+If `initializeLanguage()` is called synchronously before line 2923 executes, and it calls `setLanguage()`, the page breaks.
+
+### Rules to Follow
+
+1. **Never convert async functions to sync** without checking all variable dependencies
+2. **Before modifying `initializeLanguage()` or `setLanguage()`**, verify that all referenced variables are declared BEFORE the function call site
+3. **Always add guards** when accessing variables that may not be initialized:
+   ```javascript
+   if (typeof variableName !== 'undefined' && variableName.length > 0) {
+   ```
+4. **Test with hard refresh** (Cmd+Shift+R) after deploying JS changes - cached versions mask errors
+
+### Testing Checklist
+
+After any JavaScript changes to index.html:
+- [ ] Hard refresh the page (Cmd+Shift+R)
+- [ ] Check browser console for ReferenceError
+- [ ] Test with localStorage cleared (incognito window)
+- [ ] Verify exhibitions load
+- [ ] Verify gallery loads
+- [ ] Verify reveal animations work on all sections
