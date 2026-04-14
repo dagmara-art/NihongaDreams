@@ -2726,9 +2726,6 @@
             setLanguage(detectedLang, false);
         }
 
-        // Initialize language
-        initializeLanguage();
-
         // Reveal animations via IntersectionObserver (fire-and-forget)
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -2737,31 +2734,17 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
-        
-        // Check visibility on load for sections already in view or scrolled past
-        // (fixes direct hash navigation and scroll-snap interference)
-        function activateVisibleReveals() {
-            const scrollY = window.scrollY;
-            const viewportBottom = scrollY + window.innerHeight;
-            document.querySelectorAll('.reveal:not(.active)').forEach(el => {
-                const elTop = el.getBoundingClientRect().top + scrollY;
-                // Activate if element is in view OR above current scroll position
-                if (elTop < viewportBottom + 100) {
-                    el.classList.add('active');
-                    revealObserver.unobserve(el);
-                } else {
-                    revealObserver.observe(el);
-                }
-            });
-        }
-        
-        // Run on load and after scroll settles (for scroll-snap)
-        activateVisibleReveals();
-        setTimeout(activateVisibleReveals, 100);
-        if (window.location.hash) {
-            setTimeout(activateVisibleReveals, 300);
-        }
+        }, { rootMargin: '0px 0px 0px 0px', threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Initialize language (must run AFTER reveal observer is set up)
+        initializeLanguage();
+
+        // Re-check on in-page hash navigation
+        window.addEventListener('hashchange', () => {
+            setTimeout(activateVisibleReveals, 100);
+            setTimeout(activateVisibleReveals, 500);
+        });
 
         // Section view analytics via IntersectionObserver (fire-and-forget)
         const trackedSections = new Set();
