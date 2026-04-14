@@ -2697,7 +2697,7 @@
             });
             
             // Re-render exhibitions section with new language
-            if (typeof renderExhibitions === 'function' && exhibitionsData.length > 0) {
+            if (typeof renderExhibitions === 'function' && typeof exhibitionsData !== 'undefined' && exhibitionsData.length > 0) {
                 const activeYearBtn = document.querySelector('.exhibitions-year-btn.active');
                 renderExhibitions(activeYearBtn ? activeYearBtn.dataset.year : getDefaultFilter());
             }
