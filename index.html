@@ -6,6 +6,13 @@
     <meta name="description" content="Nihonga artist working with mineral pigments on washi and gold leaf. Browse gallery, read Dagmara's statement, and get in touch for exhibitions or commissions.">
     <title>Dagmara Dreams of Nihonga's Portfolio</title>
     
+    <!-- Preconnect to third-party origins -->
+    <link rel="preconnect" href="https://consent.cookiebot.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="Data/sakura_favicon.png?v=2">
     
@@ -2703,8 +2710,8 @@
             setLanguage(newLang, true, true); // save preference and track switch
         });
 
-        // Detect language based on user's country (IP geolocation)
-        async function initializeLanguage() {
+        // Detect language based on browser settings (no external requests for GDPR compliance)
+        function initializeLanguage() {
             const savedLang = localStorage.getItem('lang');
             
             // If user has a saved preference, use it
@@ -2713,38 +2720,10 @@
                 return;
             }
             
-            // Quick initial guess from browser language (no network request)
-            const browserLang = navigator.language || navigator.userLanguage || '';
-            const browserIsPL = browserLang.toLowerCase().startsWith('pl');
-            if (browserIsPL) {
-                setLanguage('pl', false);
-            }
-            
-            // Then refine with IP geolocation for more accuracy
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3000);
-                
-                const response = await fetch('https://ipapi.co/country/', { 
-                    method: 'GET',
-                    mode: 'cors',
-                    credentials: 'omit',
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (response.ok) {
-                    const country = await response.text();
-                    const detectedLang = country.trim() === 'PL' ? 'pl' : 'en';
-                    // Only update if different from browser guess
-                    if (detectedLang !== currentLang) {
-                        setLanguage(detectedLang, false);
-                    }
-                }
-            } catch (error) {
-                console.warn('Language geolocation unavailable');
-            }
+            // Use browser language, default to EN if not PL
+            const browserLang = navigator.language || '';
+            const detectedLang = browserLang.toLowerCase().startsWith('pl') ? 'pl' : 'en';
+            setLanguage(detectedLang, false);
         }
 
         // Initialize language
@@ -2944,7 +2923,6 @@
                 if (!response.ok) throw new Error('Failed to load');
                 exhibitionsData = await response.json();
             } catch (e) {
-                console.warn('Using fallback exhibitions data');
                 exhibitionsData = fallbackExhibitions;
             }
             exhibitionsData.forEach(ex => { ex.status = computeExhibitionStatus(ex); });
@@ -3294,32 +3272,36 @@
 
         // Fallback artwork data for local development (file:// protocol)
         const fallbackArtworks = [
-            { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "02", slug: "mokuren-ni", filename: "mokuren-ni", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "04", slug: "mokuren-yon", filename: "mokuren-yon", title: "Mokuren 四 Yon", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "05", slug: "mokuren-go", filename: "mokuren-go", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "06", slug: "mokuren-roku", filename: "mokuren-roku", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "07", slug: "mokuren-shichi", filename: "mokuren-shichi", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "08", slug: "mokuren-hachi", filename: "mokuren-hachi", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "09", slug: "sakura-ichi", filename: "sakura-ichi", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "10", slug: "sakura-ni", filename: "sakura-ni", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "11", slug: "sakura-san", filename: "sakura-san", title: "Sakura 三 San", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "12", slug: "kiku-ichi", filename: "kiku-ichi", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
-            { id: "13", slug: "kiku-ni", filename: "kiku-ni", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
-            { id: "14", slug: "tsubaki-ichi", filename: "tsubaki-ichi", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "15", slug: "tsubaki-ni", filename: "tsubaki-ni", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "16", slug: "tsubaki-san", filename: "tsubaki-san", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "17", slug: "tsubaki-yon", filename: "tsubaki-yon", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", material: "", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "18", slug: "yuri-ichi", filename: "yuri-ichi", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
-            { id: "19", slug: "egonoki-ichi", filename: "egonoki-ichi", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Egonoki" },
-            { id: "20", slug: "suiren-ichi", filename: "suiren-ichi", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "21", slug: "suiren-ni", filename: "suiren-ni", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "22", slug: "suiren-san", filename: "suiren-san", title: "Suiren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "23", slug: "ayame-ichi", filename: "ayame-ichi", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Ayame" },
-            { id: "24", slug: "suiren-yon", filename: "suiren-yon", title: "Suiren 四 Yon", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "25", slug: "suiren-go", filename: "suiren-go", title: "Suiren 五 Go", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "26", slug: "yuri-ni", filename: "yuri-ni", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" }
+            { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "02", slug: "mokuren-ni", filename: "mokuren-ni", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren 三 San", dimensions: "40 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "04", slug: "mokuren-ju", filename: "mokuren-ju", title: "Mokuren 十 Jū", dimensions: "87 × 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "8 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "05", slug: "mokuren-go", filename: "mokuren-go", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "06", slug: "mokuren-roku", filename: "mokuren-roku", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "07", slug: "mokuren-shichi", filename: "mokuren-shichi", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "08", slug: "mokuren-hachi", filename: "mokuren-hachi", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "09", slug: "sakura-ichi", filename: "sakura-ichi", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", paper: "Japanese paper Tosa-washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "10", slug: "sakura-ni", filename: "sakura-ni", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", paper: "Japanese paper Tosa-washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "11", slug: "sakura-san", filename: "sakura-san", title: "Sakura 三 San", dimensions: "93 × 63 cm", paper: "Japanese paper Tosa-washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "12", slug: "kiku-ichi", filename: "kiku-ichi", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "13", slug: "kiku-ni", filename: "kiku-ni", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "14", slug: "tsubaki-ichi", filename: "tsubaki-ichi", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "15", slug: "tsubaki-ni", filename: "tsubaki-ni", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", paper: "Japanese paper Shiromashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "16", slug: "tsubaki-san", filename: "tsubaki-san", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "17", slug: "tsubaki-yon", filename: "tsubaki-yon", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "18", slug: "yuri-ichi", filename: "yuri-ichi", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
+            { id: "19", slug: "egonoki-ichi", filename: "egonoki-ichi", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Egonoki" },
+            { id: "20", slug: "suiren-ichi", filename: "suiren-ichi", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "21", slug: "suiren-ni", filename: "suiren-ni", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "22", slug: "suiren-san", filename: "suiren-san", title: "Suiren 三 San", dimensions: "40 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "23", slug: "ayame-ichi", filename: "ayame-ichi", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "sold", year: "", series: "Ayame" },
+            { id: "24", slug: "suiren-roku", filename: "suiren-roku", title: "Suiren 六 Roku", dimensions: "40 × 30 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 000 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "25", slug: "suiren-go", filename: "suiren-go", title: "Suiren 五 Go", dimensions: "42 × 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "26", slug: "yuri-ni", filename: "yuri-ni", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
+            { id: "27", slug: "shidare-1", filename: "shidare-1", title: "Shidare 1", dimensions: "50 × 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
+            { id: "28", slug: "shidare-2", filename: "shidare-2", title: "Shidare 2", dimensions: "50 × 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
+            { id: "29", slug: "shidare-3", filename: "shidare-3", title: "Shidare 3", dimensions: "50 × 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
+            { id: "30", slug: "shidare-5", filename: "shidare-5", title: "Shidare 5", dimensions: "50 × 50 cm", paper: "Japanese paper Tosa-washi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" }
         ];
 
         let artworks = [];
@@ -3331,7 +3313,6 @@
                 if (!response.ok) throw new Error('Fetch failed');
                 artworks = await response.json();
             } catch (error) {
-                console.warn('Using fallback artworks data');
                 artworks = fallbackArtworks;
             }
             renderGallery();

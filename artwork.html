@@ -6,6 +6,13 @@
     <meta name="description" content="Artwork detail — Dagmara Dreams of Nihonga">
     <title>Artwork — Dagmara Dreams of Nihonga</title>
 
+    <!-- Preconnect to third-party origins -->
+    <link rel="preconnect" href="https://consent.cookiebot.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="icon" type="image/png" href="Data/sakura_favicon.png?v=2">
     <link rel="canonical" href="https://nihongadreams.com/artwork.html">
 
@@ -861,6 +868,14 @@
             return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
         }
 
+        // ── XSS protection ──
+        function escapeHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         // ── Language detection ──
         function initLanguage() {
             const saved = localStorage.getItem('lang');
@@ -905,7 +920,6 @@
                 if (!response.ok) throw new Error('Fetch failed');
                 allArtworks = await response.json();
             } catch (err) {
-                console.warn('Failed to load artworks.json', err);
                 allArtworks = [];
             }
 
@@ -959,20 +973,31 @@
                 paperText = currentLang === 'pl' ? `Papier japoński ${paperName}` : `Japanese paper ${paperName}`;
             }
 
+            // Escape all user data for XSS protection
+            const safeArtTitle = escapeHtml(art.title);
+            const safeArtSeries = escapeHtml(art.series);
+            const safeArtFilename = escapeHtml(art.filename);
+            const safeDescription = escapeHtml(description);
+            const safePriceText = escapeHtml(priceText);
+            const safePaperText = escapeHtml(paperText);
+            const safeDimensions = escapeHtml(art.dimensions);
+            const safeYear = escapeHtml(art.year);
+            const safeStatusLabel = escapeHtml(statusLabels[statusKey] || statusLabels.available);
+
             let detailsHtml = `
-                <span class="detail-label">${t('artwork.dimensions')}</span>
-                <span class="detail-value">${art.dimensions}</span>`;
+                <span class="detail-label">${escapeHtml(t('artwork.dimensions'))}</span>
+                <span class="detail-value">${safeDimensions}</span>`;
 
             if (paperText) {
                 detailsHtml += `
-                <span class="detail-label">${t('artwork.paper')}</span>
-                <span class="detail-value">${paperText}</span>`;
+                <span class="detail-label">${escapeHtml(t('artwork.paper'))}</span>
+                <span class="detail-value">${safePaperText}</span>`;
             }
 
             if (art.year) {
                 detailsHtml += `
-                <span class="detail-label">${t('artwork.year')}</span>
-                <span class="detail-value">${art.year}</span>`;
+                <span class="detail-label">${escapeHtml(t('artwork.year'))}</span>
+                <span class="detail-value">${safeYear}</span>`;
             }
 
             // Reservation section
@@ -989,56 +1014,63 @@
                     ? t('reservation.reservedNotice')
                     : t('reservation.notice');
 
+                const safeTitle = escapeHtml(art.title);
+                const safeSlug = escapeHtml(art.slug || '');
+
                 const formHtml = `
                   <form class="reservation-form" id="reservation-form" novalidate>
-                    <input type="hidden" name="artworkTitle" value="${art.title}">
-                    <input type="hidden" name="artworkSlug" value="${art.slug || ''}">
+                    <input type="hidden" name="artworkTitle" value="${safeTitle}">
+                    <input type="hidden" name="artworkSlug" value="${safeSlug}">
                     <input type="hidden" name="language" value="${currentLang}">
                     <input type="hidden" name="_timestamp" value="">
 
                     <div class="form-field">
-                      <label for="rf-name">${t('form.name')} <span class="required-mark">*</span></label>
+                      <label for="rf-name">${escapeHtml(t('form.name'))} <span class="required-mark">*</span></label>
                       <input type="text" id="rf-name" name="name" required
-                             placeholder="${t('form.namePlaceholder')}" autocomplete="name">
-                      <span class="form-error-msg">${t('form.required')}</span>
+                             placeholder="${escapeHtml(t('form.namePlaceholder'))}" autocomplete="name"
+                             aria-describedby="rf-name-error">
+                      <span class="form-error-msg" id="rf-name-error" role="alert">${escapeHtml(t('form.required'))}</span>
                     </div>
 
                     <div class="form-field">
-                      <label for="rf-email">${t('form.email')} <span class="required-mark">*</span></label>
+                      <label for="rf-email">${escapeHtml(t('form.email'))} <span class="required-mark">*</span></label>
                       <input type="email" id="rf-email" name="email" required
-                             placeholder="${t('form.emailPlaceholder')}" autocomplete="email">
-                      <span class="form-error-msg">${t('form.invalidEmail')}</span>
+                             placeholder="${escapeHtml(t('form.emailPlaceholder'))}" autocomplete="email"
+                             aria-describedby="rf-email-error">
+                      <span class="form-error-msg" id="rf-email-error" role="alert">${escapeHtml(t('form.invalidEmail'))}</span>
                     </div>
 
                     <div class="form-field">
-                      <label for="rf-phone">${t('form.phone')}</label>
+                      <label for="rf-phone">${escapeHtml(t('form.phone'))}</label>
                       <input type="tel" id="rf-phone" name="phone"
-                             placeholder="${t('form.phonePlaceholder')}" autocomplete="tel">
+                             placeholder="${escapeHtml(t('form.phonePlaceholder'))}" autocomplete="tel">
                     </div>
 
                     <div class="form-field">
-                      <label for="rf-message">${t('form.message')}</label>
+                      <label for="rf-message">${escapeHtml(t('form.message'))}</label>
                       <textarea id="rf-message" name="message" rows="3"
-                                placeholder="${t('form.messagePlaceholder')}"></textarea>
+                                placeholder="${escapeHtml(t('form.messagePlaceholder'))}"></textarea>
                     </div>
 
-                    <!-- Honeypot -->
-                    <div class="form-hp" aria-hidden="true">
+                    <!-- Honeypot - hidden from users and assistive tech -->
+                    <div class="form-hp" aria-hidden="true" inert>
                       <label for="rf-website">Website</label>
-                      <input type="text" id="rf-website" name="website" tabindex="-1" autocomplete="off">
+                      <input type="text" id="rf-website" name="website" autocomplete="off">
                     </div>
 
                     <div class="form-consent" id="form-consent-wrapper">
-                      <input type="checkbox" id="rf-consent" name="consent" required>
+                      <input type="checkbox" id="rf-consent" name="consent" required
+                             aria-describedby="rf-consent-error">
                       <label for="rf-consent">
-                        ${t('form.consent')}
-                        <a href="privacy.html" target="_blank" rel="noopener noreferrer">${t('form.consentLink')}</a>
+                        ${escapeHtml(t('form.consent'))}
+                        <a href="privacy.html">${escapeHtml(t('form.consentLink'))}</a>
                       </label>
+                      <span class="form-error-msg" id="rf-consent-error" role="alert" style="display:none;">${escapeHtml(t('form.consentRequired'))}</span>
                     </div>
 
-                    <button type="submit" class="form-submit-btn" id="form-submit-btn">${t('form.submit')}</button>
+                    <button type="submit" class="form-submit-btn" id="form-submit-btn">${escapeHtml(t('form.submit'))}</button>
 
-                    <div class="form-status" id="form-status"></div>
+                    <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
                   </form>`;
 
                 trackEventOnce('reservation_form_loaded', {
@@ -1052,33 +1084,33 @@
                     <p class="reservation-notice">${notice}</p>
                     ${formHtml}
                     <div class="privacy-note">
-                        ${t('privacy.note')} <a href="privacy.html">${t('privacy.linkText')}</a>.
+                        ${escapeHtml(t('privacy.note'))} <a href="privacy.html">${escapeHtml(t('privacy.linkText'))}</a>.
                     </div>
                     <div class="fallback-contact">
-                        ${t('fallback.text')} <a href="mailto:${getEmail()}">${t('fallback.linkText')}</a>
+                        ${escapeHtml(t('fallback.text'))} <a href="mailto:${getEmail()}">${escapeHtml(t('fallback.linkText'))}</a>
                     </div>`;
             }
 
             page.innerHTML = `
                 <!-- Artwork header -->
                 <div class="artwork-header">
-                    ${art.series ? `<div class="artwork-series">${art.series}</div>` : ''}
-                    <h1 class="artwork-title">${art.title}</h1>
-                    <span class="status-badge ${statusKey}">${statusLabels[statusKey] || statusLabels.available}</span>
+                    ${safeArtSeries ? `<div class="artwork-series">${safeArtSeries}</div>` : ''}
+                    <h1 class="artwork-title">${safeArtTitle}</h1>
+                    <span class="status-badge ${statusKey}">${safeStatusLabel}</span>
                 </div>
 
                 <!-- Image -->
                 <div class="artwork-image-wrapper" id="artwork-image-trigger" role="button" tabindex="0" aria-label="${currentLang === 'pl' ? 'Kliknij aby powiększyć' : 'Click to enlarge'}">
-                    <img src="Data/Lightbox_new/Preview/${art.filename}.webp"
-                         alt="${art.title} — Nihonga painting"
+                    <img src="Data/Lightbox_new/Preview/${safeArtFilename}.webp"
+                         alt="${safeArtTitle} — Nihonga painting"
                          id="artwork-main-image"
-                         data-fullsrc="Data/Lightbox_new/Original/${art.filename}.webp">
+                         data-fullsrc="Data/Lightbox_new/Original/${safeArtFilename}.webp">
                 </div>
-                <div class="image-hint">${t('artwork.tapToEnlarge')}</div>
+                <div class="image-hint">${escapeHtml(t('artwork.tapToEnlarge'))}</div>
 
                 <!-- Price -->
                 <div class="artwork-price">
-                    ${priceText}
+                    ${safePriceText}
                     ${(!art.priceDisplay || art.priceDisplay.trim() === '') ? '' : `<span class="artwork-price-note">${currentLang === 'pl' ? 'Cena zawiera certyfikat autentyczności' : 'Price includes certificate of authenticity'}</span>`}
                 </div>
 
@@ -1088,13 +1120,13 @@
                 </div>
 
                 <!-- Description -->
-                ${description ? `<p class="artwork-description">${description}</p>` : ''}
+                ${safeDescription ? `<p class="artwork-description">${safeDescription}</p>` : ''}
 
                 <hr class="section-divider">
 
                 <!-- Reservation -->
                 <div class="reservation-section">
-                    <h2 class="reservation-title">${t('reservation.title')}</h2>
+                    <h2 class="reservation-title">${escapeHtml(t('reservation.title'))}</h2>
                     ${reservationHtml}
                 </div>
             `;
@@ -1125,10 +1157,18 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                // Prevent double-submit
+                const submitBtn = document.getElementById('form-submit-btn');
+                if (submitBtn.disabled) return;
+                submitBtn.disabled = true;
+
                 // Clear previous errors
                 form.querySelectorAll('.form-field-error').forEach(el => el.classList.remove('form-field-error'));
+                form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
                 const consentWrapper = document.getElementById('form-consent-wrapper');
                 if (consentWrapper) consentWrapper.classList.remove('form-consent-error');
+                const consentError = document.getElementById('rf-consent-error');
+                if (consentError) consentError.style.display = 'none';
 
                 // Validate
                 const nameField = form.querySelector('[name="name"]');
@@ -1138,14 +1178,18 @@
 
                 if (!nameField.value.trim()) {
                     nameField.closest('.form-field').classList.add('form-field-error');
+                    nameField.setAttribute('aria-invalid', 'true');
                     valid = false;
                 }
-                if (!emailField.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+                if (!emailField.value.trim() || !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(emailField.value)) {
                     emailField.closest('.form-field').classList.add('form-field-error');
+                    emailField.setAttribute('aria-invalid', 'true');
                     valid = false;
                 }
                 if (!consentField.checked) {
                     if (consentWrapper) consentWrapper.classList.add('form-consent-error');
+                    consentField.setAttribute('aria-invalid', 'true');
+                    if (consentError) consentError.style.display = 'block';
                     consentField.focus();
                     valid = false;
                 }
@@ -1153,7 +1197,7 @@
                 if (!valid) {
                     const failedFields = [
                         !nameField.value.trim() ? 'name' : '',
-                        (!emailField.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) ? 'email' : '',
+                        (!emailField.value.trim() || !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(emailField.value)) ? 'email' : '',
                         !consentField.checked ? 'consent' : ''
                     ].filter(Boolean).join(',');
                     trackEvent('form_validation_failure', {
@@ -1162,6 +1206,7 @@
                         failed_fields: failedFields,
                         language: currentLang
                     });
+                    submitBtn.disabled = false;
                     return;
                 }
 
@@ -1169,10 +1214,8 @@
                 if (form.querySelector('[name="website"]').value) return;
 
                 const statusEl = document.getElementById('form-status');
-                const submitBtn = document.getElementById('form-submit-btn');
 
                 // Show loading
-                submitBtn.disabled = true;
                 submitBtn.textContent = t('form.sending');
                 statusEl.className = 'form-status loading';
                 statusEl.textContent = t('form.sending');
@@ -1197,11 +1240,17 @@
                 };
 
                 try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
                     const resp = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify(payload),
+                        signal: controller.signal
                     });
+
+                    clearTimeout(timeoutId);
 
                     let result;
                     try {
@@ -1212,7 +1261,12 @@
 
                     if (result && result.status === 'success') {
                         statusEl.className = 'form-status success';
-                        statusEl.innerHTML = '<strong>' + t('form.successTitle') + '</strong><br>' + t('form.successText');
+                        statusEl.textContent = '';
+                        const successTitle = document.createElement('strong');
+                        successTitle.textContent = t('form.successTitle');
+                        statusEl.appendChild(successTitle);
+                        statusEl.appendChild(document.createElement('br'));
+                        statusEl.appendChild(document.createTextNode(t('form.successText')));
                         Array.from(form.children).forEach(child => {
                             if (child.id !== 'form-status') child.style.display = 'none';
                         });
@@ -1224,7 +1278,12 @@
                     } else if (resp.ok) {
                         // Response was 2xx but unexpected shape — data likely written
                         statusEl.className = 'form-status success';
-                        statusEl.innerHTML = '<strong>' + t('form.successTitle') + '</strong><br>' + t('form.successText');
+                        statusEl.textContent = '';
+                        const successTitle = document.createElement('strong');
+                        successTitle.textContent = t('form.successTitle');
+                        statusEl.appendChild(successTitle);
+                        statusEl.appendChild(document.createElement('br'));
+                        statusEl.appendChild(document.createTextNode(t('form.successText')));
                         Array.from(form.children).forEach(child => {
                             if (child.id !== 'form-status') child.style.display = 'none';
                         });
@@ -1239,10 +1298,20 @@
                     }
                 } catch (err) {
                     statusEl.className = 'form-status error';
-                    statusEl.innerHTML = '<strong>' + t('form.errorTitle') + '</strong><br>' + t('form.errorText') + ' <a href="mailto:' + getEmail() + '">' + getEmail() + '</a>';
+                    statusEl.textContent = '';
+                    const errorTitle = document.createElement('strong');
+                    errorTitle.textContent = t('form.errorTitle');
+                    statusEl.appendChild(errorTitle);
+                    statusEl.appendChild(document.createElement('br'));
+                    statusEl.appendChild(document.createTextNode(t('form.errorText') + ' '));
+                    const emailLink = document.createElement('a');
+                    emailLink.href = 'mailto:' + getEmail();
+                    emailLink.textContent = getEmail();
+                    statusEl.appendChild(emailLink);
                     submitBtn.disabled = false;
                     submitBtn.textContent = t('form.submit');
-                    const errorCategory = err.message === 'server_error' || err.message === 'non_ok_response'
+                    const errorCategory = err.name === 'AbortError' ? 'timeout'
+                        : err.message === 'server_error' || err.message === 'non_ok_response'
                         ? err.message
                         : err.name === 'TypeError' ? 'network_error' : 'unknown';
                     trackEvent('form_submit_error', {
