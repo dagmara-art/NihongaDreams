@@ -2,7 +2,7 @@
   {
     "id": "01",
     "slug": "mokuren-ichi",
-    "filename": "Mokuren 一 Ichi: 01",
+    "filename": "mokuren-ichi",
     "title": "Mokuren 一 Ichi",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -18,7 +18,7 @@
   {
     "id": "02",
     "slug": "mokuren-ni",
-    "filename": "Mokuren 二 Ni: 02",
+    "filename": "mokuren-ni",
     "title": "Mokuren 二 Ni",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -34,7 +34,7 @@
   {
     "id": "03",
     "slug": "mokuren-san",
-    "filename": "Mokuren 三 San: 03",
+    "filename": "mokuren-san",
     "title": "Mokuren 三 San",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -50,7 +50,7 @@
   {
     "id": "04",
     "slug": "mokuren-yon",
-    "filename": "Mokuren 四 Yon: 04",
+    "filename": "mokuren-yon",
     "title": "Mokuren 四 Yon",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -66,7 +66,7 @@
   {
     "id": "05",
     "slug": "mokuren-go",
-    "filename": "Mokuren 五 Go: 05",
+    "filename": "mokuren-go",
     "title": "Mokuren 五 Go",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -82,7 +82,7 @@
   {
     "id": "06",
     "slug": "mokuren-roku",
-    "filename": "Mokuren 六 Roku: 06",
+    "filename": "mokuren-roku",
     "title": "Mokuren 六 Roku",
     "dimensions": "50 × 20 cm",
     "material": "Wooden panel",
@@ -98,7 +98,7 @@
   {
     "id": "07",
     "slug": "mokuren-shichi",
-    "filename": "Mokuren 七 Shichi: 07",
+    "filename": "mokuren-shichi",
     "title": "Mokuren 七 Shichi",
     "dimensions": "50 × 20 cm",
     "material": "Wooden panel",
@@ -114,7 +114,7 @@
   {
     "id": "08",
     "slug": "mokuren-hachi",
-    "filename": "Mokuren 八 Hachi: 08",
+    "filename": "mokuren-hachi",
     "title": "Mokuren 八 Hachi",
     "dimensions": "50 × 20 cm",
     "material": "Wooden panel",
@@ -130,7 +130,7 @@
   {
     "id": "09",
     "slug": "sakura-ichi",
-    "filename": "Sakura 一 Ichi: 01",
+    "filename": "sakura-ichi",
     "title": "Sakura 一 Ichi",
     "dimensions": "93 × 63 cm",
     "material": "",
@@ -146,7 +146,7 @@
   {
     "id": "10",
     "slug": "sakura-ni",
-    "filename": "Sakura 二 Ni: 02",
+    "filename": "sakura-ni",
     "title": "Sakura 二 Ni",
     "dimensions": "93 × 63 cm",
     "material": "",
@@ -162,7 +162,7 @@
   {
     "id": "11",
     "slug": "sakura-san",
-    "filename": "Sakura 三 San: 03",
+    "filename": "sakura-san",
     "title": "Sakura 三 San",
     "dimensions": "93 × 63 cm",
     "material": "",
@@ -178,7 +178,7 @@
   {
     "id": "12",
     "slug": "kiku-ichi",
-    "filename": "Kiku  一 Ichi: 01",
+    "filename": "kiku-ichi",
     "title": "Kiku 一 Ichi",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -194,7 +194,7 @@
   {
     "id": "13",
     "slug": "kiku-ni",
-    "filename": "Kiku  二 Ni: 02 ",
+    "filename": "kiku-ni",
     "title": "Kiku 二 Ni",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -210,7 +210,7 @@
   {
     "id": "14",
     "slug": "tsubaki-ichi",
-    "filename": "Tsubaki 一 Ichi: 01",
+    "filename": "tsubaki-ichi",
     "title": "Tsubaki 一 Ichi",
     "dimensions": "42 × 30 cm",
     "material": "Wooden panel",
@@ -226,7 +226,7 @@
   {
     "id": "15",
     "slug": "tsubaki-ni",
-    "filename": "Tsubaki 二 Ni: 02",
+    "filename": "tsubaki-ni",
     "title": "Tsubaki 二 Ni",
     "dimensions": "42 × 30 cm",
     "material": "Wooden panel",
@@ -242,7 +242,7 @@
   {
     "id": "16",
     "slug": "tsubaki-san",
-    "filename": "Tsubaki 三 San: 03",
+    "filename": "tsubaki-san",
     "title": "Tsubaki 三 San",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -258,7 +258,7 @@
   {
     "id": "17",
     "slug": "tsubaki-yon",
-    "filename": "Tsubaki 四 Yon: 04",
+    "filename": "tsubaki-yon",
     "title": "Tsubaki 四 Yon",
     "dimensions": "21 × 15 cm",
     "material": "",
@@ -274,7 +274,7 @@
   {
     "id": "18",
     "slug": "yuri-ichi",
-    "filename": "Yuri  一 Ichi: 01",
+    "filename": "yuri-ichi",
     "title": "Yuri 一 Ichi",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",
@@ -290,7 +290,7 @@
   {
     "id": "19",
     "slug": "egonoki-ichi",
-    "filename": "Egonoki 一 Ichi: 01",
+    "filename": "egonoki-ichi",
     "title": "Egonoki 一 Ichi",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -306,7 +306,7 @@
   {
     "id": "20",
     "slug": "suiren-ichi",
-    "filename": "Suiren  一 Ichi: 01",
+    "filename": "suiren-ichi",
     "title": "Suiren 一 Ichi",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -322,7 +322,7 @@
   {
     "id": "21",
     "slug": "suiren-ni",
-    "filename": "Suiren  二 Ni: 02",
+    "filename": "suiren-ni",
     "title": "Suiren 二 Ni",
     "dimensions": "42 × 30 cm",
     "material": "Wooden panel",
@@ -338,7 +338,7 @@
   {
     "id": "22",
     "slug": "suiren-san",
-    "filename": "Suiren  三 San: 03",
+    "filename": "suiren-san",
     "title": "Suiren 三 San",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -354,7 +354,7 @@
   {
     "id": "23",
     "slug": "ayame-ichi",
-    "filename": "Ayame 一 Ichi: 01",
+    "filename": "ayame-ichi",
     "title": "Ayame 一 Ichi",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -370,7 +370,7 @@
   {
     "id": "24",
     "slug": "suiren-yon",
-    "filename": "Suiren  四 Yon: 04",
+    "filename": "suiren-yon",
     "title": "Suiren 四 Yon",
     "dimensions": "40 × 30 cm",
     "material": "Wooden panel",
@@ -386,7 +386,7 @@
   {
     "id": "25",
     "slug": "suiren-go",
-    "filename": "Suiren  五 Go: 05",
+    "filename": "suiren-go",
     "title": "Suiren 五 Go",
     "dimensions": "42 × 30 cm",
     "material": "Wooden panel",
@@ -402,7 +402,7 @@
   {
     "id": "26",
     "slug": "yuri-ni",
-    "filename": "Yuri  二 Ni: 02 ",
+    "filename": "yuri-ni",
     "title": "Yuri 二 Ni",
     "dimensions": "87 × 60 cm",
     "material": "Wooden panel",

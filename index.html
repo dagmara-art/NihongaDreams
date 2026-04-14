@@ -111,8 +111,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="Data/Background_Small/一 Ichi: 01.webp" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="Data/Background_Small/ichi-01.webp" fetchpriority="high">
     <style>
         :root {
             --gold: #c9a227;
@@ -502,7 +502,7 @@
 
         /* Hero Section */
         #hero .bg-image {
-            background-image: url('Data/Background_Small/一 Ichi: 01.webp');
+            background-image: url('Data/Background_Small/ichi-01.webp');
         }
 
         #hero .bg-overlay {
@@ -523,7 +523,7 @@
 
         /* About Section */
         #about .bg-image {
-            background-image: url('Data/Background_Small/Sakura 一 Ichi: 01.webp');
+            background-image: url('Data/Background_Small/sakura-ichi-01.webp');
             background-position: center 40%;
         }
 
@@ -571,7 +571,7 @@
 
         /* Nihonga Section */
         #nihonga .bg-image {
-            background-image: url('Data/Background_Small/十六 Jū roku: 16.webp');
+            background-image: url('Data/Background_Small/ju-roku-16.webp');
             background-position: center 30%;
         }
 
@@ -643,7 +643,7 @@
         }
 
         #exhibitions .bg-image {
-            background-image: url('Data/Background_Small/Kiku 一 Ichi: 01.webp');
+            background-image: url('Data/Background_Small/kiku-ichi-01.webp');
             background-position: center 40%;
         }
 
@@ -1116,7 +1116,7 @@
 
         /* Catalog Section */
         #catalog .bg-image {
-            background-image: url('Data/Background_Small/十七 Jū Shichi: 17.webp');
+            background-image: url('Data/Background_Small/ju-shichi-17.webp');
         }
 
         #catalog .bg-overlay {
@@ -1129,7 +1129,7 @@
 
         /* Contact Section */
         #contact .bg-image {
-            background-image: url('Data/Background_Small/十九 Jū Kyu: 19.webp');
+            background-image: url('Data/Background_Small/ju-kyu-19.webp');
         }
 
         #contact .bg-overlay {
@@ -2899,10 +2899,13 @@
 
         function sanitizeUrl(url) {
             if (!url) return '#';
-            if (/^javascript:/i.test(url) || /^data:/i.test(url) || /^vbscript:/i.test(url)) return '#';
+            const value = String(url).trim();
+            if (/^javascript:/i.test(value) || /^data:/i.test(value) || /^vbscript:/i.test(value)) return '#';
+            // Allow same-document relative paths so local file:// previews can load images.
+            if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value) && !value.startsWith('//')) return value;
             try {
-                const parsed = new URL(url, window.location.href);
-                if (['http:', 'https:', 'mailto:'].includes(parsed.protocol)) return url;
+                const parsed = new URL(value, window.location.href);
+                if (['http:', 'https:', 'mailto:', 'file:'].includes(parsed.protocol)) return value;
             } catch (e) { /* invalid URL */ }
             return '#';
         }
@@ -2917,12 +2920,12 @@
         const fallbackExhibitions = [
             { id: "2025-12-aki", status: "past", title_pl: "Nihonga w Aki", title_en: "Nihonga at Aki", venue_pl: "Aki Restauracja Japońska, Kielce", venue_en: "Aki Japanese Restaurant, Kielce", venue_link: "https://maps.app.goo.gl/LWca63u3hhcpX3yg6", date_start: "2025-12-09", date_end: "2025-12-09", date_display_en: "December 9, 2025", date_display_pl: "9 grudnia 2025", event_link: "https://www.facebook.com/events/1550008932787541/", hero: "Data/Exhibitions/9.12.2025/Aki 0.webp", gallery: ["Data/Exhibitions/9.12.2025/Aki 0.webp","Data/Exhibitions/9.12.2025/Aki 1.webp","Data/Exhibitions/9.12.2025/Aki 2.webp","Data/Exhibitions/9.12.2025/Aki 3.webp","Data/Exhibitions/9.12.2025/Aki 4.webp","Data/Exhibitions/9.12.2025/Aki 5.webp","Data/Exhibitions/9.12.2025/Aki 6.webp"] },
             { id: "2026-02-smolna", status: "current", title_pl: "Japonia \u2013 forma i do\u015bwiadczenie | Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Japan \u2013 Form and Experience | Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Galeria na Smolnej, Warszawa", venue_en: "Galeria na Smolnej, Warsaw", venue_link: "https://maps.app.goo.gl/WLxyPTH2UeunoX956", date_start: "2026-02-06", date_end: "2026-02-28", date_display_en: "February 6 \u2013 28, 2026", date_display_pl: "6 \u2013 28 lutego 2026", event_link: "https://www.facebook.com/events/906417675128074/", hero: "Data/Exhibitions/9.2.2026/Smolna 0.webp", gallery: ["Data/Exhibitions/9.2.2026/Smolna 0.webp","Data/Exhibitions/9.2.2026/Smolna 01.webp","Data/Exhibitions/9.2.2026/Smolna 02.webp","Data/Exhibitions/9.2.2026/Smolna 03.webp","Data/Exhibitions/9.2.2026/Smolna 5.webp","Data/Exhibitions/9.2.2026/Smolna 6.webp","Data/Exhibitions/9.2.2026/Smolna 8.webp","Data/Exhibitions/9.2.2026/Smolna 9.webp","Data/Exhibitions/9.2.2026/Smolna 10.webp","Data/Exhibitions/9.2.2026/Smolna 11.webp","Data/Exhibitions/9.2.2026/Smolna 40.webp","Data/Exhibitions/9.2.2026/Smolna 41.webp","Data/Exhibitions/9.2.2026/Smolna 42.webp","Data/Exhibitions/9.2.2026/Smolna 43.webp"] },
-            { id: "2026-04-wojslawice", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Arboretum Wojs\u0142awice", venue_en: "Arboretum Wojs\u0142awice", venue_link: "https://maps.app.goo.gl/5yf1QaTn9PbN5wkB6", date_start: "2026-04-11", date_end: "2026-05-14", date_display_en: "April 11 \u2013 May 14, 2026", date_display_pl: "11 kwietnia \u2013 14 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Suiren  \u4e00 Ichi: 01.webp", gallery: [] },
-            { id: "2026-05-siruwia", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Ogr\u00f3d Japo\u0144ski Siruwia", venue_en: "Siruwia Japanese Garden", venue_link: "https://maps.app.goo.gl/3xq7LRYPpnrg4rgL9", date_start: "2026-05-01", date_end: "2026-05-03", date_display_en: "May 1 \u2013 3, 2026", date_display_pl: "1 \u2013 3 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Mokuren \u4e00 Ichi: 01.webp", gallery: [] },
-            { id: "2026-05-wroclaw", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Muzeum Miejskie Wroc\u0142awia", venue_en: "Wroc\u0142aw City Museum", venue_link: "https://maps.app.goo.gl/E1oKPSK3X8S7c96F7", date_start: "2026-05-06", date_end: "2026-05-31", date_display_en: "May 6 \u2013 31, 2026", date_display_pl: "6 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Yuri  \u4e00 Ichi: 01.webp", gallery: [] },
-            { id: "2026-05-fama", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Centrum Biblioteczno-Kulturalne FAMA", venue_en: "FAMA Library & Cultural Center", venue_link: "https://maps.app.goo.gl/ALdLZ9v2JCY3TfVRA", date_start: "2026-05-14", date_end: "2026-05-31", date_display_en: "May 14 \u2013 31, 2026", date_display_pl: "14 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/Tsubaki \u4e00 Ichi: 01.webp", gallery: [] },
-            { id: "2026-06-konskie", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Koneckie Centrum Kultury", venue_en: "Ko\u0144skie Cultural Center", venue_link: "https://maps.app.goo.gl/eQzYBpQ5UE8CoeVY7", date_start: "2026-06-12", date_end: "2026-06-12", date_display_en: "June 12, 2026", date_display_pl: "12 czerwca 2026", hero: "Data/Lightbox_new/Thumbnails/Kiku  \u4e00 Ichi: 01.webp", gallery: [] },
-            { id: "2026-10-skarzysko", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Miejskie Centrum Kultury w Skar\u017cysku-Kamiennej", venue_en: "Municipal Cultural Center in Skar\u017cysko-Kamienna", venue_link: "https://maps.app.goo.gl/SCN6G184J8B5PBxJ6", date_start: "2026-10-09", date_end: "2026-10-31", date_display_en: "October 9 \u2013 31, 2026", date_display_pl: "9 \u2013 31 pa\u017adziernika 2026", hero: "Data/Lightbox_new/Thumbnails/Egonoki \u4e00 Ichi: 01.webp", gallery: [] }
+            { id: "2026-04-wojslawice", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Arboretum Wojs\u0142awice", venue_en: "Arboretum Wojs\u0142awice", venue_link: "https://maps.app.goo.gl/5yf1QaTn9PbN5wkB6", date_start: "2026-04-11", date_end: "2026-05-14", date_display_en: "April 11 \u2013 May 14, 2026", date_display_pl: "11 kwietnia \u2013 14 maja 2026", hero: "Data/Lightbox_new/Thumbnails/suiren-ichi.webp", gallery: [] },
+            { id: "2026-05-siruwia", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Ogr\u00f3d Japo\u0144ski Siruwia", venue_en: "Siruwia Japanese Garden", venue_link: "https://maps.app.goo.gl/3xq7LRYPpnrg4rgL9", date_start: "2026-05-01", date_end: "2026-05-03", date_display_en: "May 1 \u2013 3, 2026", date_display_pl: "1 \u2013 3 maja 2026", hero: "Data/Lightbox_new/Thumbnails/mokuren-ichi.webp", gallery: [] },
+            { id: "2026-05-wroclaw", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Muzeum Miejskie Wroc\u0142awia", venue_en: "Wroc\u0142aw City Museum", venue_link: "https://maps.app.goo.gl/E1oKPSK3X8S7c96F7", date_start: "2026-05-06", date_end: "2026-05-31", date_display_en: "May 6 \u2013 31, 2026", date_display_pl: "6 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/yuri-ichi.webp", gallery: [] },
+            { id: "2026-05-fama", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Centrum Biblioteczno-Kulturalne FAMA", venue_en: "FAMA Library & Cultural Center", venue_link: "https://maps.app.goo.gl/ALdLZ9v2JCY3TfVRA", date_start: "2026-05-14", date_end: "2026-05-31", date_display_en: "May 14 \u2013 31, 2026", date_display_pl: "14 \u2013 31 maja 2026", hero: "Data/Lightbox_new/Thumbnails/tsubaki-ichi.webp", gallery: [] },
+            { id: "2026-06-konskie", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Koneckie Centrum Kultury", venue_en: "Ko\u0144skie Cultural Center", venue_link: "https://maps.app.goo.gl/eQzYBpQ5UE8CoeVY7", date_start: "2026-06-12", date_end: "2026-06-12", date_display_en: "June 12, 2026", date_display_pl: "12 czerwca 2026", hero: "Data/Lightbox_new/Thumbnails/kiku-ichi.webp", gallery: [] },
+            { id: "2026-10-skarzysko", status: "upcoming", title_pl: "Dagmara Ok\u0142a \u201eNihonga \u2013 w japo\u0144skim ogrodzie\u201d", title_en: "Dagmara Ok\u0142a \u201cNihonga \u2013 Inside the Japanese Garden\u201d", venue_pl: "Miejskie Centrum Kultury w Skar\u017cysku-Kamiennej", venue_en: "Municipal Cultural Center in Skar\u017cysko-Kamienna", venue_link: "https://maps.app.goo.gl/SCN6G184J8B5PBxJ6", date_start: "2026-10-09", date_end: "2026-10-31", date_display_en: "October 9 \u2013 31, 2026", date_display_pl: "9 \u2013 31 pa\u017adziernika 2026", hero: "Data/Lightbox_new/Thumbnails/egonoki-ichi.webp", gallery: [] }
         ];
 
         function computeExhibitionStatus(ex) {
@@ -3291,32 +3294,32 @@
 
         // Fallback artwork data for local development (file:// protocol)
         const fallbackArtworks = [
-            { id: "01", slug: "mokuren-ichi", filename: "Mokuren 一 Ichi: 01", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "02", slug: "mokuren-ni", filename: "Mokuren 二 Ni: 02", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "03", slug: "mokuren-san", filename: "Mokuren 三 San: 03", title: "Mokuren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "04", slug: "mokuren-yon", filename: "Mokuren 四 Yon: 04", title: "Mokuren 四 Yon", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "05", slug: "mokuren-go", filename: "Mokuren 五 Go: 05", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "06", slug: "mokuren-roku", filename: "Mokuren 六 Roku: 06", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "07", slug: "mokuren-shichi", filename: "Mokuren 七 Shichi: 07", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "08", slug: "mokuren-hachi", filename: "Mokuren 八 Hachi: 08", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-            { id: "09", slug: "sakura-ichi", filename: "Sakura 一 Ichi: 01", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "10", slug: "sakura-ni", filename: "Sakura 二 Ni: 02", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "11", slug: "sakura-san", filename: "Sakura 三 San: 03", title: "Sakura 三 San", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
-            { id: "12", slug: "kiku-ichi", filename: "Kiku  一 Ichi: 01", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
-            { id: "13", slug: "kiku-ni", filename: "Kiku  二 Ni: 02 ", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
-            { id: "14", slug: "tsubaki-ichi", filename: "Tsubaki 一 Ichi: 01", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "15", slug: "tsubaki-ni", filename: "Tsubaki 二 Ni: 02", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "16", slug: "tsubaki-san", filename: "Tsubaki 三 San: 03", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "17", slug: "tsubaki-yon", filename: "Tsubaki 四 Yon: 04", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", material: "", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
-            { id: "18", slug: "yuri-ichi", filename: "Yuri  一 Ichi: 01", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
-            { id: "19", slug: "egonoki-ichi", filename: "Egonoki 一 Ichi: 01", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Egonoki" },
-            { id: "20", slug: "suiren-ichi", filename: "Suiren  一 Ichi: 01", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "21", slug: "suiren-ni", filename: "Suiren  二 Ni: 02", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "22", slug: "suiren-san", filename: "Suiren  三 San: 03", title: "Suiren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "23", slug: "ayame-ichi", filename: "Ayame 一 Ichi: 01", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Ayame" },
-            { id: "24", slug: "suiren-yon", filename: "Suiren  四 Yon: 04", title: "Suiren 四 Yon", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "25", slug: "suiren-go", filename: "Suiren  五 Go: 05", title: "Suiren 五 Go", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
-            { id: "26", slug: "yuri-ni", filename: "Yuri  二 Ni: 02 ", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" }
+            { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "02", slug: "mokuren-ni", filename: "mokuren-ni", title: "Mokuren 二 Ni", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "04", slug: "mokuren-yon", filename: "mokuren-yon", title: "Mokuren 四 Yon", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "05", slug: "mokuren-go", filename: "mokuren-go", title: "Mokuren 五 Go", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "06", slug: "mokuren-roku", filename: "mokuren-roku", title: "Mokuren 六 Roku", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "07", slug: "mokuren-shichi", filename: "mokuren-shichi", title: "Mokuren 七 Shichi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "08", slug: "mokuren-hachi", filename: "mokuren-hachi", title: "Mokuren 八 Hachi", dimensions: "50 × 20 cm", material: "Wooden panel", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+            { id: "09", slug: "sakura-ichi", filename: "sakura-ichi", title: "Sakura 一 Ichi", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "10", slug: "sakura-ni", filename: "sakura-ni", title: "Sakura 二 Ni", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "11", slug: "sakura-san", filename: "sakura-san", title: "Sakura 三 San", dimensions: "93 × 63 cm", material: "", paper: "Japanese paper Tosa Washi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Sakura" },
+            { id: "12", slug: "kiku-ichi", filename: "kiku-ichi", title: "Kiku 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "13", slug: "kiku-ni", filename: "kiku-ni", title: "Kiku 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Kiku" },
+            { id: "14", slug: "tsubaki-ichi", filename: "tsubaki-ichi", title: "Tsubaki 一 Ichi", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "15", slug: "tsubaki-ni", filename: "tsubaki-ni", title: "Tsubaki 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "16", slug: "tsubaki-san", filename: "tsubaki-san", title: "Tsubaki 三 San", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "17", slug: "tsubaki-yon", filename: "tsubaki-yon", title: "Tsubaki 四 Yon", dimensions: "21 × 15 cm", material: "", paper: "Japanese paper Shiromashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+            { id: "18", slug: "yuri-ichi", filename: "yuri-ichi", title: "Yuri 一 Ichi", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
+            { id: "19", slug: "egonoki-ichi", filename: "egonoki-ichi", title: "Egonoki 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Egonoki" },
+            { id: "20", slug: "suiren-ichi", filename: "suiren-ichi", title: "Suiren 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "21", slug: "suiren-ni", filename: "suiren-ni", title: "Suiren 二 Ni", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "22", slug: "suiren-san", filename: "suiren-san", title: "Suiren 三 San", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "23", slug: "ayame-ichi", filename: "ayame-ichi", title: "Ayame 一 Ichi", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Ayame" },
+            { id: "24", slug: "suiren-yon", filename: "suiren-yon", title: "Suiren 四 Yon", dimensions: "40 × 30 cm", material: "Wooden panel", paper: "Japanese paper Kumohada-mashi", priceDisplay: "", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "25", slug: "suiren-go", filename: "suiren-go", title: "Suiren 五 Go", dimensions: "42 × 30 cm", material: "Wooden panel", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
+            { id: "26", slug: "yuri-ni", filename: "yuri-ni", title: "Yuri 二 Ni", dimensions: "87 × 60 cm", material: "Wooden panel", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" }
         ];
 
         let artworks = [];

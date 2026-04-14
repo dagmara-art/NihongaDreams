@@ -623,6 +623,7 @@
                 'artwork.tapToEnlarge': 'Tap image to view fullscreen',
                 'artwork.priceOnRequest': 'Price on request',
                 'artwork.dimensions': 'Dimensions',
+                'artwork.material': 'Material',
                 'artwork.paper': 'Paper',
                 'artwork.year': 'Year',
                 'artwork.series': 'Series',
@@ -648,6 +649,7 @@
                 'artwork.tapToEnlarge': 'Dotknij obrazu, aby powiększyć',
                 'artwork.priceOnRequest': 'Cena na zapytanie',
                 'artwork.dimensions': 'Wymiary',
+                'artwork.material': 'Podłoże',
                 'artwork.paper': 'Papier',
                 'artwork.year': 'Rok',
                 'artwork.series': 'Seria',
@@ -766,7 +768,6 @@
             document.title = `${art.title} — Dagmara Dreams of Nihonga`;
 
             const statusKey = (art.status || 'available').toLowerCase();
-            const statusLabel = t(`artwork.statusAvailable`);
             const statusLabels = {
                 available: t('artwork.statusAvailable'),
                 reserved: t('artwork.statusReserved'),
@@ -789,6 +790,12 @@
             let detailsHtml = `
                 <span class="detail-label">${t('artwork.dimensions')}</span>
                 <span class="detail-value">${art.dimensions}</span>`;
+
+            if (art.material) {
+                detailsHtml += `
+                <span class="detail-label">${t('artwork.material')}</span>
+                <span class="detail-value">${art.material}</span>`;
+            }
 
             if (paperText) {
                 detailsHtml += `
