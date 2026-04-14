@@ -2738,7 +2738,17 @@
                 }
             });
         }, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        
+        // Check visibility on load for sections already in view (fixes direct hash navigation)
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('active');
+            } else {
+                revealObserver.observe(el);
+            }
+        });
 
         // Section view analytics via IntersectionObserver (fire-and-forget)
         const trackedSections = new Set();
