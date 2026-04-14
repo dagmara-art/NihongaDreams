@@ -16,7 +16,7 @@
 
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://consent.cookiebot.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://docs.google.com https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://consent.cookiebot.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://script.google.com https://script.googleusercontent.com; frame-src https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'self';">
 
     <!-- Cookiebot Consent Management -->
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="8e1425ff-1262-4a01-be6d-92a6bccb9142" type="text/javascript" async></script>
@@ -397,13 +397,171 @@
             opacity: 0.6;
         }
 
-        /* Google Form embed */
-        .form-embed {
-            width: 100%;
-            min-height: 600px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+        /* Native reservation form */
+        .reservation-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .form-field label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        .form-field .required-mark {
+            color: var(--blush);
+            margin-left: 0.15rem;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--charcoal);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+            border-color: var(--gold);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            opacity: 0.4;
+        }
+
+        .form-field textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-field-error input,
+        .form-field-error textarea {
+            border-color: var(--blush);
+        }
+
+        .form-error-msg {
+            font-size: 0.75rem;
+            color: var(--blush);
+            display: none;
+        }
+
+        .form-field-error .form-error-msg {
+            display: block;
+        }
+
+        .form-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .form-consent input[type="checkbox"] {
+            margin-top: 0.2rem;
+            accent-color: var(--gold);
+            min-width: 16px;
+            min-height: 16px;
+        }
+
+        .form-consent a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .form-consent a:hover {
+            text-decoration: underline;
+        }
+
+        .form-consent-error {
+            color: var(--blush);
+        }
+
+        .form-hp {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .form-submit-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.85rem 2rem;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .form-submit-btn:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 162, 39, 0.3);
+        }
+
+        .form-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .form-status {
+            padding: 1rem 1.25rem;
             border-radius: 6px;
-            background: white;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .form-status.loading {
+            display: block;
+            background: rgba(201, 162, 39, 0.08);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            color: var(--gold);
+        }
+
+        .form-status.success {
+            display: block;
+            background: rgba(139, 154, 125, 0.12);
+            border: 1px solid rgba(139, 154, 125, 0.25);
+            color: var(--sage);
+        }
+
+        .form-status.error {
+            display: block;
+            background: rgba(212, 165, 165, 0.12);
+            border: 1px solid rgba(212, 165, 165, 0.25);
+            color: #a07070;
         }
 
         /* Privacy note */
@@ -545,9 +703,9 @@
                 margin-top: 0;
             }
 
-            .form-embed {
-                min-height: 1375px;
-                min-height: 180svh;
+            .form-submit-btn {
+                width: 100%;
+                text-align: center;
             }
 
             .page-footer {
@@ -602,16 +760,7 @@
 
     <script>
         // ── Configuration ──
-        const GOOGLE_FORM_URLS = {
-            en: 'https://docs.google.com/forms/d/e/1FAIpQLSf21tJadmFA9toHrdwm5fyesUzbfCCCCjzkxqMQypdOyiwDjg/viewform',
-            pl: 'https://docs.google.com/forms/d/e/1FAIpQLSeZgm39OWtcQu7jUU3MqVryN5sw8X4sohSIQTAlrvBjrqQD4Q/viewform'
-        };
-
-        // Both forms share the same entry field IDs
-        const FORM_ENTRY_IDS = {
-            artworkTitle:   'entry.753153282',
-            privacyConsent: 'entry.422486235'
-        };
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQIpIuHUHHwA0xiK3lJ21B-wiHdwqTkiaDmBQv-I8W9c9W5D3Cp4Pxl_y7YvF1QIFrpg/exec';
 
         // ── Translations ──
         const translations = {
@@ -623,7 +772,6 @@
                 'artwork.tapToEnlarge': 'Tap image to view fullscreen',
                 'artwork.priceOnRequest': 'Price on request',
                 'artwork.dimensions': 'Dimensions',
-                'artwork.material': 'Material',
                 'artwork.paper': 'Paper',
                 'artwork.year': 'Year',
                 'artwork.series': 'Series',
@@ -639,7 +787,26 @@
                 'privacy.linkText': 'Privacy Policy',
                 'fallback.text': 'Having trouble with the form?',
                 'fallback.linkText': 'Contact me directly',
-                'footer.privacy': 'Privacy Policy'
+                'footer.privacy': 'Privacy Policy',
+                'form.name': 'Name',
+                'form.namePlaceholder': 'Your name',
+                'form.email': 'Email',
+                'form.emailPlaceholder': 'your@email.com',
+                'form.phone': 'Phone (optional)',
+                'form.phonePlaceholder': '+48...',
+                'form.message': 'Message (optional)',
+                'form.messagePlaceholder': 'Any questions or notes about this artwork...',
+                'form.consent': 'I agree to processing my personal data to respond to this reservation request.',
+                'form.consentLink': 'Privacy Policy',
+                'form.submit': 'Send request',
+                'form.sending': 'Sending...',
+                'form.successTitle': 'Request sent!',
+                'form.successText': 'Thank you. I will review your request and get back to you by email.',
+                'form.errorTitle': 'Something went wrong',
+                'form.errorText': 'Please try again or contact me directly at',
+                'form.required': 'This field is required',
+                'form.invalidEmail': 'Please enter a valid email address',
+                'form.consentRequired': 'Please accept the privacy policy to continue'
             },
             pl: {
                 'page.loading': 'Ładowanie dzieła...',
@@ -649,7 +816,6 @@
                 'artwork.tapToEnlarge': 'Dotknij obrazu, aby powiększyć',
                 'artwork.priceOnRequest': 'Cena na zapytanie',
                 'artwork.dimensions': 'Wymiary',
-                'artwork.material': 'Podłoże',
                 'artwork.paper': 'Papier',
                 'artwork.year': 'Rok',
                 'artwork.series': 'Seria',
@@ -665,7 +831,26 @@
                 'privacy.linkText': 'Politykę prywatności',
                 'fallback.text': 'Problemy z formularzem?',
                 'fallback.linkText': 'Skontaktuj się bezpośrednio',
-                'footer.privacy': 'Polityka prywatności'
+                'footer.privacy': 'Polityka prywatności',
+                'form.name': 'Imię i nazwisko',
+                'form.namePlaceholder': 'Twoje imię',
+                'form.email': 'Email',
+                'form.emailPlaceholder': 'twoj@email.com',
+                'form.phone': 'Telefon (opcjonalnie)',
+                'form.phonePlaceholder': '+48...',
+                'form.message': 'Wiadomość (opcjonalnie)',
+                'form.messagePlaceholder': 'Pytania lub uwagi dotyczące tego dzieła...',
+                'form.consent': 'Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie o rezerwację.',
+                'form.consentLink': 'Polityka prywatności',
+                'form.submit': 'Wyślij zapytanie',
+                'form.sending': 'Wysyłanie...',
+                'form.successTitle': 'Zapytanie wysłane!',
+                'form.successText': 'Dziękuję. Przejrzę Twoje zapytanie i odpowiem mailem.',
+                'form.errorTitle': 'Coś poszło nie tak',
+                'form.errorText': 'Spróbuj ponownie lub skontaktuj się bezpośrednio pod adresem',
+                'form.required': 'To pole jest wymagane',
+                'form.invalidEmail': 'Proszę podać prawidłowy adres email',
+                'form.consentRequired': 'Proszę zaakceptować politykę prywatności'
             }
         };
 
@@ -736,19 +921,6 @@
             renderArtwork();
         }
 
-        // ── Build Google Form embed URL ──
-        function buildFormUrl(art) {
-            const baseUrl = GOOGLE_FORM_URLS[currentLang] || GOOGLE_FORM_URLS.en;
-            if (!baseUrl || baseUrl.includes('PLACEHOLDER')) {
-                return null;
-            }
-
-            const params = new URLSearchParams();
-            params.set(FORM_ENTRY_IDS.artworkTitle, art.title);
-
-            return `${baseUrl}?${params.toString()}&embedded=true`;
-        }
-
         // ── Render ──
         function renderArtwork() {
             const page = document.getElementById('artwork-page');
@@ -780,7 +952,6 @@
                 ? t('artwork.priceOnRequest')
                 : art.priceDisplay;
 
-            const paperLabel = currentLang === 'pl' ? 'Papier' : 'Paper';
             let paperText = art.paper || '';
             if (paperText.startsWith('Japanese paper ')) {
                 const paperName = paperText.replace('Japanese paper ', '');
@@ -790,12 +961,6 @@
             let detailsHtml = `
                 <span class="detail-label">${t('artwork.dimensions')}</span>
                 <span class="detail-value">${art.dimensions}</span>`;
-
-            if (art.material) {
-                detailsHtml += `
-                <span class="detail-label">${t('artwork.material')}</span>
-                <span class="detail-value">${art.material}</span>`;
-            }
 
             if (paperText) {
                 detailsHtml += `
@@ -811,7 +976,6 @@
 
             // Reservation section
             let reservationHtml = '';
-            const formUrl = buildFormUrl(art);
 
             if (statusKey === 'sold') {
                 reservationHtml = `
@@ -824,35 +988,74 @@
                     ? t('reservation.reservedNotice')
                     : t('reservation.notice');
 
-                let formHtml = '';
-                if (formUrl) {
-                    formHtml = `<iframe class="form-embed" src="${formUrl}" frameborder="0" marginheight="0" marginwidth="0" title="Reservation request form" loading="lazy">Loading…</iframe>`;
-                    trackEventOnce('reservation_form_loaded', {
-                        'artwork_title': art.title,
-                        'artwork_slug': art.slug || '',
-                        'artwork_status': statusKey,
-                        'language': currentLang
-                    });
-                } else {
-                    formHtml = `<div class="reservation-sold" style="border-color: rgba(201, 162, 39, 0.2); background: rgba(201, 162, 39, 0.06);">
-                        <p style="color: var(--gold);">${currentLang === 'pl' ? 'Formularz rezerwacji zostanie wkrótce uruchomiony.' : 'Reservation form coming soon.'}</p>
-                        <small>${t('fallback.text')} <a href="mailto:${getEmail()}">${t('fallback.linkText')}</a></small>
-                    </div>`;
-                }
+                const formHtml = `
+                  <form class="reservation-form" id="reservation-form" novalidate>
+                    <input type="hidden" name="artworkTitle" value="${art.title}">
+                    <input type="hidden" name="artworkSlug" value="${art.slug || ''}">
+                    <input type="hidden" name="language" value="${currentLang}">
+                    <input type="hidden" name="_timestamp" value="">
+
+                    <div class="form-field">
+                      <label for="rf-name">${t('form.name')} <span class="required-mark">*</span></label>
+                      <input type="text" id="rf-name" name="name" required
+                             placeholder="${t('form.namePlaceholder')}" autocomplete="name">
+                      <span class="form-error-msg">${t('form.required')}</span>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="rf-email">${t('form.email')} <span class="required-mark">*</span></label>
+                      <input type="email" id="rf-email" name="email" required
+                             placeholder="${t('form.emailPlaceholder')}" autocomplete="email">
+                      <span class="form-error-msg">${t('form.invalidEmail')}</span>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="rf-phone">${t('form.phone')}</label>
+                      <input type="tel" id="rf-phone" name="phone"
+                             placeholder="${t('form.phonePlaceholder')}" autocomplete="tel">
+                    </div>
+
+                    <div class="form-field">
+                      <label for="rf-message">${t('form.message')}</label>
+                      <textarea id="rf-message" name="message" rows="3"
+                                placeholder="${t('form.messagePlaceholder')}"></textarea>
+                    </div>
+
+                    <!-- Honeypot -->
+                    <div class="form-hp" aria-hidden="true">
+                      <label for="rf-website">Website</label>
+                      <input type="text" id="rf-website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="form-consent" id="form-consent-wrapper">
+                      <input type="checkbox" id="rf-consent" name="consent" required>
+                      <label for="rf-consent">
+                        ${t('form.consent')}
+                        <a href="privacy.html" target="_blank" rel="noopener noreferrer">${t('form.consentLink')}</a>
+                      </label>
+                    </div>
+
+                    <button type="submit" class="form-submit-btn" id="form-submit-btn">${t('form.submit')}</button>
+
+                    <div class="form-status" id="form-status"></div>
+                  </form>`;
+
+                trackEventOnce('reservation_form_loaded', {
+                    'artwork_title': art.title,
+                    'artwork_slug': art.slug || '',
+                    'artwork_status': statusKey,
+                    'language': currentLang
+                });
 
                 reservationHtml = `
                     <p class="reservation-notice">${notice}</p>
                     ${formHtml}
                     <div class="privacy-note">
                         ${t('privacy.note')} <a href="privacy.html">${t('privacy.linkText')}</a>.
-                    </div>`;
-
-                if (formUrl) {
-                    reservationHtml += `
+                    </div>
                     <div class="fallback-contact">
                         ${t('fallback.text')} <a href="mailto:${getEmail()}">${t('fallback.linkText')}</a>
                     </div>`;
-                }
             }
 
             page.innerHTML = `
@@ -895,8 +1098,9 @@
                 </div>
             `;
 
-            // Re-attach lightbox listener
+            // Re-attach listeners
             setupLightbox();
+            setupReservationForm();
             updateFooterText();
 
             trackEventOnce('artwork_view', {
@@ -906,6 +1110,146 @@
                 'artwork_series': art.series || '',
                 'language': currentLang,
                 'referrer': document.referrer
+            });
+        }
+
+        // ── Reservation Form ──
+        function setupReservationForm() {
+            const form = document.getElementById('reservation-form');
+            if (!form) return;
+
+            // Set timestamp for spam check
+            form.querySelector('[name="_timestamp"]').value = Date.now();
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Clear previous errors
+                form.querySelectorAll('.form-field-error').forEach(el => el.classList.remove('form-field-error'));
+                const consentWrapper = document.getElementById('form-consent-wrapper');
+                if (consentWrapper) consentWrapper.classList.remove('form-consent-error');
+
+                // Validate
+                const nameField = form.querySelector('[name="name"]');
+                const emailField = form.querySelector('[name="email"]');
+                const consentField = form.querySelector('[name="consent"]');
+                let valid = true;
+
+                if (!nameField.value.trim()) {
+                    nameField.closest('.form-field').classList.add('form-field-error');
+                    valid = false;
+                }
+                if (!emailField.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+                    emailField.closest('.form-field').classList.add('form-field-error');
+                    valid = false;
+                }
+                if (!consentField.checked) {
+                    if (consentWrapper) consentWrapper.classList.add('form-consent-error');
+                    consentField.focus();
+                    valid = false;
+                }
+
+                if (!valid) {
+                    const failedFields = [
+                        !nameField.value.trim() ? 'name' : '',
+                        (!emailField.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) ? 'email' : '',
+                        !consentField.checked ? 'consent' : ''
+                    ].filter(Boolean).join(',');
+                    trackEvent('form_validation_failure', {
+                        artwork_title: artwork.title,
+                        artwork_slug: artwork.slug || '',
+                        failed_fields: failedFields,
+                        language: currentLang
+                    });
+                    return;
+                }
+
+                // Honeypot check
+                if (form.querySelector('[name="website"]').value) return;
+
+                const statusEl = document.getElementById('form-status');
+                const submitBtn = document.getElementById('form-submit-btn');
+
+                // Show loading
+                submitBtn.disabled = true;
+                submitBtn.textContent = t('form.sending');
+                statusEl.className = 'form-status loading';
+                statusEl.textContent = t('form.sending');
+
+                trackEvent('form_submit_attempt', {
+                    artwork_title: artwork.title,
+                    artwork_slug: artwork.slug || '',
+                    language: currentLang
+                });
+
+                const payload = {
+                    name: nameField.value.trim(),
+                    email: emailField.value.trim(),
+                    phone: form.querySelector('[name="phone"]').value.trim(),
+                    message: form.querySelector('[name="message"]').value.trim(),
+                    artworkTitle: form.querySelector('[name="artworkTitle"]').value,
+                    artworkSlug: form.querySelector('[name="artworkSlug"]').value,
+                    language: currentLang,
+                    _timestamp: form.querySelector('[name="_timestamp"]').value,
+                    consent: consentField.checked,
+                    consentTimestamp: new Date().toISOString()
+                };
+
+                try {
+                    const resp = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    let result;
+                    try {
+                        result = await resp.json();
+                    } catch (_) {
+                        result = null;
+                    }
+
+                    if (result && result.status === 'success') {
+                        statusEl.className = 'form-status success';
+                        statusEl.innerHTML = '<strong>' + t('form.successTitle') + '</strong><br>' + t('form.successText');
+                        Array.from(form.children).forEach(child => {
+                            if (child.id !== 'form-status') child.style.display = 'none';
+                        });
+                        trackEvent('form_submit_success', {
+                            artwork_title: artwork.title,
+                            artwork_slug: artwork.slug || '',
+                            language: currentLang
+                        });
+                    } else if (resp.ok) {
+                        // Response was 2xx but unexpected shape — data likely written
+                        statusEl.className = 'form-status success';
+                        statusEl.innerHTML = '<strong>' + t('form.successTitle') + '</strong><br>' + t('form.successText');
+                        Array.from(form.children).forEach(child => {
+                            if (child.id !== 'form-status') child.style.display = 'none';
+                        });
+                        trackEvent('form_submit_success', {
+                            artwork_title: artwork.title,
+                            artwork_slug: artwork.slug || '',
+                            language: currentLang
+                        });
+                    } else {
+                        const serverMsg = (result && result.message) ? 'server_error' : 'non_ok_response';
+                        throw new Error(serverMsg);
+                    }
+                } catch (err) {
+                    statusEl.className = 'form-status error';
+                    statusEl.innerHTML = '<strong>' + t('form.errorTitle') + '</strong><br>' + t('form.errorText') + ' <a href="mailto:' + getEmail() + '">' + getEmail() + '</a>';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = t('form.submit');
+                    const errorCategory = err.message === 'server_error' || err.message === 'non_ok_response'
+                        ? err.message
+                        : err.name === 'TypeError' ? 'network_error' : 'unknown';
+                    trackEvent('form_submit_error', {
+                        artwork_title: artwork.title,
+                        error: errorCategory,
+                        language: currentLang
+                    });
+                }
             });
         }
 
