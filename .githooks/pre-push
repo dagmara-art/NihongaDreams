@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Runs the Playwright E2E suite before allowing `git push`.
+# Bypass for a single push:   git push --no-verify
+# Disable permanently:        git config --unset core.hooksPath
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+# Skip on protected branches if you ever push from one (defensive — currently empty).
+PROTECTED_BRANCHES=("")
+
+CURRENT_BRANCH="$(git symbolic-ref --short HEAD 2>/dev/null || echo 'detached')"
+for b in "${PROTECTED_BRANCHES[@]}"; do
+  if [[ -n "$b" && "$CURRENT_BRANCH" == "$b" ]]; then
+    echo "[pre-push] On protected branch '$b'; skipping tests." >&2
+    exit 0
+  fi
+done
+
+if [[ "${SKIP_E2E:-}" == "1" ]]; then
+  echo "[pre-push] SKIP_E2E=1 set; skipping E2E tests." >&2
+  exit 0
+fi
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "[pre-push] node not found in PATH; cannot run E2E tests." >&2
+  echo "[pre-push] Install Node (https://nodejs.org/) or push with: git push --no-verify" >&2
+  exit 1
+fi
+
+if [[ ! -d "node_modules/@playwright/test" ]]; then
+  echo "[pre-push] @playwright/test not installed. Run: npm install" >&2
+  echo "[pre-push] (Or push with --no-verify to bypass once.)" >&2
+  exit 1
+fi
+
+echo "[pre-push] Running Playwright E2E suite (use 'git push --no-verify' to skip)..."
+echo
+
+# Forward npx output directly so the user sees test progress.
+if npx playwright test --reporter=line; then
+  echo
+  echo "[pre-push] All tests passed. Push proceeding."
+  exit 0
+else
+  status=$?
+  echo
+  echo "[pre-push] Playwright tests FAILED (exit $status). Push aborted." >&2
+  echo "[pre-push] Inspect the report:    npx playwright show-report Tests/playwright-report" >&2
+  echo "[pre-push] Bypass for this push:  git push --no-verify" >&2
+  exit "$status"
+fi

@@ -5,6 +5,9 @@
 .Spotlight-V100
 .Trashes
 
+# Claude Code
+CLAUDE.md
+
 # Editor directories and files
 .idea/
 .vscode/
@@ -21,3 +24,16 @@ exhibitions-mock.html
 # Development assets
 sold-overlay.png
 sold-overlay.svg
+
+# Generated QR codes
+qr-codes/
+
+# Node / npm (dev tooling for the test suite — site itself has no runtime deps)
+node_modules/
+npm-debug.log*
+
+# Playwright artifacts (kept out of git; specs themselves live in Tests/ and ARE tracked)
+Tests/playwright-report/
+Tests/test-results/
+playwright-report/
+test-results/

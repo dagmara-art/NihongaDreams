@@ -1,0 +1,70 @@
+---
+description: Project architecture, hosting constraints, and key decisions for nihongadreams.com
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Project Context — nihongadreams.com
+
+## What this site is
+
+Portfolio and sales site for Dagmara Okła, a Nihonga (traditional Japanese painting) artist.
+Live at https://nihongadreams.com/. Two languages: English and Polish.
+
+## Hosting: GitHub Pages (static only)
+
+The site is hosted on **GitHub Pages**. This is a hard constraint — no plans to move.
+
+Implications you must remember:
+- **No server-side logic** — no SSR, no middleware, no server-side redirects
+- **No `.htaccess`** — Apache config does not apply
+- **No custom cache headers** — GitHub Pages sets ~10min cache for HTML; you cannot override it
+- **No nonce-based CSP** — nonces require server-side generation; use hash-based or external scripts instead
+- **No server-side rate limiting** — any form protection must be client-side or in the backend (Apps Script)
+- **`404.html` at repo root** is automatically served by GitHub Pages for unknown routes
+- **All "build steps"** are optional pre-deploy scripts (Node), not a CI/CD pipeline
+
+## Architecture
+
+- **Pure static site** — vanilla HTML/CSS/JS, no framework, no bundler, no npm dependencies at runtime
+- **ES modules** — JS is split into `js/shared/` (reusable) and `js/pages/{index,artwork}/` (page-specific), loaded via `<script type="module">`
+- **CSS is inline** in each HTML file (index.html ~2,200 lines of CSS, artwork.html and privacy.html have their own copies)
+- **Data** lives in `Data/artworks.json` and `Data/exhibitions.json`, fetched at runtime; JS files contain hardcoded fallback copies
+- **i18n** — custom client-side system using `data-i18n` attributes; translations in per-page `translations.js` files; language stored in `localStorage`
+- **Images** — three tiers in `Data/Lightbox_new/`: `Thumbnails/` (gallery grid), `Preview/` (lightbox), `Original/` (zoom). All WebP, watermarked
+
+## Pages
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Main single-page site: hero, about, nihonga, exhibitions, gallery, contact |
+| `artwork.html` | Individual artwork detail + reservation form (loaded via `?slug=X` or `?id=X`) |
+| `privacy.html` | Privacy policy (static content) |
+
+## Form / Backend
+
+- Reservation form on `artwork.html` submits to a **Google Apps Script** endpoint via POST
+- **Existing spam protections**: honeypot field, button disable on submit, form DOM removal after success, `_timestamp` sent to server for timing validation
+- The Apps Script URL is in client JS — this is inherent to the architecture and acceptable at this site's traffic scale
+
+## Security measures in place
+
+- XSS protection via `escapeHtml()` and `sanitizeUrl()` in `js/shared/utils.js`
+- Content Security Policy via `<meta http-equiv="Content-Security-Policy">` (currently uses `unsafe-inline`)
+- Cookiebot consent management with Google Consent Mode v2
+- Email obfuscation (assembled from parts in JS, not in HTML source)
+- Image right-click/drag prevention (UX deterrent, not true protection — images are watermarked)
+
+## Key technical decisions
+
+- **Scroll-snap disabled on mobile** — causes iOS Safari issues
+- **Parallax disabled on mobile** — via `matchMedia('(max-width: 768px)')`
+- **TDZ risk resolved** — the old inline `<script>` block in index.html had variable ordering issues (functions referencing `let`/`const` before declaration). This was fixed by migrating JS to ES modules where each module has its own scope with variables declared at the top. The `javascript-variable-ordering.mdc` rule is now historical context only.
+- **Exhibition status is computed client-side** from `date_start`/`date_end` fields, not stored statically
+
+## Common pitfalls
+
+1. **Sitemap drift** — `sitemap.xml` is manually maintained and can go out of sync with `artworks.json`. Check for mismatched slugs when adding/removing artworks.
+2. **Fallback data drift** — `gallery.js` and `exhibitions.js` contain hardcoded fallback arrays that must match the JSON files.
+3. **CSS duplication** — style changes must be applied to all three HTML files if they share the same rules (e.g., focus states, CSS variables).
+4. **Gallery click intercept** — gallery items have `href` to `artwork.html` but `click` is intercepted to open lightbox. The detail page is only reachable if a "View Details" link exists in the lightbox (check if this has been added).
