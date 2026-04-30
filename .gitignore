@@ -8,6 +8,9 @@
 # Claude Code
 CLAUDE.md
 
+# Local docs (Image + QR procedures; not committed — same family as CLAUDE.md)
+docs/image-and-qr.md
+
 # Editor directories and files
 .idea/
 .vscode/

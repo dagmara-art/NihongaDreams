@@ -31,7 +31,7 @@ Implications you must remember:
 - **CSS is inline** in each HTML file (index.html ~2,200 lines of CSS, artwork.html and privacy.html have their own copies)
 - **Data** lives in `Data/artworks.json` and `Data/exhibitions.json`, fetched at runtime; JS files contain hardcoded fallback copies
 - **i18n** — custom client-side system using `data-i18n` attributes; translations in per-page `translations.js` files; language stored in `localStorage`
-- **Images** — three tiers in `Data/Lightbox_new/`: `Thumbnails/` (gallery grid), `Preview/` (lightbox), `Original/` (zoom). All WebP, watermarked
+- **Images** — three tiers in `Data/Lightbox_new/`: `Thumbnails/` (gallery grid), `Preview/` (lightbox), `Original/` (zoom). All WebP, watermarked. WebP conversion, section backgrounds, and **QR code generation** for print: see `CLAUDE.md` and `docs/image-and-qr.md` at repo root (both gitignored; not committed).
 
 ## Pages
 

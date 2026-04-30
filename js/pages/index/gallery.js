@@ -3,9 +3,9 @@
 import { trackEvent } from '../../shared/analytics.js';
 
 const fallbackArtworks = [
-    { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren \u4e00 Ichi", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+    { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren \u4e00 Ichi", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "reserved", year: "", series: "Mokuren" },
     { id: "02", slug: "mokuren-ni", filename: "mokuren-ni", title: "Mokuren \u4e8c Ni", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-    { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren \u4e09 San", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
+    { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren \u4e09 San", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "reserved", year: "", series: "Mokuren" },
     { id: "04", slug: "mokuren-ju", filename: "mokuren-ju", title: "Mokuren \u5341 J\u016b", dimensions: "87 \u00d7 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "8 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
     { id: "05", slug: "mokuren-go", filename: "mokuren-go", title: "Mokuren \u4e94 Go", dimensions: "87 \u00d7 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
     { id: "06", slug: "mokuren-roku", filename: "mokuren-roku", title: "Mokuren \u516d Roku", dimensions: "50 \u00d7 20 cm", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
