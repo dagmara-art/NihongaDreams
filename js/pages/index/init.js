@@ -4,11 +4,11 @@ import { createI18n } from '../../shared/i18n.js';
 import { trackEvent } from '../../shared/analytics.js';
 import { getEmail } from '../../shared/utils.js';
 import { initImageProtection } from '../../shared/image-protection.js';
-import { translations } from './translations.js';
+import { translations } from './translations.js?v=lightbox-cta-live-1';
 import { initMobileMenu } from './mobile-menu.js';
 import { initScroll } from './scroll.js';
 import { loadExhibitions, renderExhibitions, closeExhibitionDetail, closeExhibitionPhoto, nextExhibitionPhoto, prevExhibitionPhoto, isExhPhotoActive, isExhDetailActive } from './exhibitions.js';
-import { initGallery, closeLightbox, showNext, showPrev, isLightboxActive } from './gallery.js';
+import { initGallery, closeLightbox, showNext, showPrev, isLightboxActive } from './gallery.js?v=lightbox-cta-live-1';
 
 // i18n setup
 const i18n = createI18n({ translations });

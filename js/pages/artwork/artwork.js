@@ -8,13 +8,38 @@ let artwork = null;
 let allArtworks = [];
 let lightboxAC = null;
 
+function getEntrySource() {
+    const params = new URLSearchParams(window.location.search);
+    const sourceParam = (params.get('src') || '').trim().toLowerCase();
+
+    if (sourceParam === 'lightbox_cta') return 'main_page_lightbox_cta';
+
+    const referrer = document.referrer;
+    if (referrer) {
+        try {
+            const referrerUrl = new URL(referrer);
+            const isSameOrigin = referrerUrl.origin === window.location.origin;
+            const isIndexPage = isSameOrigin && (referrerUrl.pathname === '/' || referrerUrl.pathname.endsWith('/index.html'));
+
+            if (isIndexPage) return 'main_page_other';
+            return isSameOrigin ? 'site_internal' : 'external_referrer';
+        } catch (_) {
+            return 'external_referrer';
+        }
+    }
+
+    if (params.has('id')) return 'direct_or_qr_id';
+    if (params.has('slug')) return 'direct_slug';
+    return 'unknown';
+}
+
 export function getArtwork() {
     return artwork;
 }
 
 export async function loadArtworks({ t, getLang }) {
     try {
-        const response = await fetch('Data/artworks.json');
+        const response = await fetch('Data/artworks.json?v=lightbox-cta-live-1');
         if (!response.ok) throw new Error('Fetch failed');
         allArtworks = await response.json();
     } catch (err) {
@@ -50,6 +75,7 @@ export function renderArtwork({ t, getLang }) {
     }
 
     const art = artwork;
+    const entrySource = getEntrySource();
     document.title = `${art.title} \u2014 Dagmara Dreams of Nihonga`;
 
     const statusKey = (art.status || 'available').toLowerCase();
@@ -175,7 +201,8 @@ export function renderArtwork({ t, getLang }) {
             'artwork_title': art.title,
             'artwork_slug': art.slug || '',
             'artwork_status': statusKey,
-            'language': currentLang
+            'language': currentLang,
+            'entry_source': entrySource
         });
 
         reservationHtml = `
@@ -231,7 +258,7 @@ export function renderArtwork({ t, getLang }) {
 
     // Re-attach listeners
     setupLightbox();
-    setupReservationForm({ t, getLang, artwork });
+    setupReservationForm({ t, getLang, artwork, entrySource });
     updateFooterText({ t, getLang });
 
     trackEventOnce('artwork_view', {
@@ -240,6 +267,7 @@ export function renderArtwork({ t, getLang }) {
         'artwork_status': statusKey,
         'artwork_series': art.series || '',
         'language': currentLang,
+        'entry_source': entrySource,
         'referrer': document.referrer
     });
 }

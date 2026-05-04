@@ -7,7 +7,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQIpIuHUHHwA0x
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
-export function setupReservationForm({ t, getLang, artwork }) {
+export function setupReservationForm({ t, getLang, artwork, entrySource }) {
     const form = document.getElementById('reservation-form');
     if (!form) return;
 
@@ -66,7 +66,8 @@ export function setupReservationForm({ t, getLang, artwork }) {
                 artwork_title: artwork.title,
                 artwork_slug: artwork.slug || '',
                 failed_fields: failedFields,
-                language: currentLang
+                language: currentLang,
+                entry_source: entrySource
             });
             submitBtn.disabled = false;
             return;
@@ -85,7 +86,8 @@ export function setupReservationForm({ t, getLang, artwork }) {
         trackEvent('form_submit_attempt', {
             artwork_title: artwork.title,
             artwork_slug: artwork.slug || '',
-            language: currentLang
+            language: currentLang,
+            entry_source: entrySource
         });
 
         const payload = {
@@ -135,7 +137,8 @@ export function setupReservationForm({ t, getLang, artwork }) {
                 trackEvent('form_submit_success', {
                     artwork_title: artwork.title,
                     artwork_slug: artwork.slug || '',
-                    language: currentLang
+                    language: currentLang,
+                    entry_source: entrySource
                 });
             } else {
                 const serverMsg = (result && result.message) ? 'server_error' : 'non_ok_response';
@@ -162,7 +165,8 @@ export function setupReservationForm({ t, getLang, artwork }) {
             trackEvent('form_submit_error', {
                 artwork_title: artwork.title,
                 error: errorCategory,
-                language: currentLang
+                language: currentLang,
+                entry_source: entrySource
             });
         }
     });

@@ -1,11 +1,11 @@
 // Gallery: load artworks, render grid, lightbox with zoom/pan/swipe
 
-import { trackEvent } from '../../shared/analytics.js';
+import { trackEvent, trackEventAndNavigate } from '../../shared/analytics.js';
 
 const fallbackArtworks = [
-    { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren \u4e00 Ichi", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "reserved", year: "", series: "Mokuren" },
+    { id: "01", slug: "mokuren-ichi", filename: "mokuren-ichi", title: "Mokuren \u4e00 Ichi", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "sold", year: "", series: "Mokuren" },
     { id: "02", slug: "mokuren-ni", filename: "mokuren-ni", title: "Mokuren \u4e8c Ni", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
-    { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren \u4e09 San", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "reserved", year: "", series: "Mokuren" },
+    { id: "03", slug: "mokuren-san", filename: "mokuren-san", title: "Mokuren \u4e09 San", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "sold", year: "", series: "Mokuren" },
     { id: "04", slug: "mokuren-ju", filename: "mokuren-ju", title: "Mokuren \u5341 J\u016b", dimensions: "87 \u00d7 60 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "8 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
     { id: "05", slug: "mokuren-go", filename: "mokuren-go", title: "Mokuren \u4e94 Go", dimensions: "87 \u00d7 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
     { id: "06", slug: "mokuren-roku", filename: "mokuren-roku", title: "Mokuren \u516d Roku", dimensions: "50 \u00d7 20 cm", paper: "Japanese paper Mitsumata Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Mokuren" },
@@ -29,7 +29,7 @@ const fallbackArtworks = [
     { id: "24", slug: "suiren-roku", filename: "suiren-roku", title: "Suiren \u516d Roku", dimensions: "40 \u00d7 30 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 000 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
     { id: "25", slug: "suiren-go", filename: "suiren-go", title: "Suiren \u4e94 Go", dimensions: "42 \u00d7 30 cm", paper: "Japanese paper Torinoko Gampi", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Suiren" },
     { id: "26", slug: "yuri-ni", filename: "yuri-ni", title: "Yuri \u4e8c Ni", dimensions: "87 \u00d7 60 cm", paper: "Japanese paper Shiromashi", priceDisplay: "7 000 PLN", currency: "PLN", status: "available", year: "", series: "Yuri" },
-    { id: "27", slug: "shidare-1", filename: "shidare-1", title: "Shidare 1", dimensions: "50 \u00d7 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
+    { id: "27", slug: "shidare-1", filename: "shidare-1", title: "Shidare 1", dimensions: "50 \u00d7 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "sold", year: "", series: "Shidare" },
     { id: "28", slug: "shidare-2", filename: "shidare-2", title: "Shidare 2", dimensions: "50 \u00d7 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
     { id: "29", slug: "shidare-3", filename: "shidare-3", title: "Shidare 3", dimensions: "50 \u00d7 50 cm", paper: "Japanese paper Kumohada-mashi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
     { id: "30", slug: "shidare-5", filename: "shidare-5", title: "Shidare 5", dimensions: "50 \u00d7 50 cm", paper: "Japanese paper Tosa-washi", priceDisplay: "2 500 PLN", currency: "PLN", status: "available", year: "", series: "Shidare" },
@@ -72,6 +72,7 @@ let translateY = 0;
 
 // DOM references (set in init)
 let gallery, lightbox, lightboxImage, lightboxPlaceholder, lightboxContainer, lightboxLoader, closeBtn, prevBtn, nextBtn;
+let lightboxCta, lightboxCtaButton;
 
 function resetZoom() {
     zoomLevel = 1;
@@ -107,8 +108,42 @@ function updateLightboxImage({ translations, getLang }) {
         paperText = `${translations[currentLang]['lightbox.japanesePaper']} ${paperName}`;
     }
     document.getElementById('caption-paper').textContent = paperText;
+    updateLightboxCta(artwork, { translations, getLang });
 
     resetZoom();
+}
+
+function updateLightboxCta(artwork, { translations, getLang }) {
+    if (!lightboxCta || !lightboxCtaButton) return;
+
+    const statusKey = (artwork?.status || 'available').toLowerCase();
+    const shouldShow = artwork && statusKey === 'available';
+
+    if (!shouldShow) {
+        lightboxCtaButton.href = '#';
+        lightboxCtaButton.removeAttribute('aria-label');
+        lightboxCta.hidden = true;
+        return;
+    }
+
+    const detailParams = new URLSearchParams();
+    if (artwork.slug) detailParams.set('slug', artwork.slug);
+    else detailParams.set('id', artwork.id);
+    detailParams.set('src', 'lightbox_cta');
+    const href = `artwork.html?${detailParams.toString()}`;
+    const currentLang = getLang();
+    const activeTranslations = translations[currentLang] || translations.en;
+    const ctaLabel = activeTranslations['lightbox.ctaButton']
+        || translations.en['lightbox.ctaButton']
+        || 'Make me yours';
+    const ctaAria = (activeTranslations['lightbox.ctaAria']
+        || translations.en['lightbox.ctaAria']
+        || 'Open inquiry page for {title}').replace('{title}', artwork.title);
+
+    lightboxCtaButton.href = href;
+    lightboxCtaButton.textContent = ctaLabel;
+    lightboxCtaButton.setAttribute('aria-label', ctaAria);
+    lightboxCta.hidden = false;
 }
 
 function prefetchAdjacentImages() {
@@ -220,10 +255,12 @@ export async function initGallery({ translations, getLang }) {
     closeBtn = document.querySelector('.lightbox-close');
     prevBtn = document.querySelector('.lightbox-prev');
     nextBtn = document.querySelector('.lightbox-next');
+    lightboxCta = document.getElementById('lightbox-cta');
+    lightboxCtaButton = document.getElementById('lightbox-cta-button');
 
     // Load artworks
     try {
-        const response = await fetch('Data/artworks.json');
+        const response = await fetch('Data/artworks.json?v=lightbox-cta-live-1');
         if (!response.ok) throw new Error('Fetch failed');
         artworks = await response.json();
     } catch (error) {
@@ -370,6 +407,30 @@ export async function initGallery({ translations, getLang }) {
     closeBtn.addEventListener('click', closeLightbox);
     prevBtn.addEventListener('click', showPrev);
     nextBtn.addEventListener('click', showNext);
+
+    if (lightboxCtaButton) {
+        lightboxCtaButton.addEventListener('click', (e) => {
+            const artwork = artworks[currentIndex];
+            if (!artwork) return;
+
+            const isModifiedClick = e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+            const eventParams = {
+                'artwork_slug': artwork.slug || '',
+                'artwork_title': artwork.title,
+                'artwork_status': (artwork.status || 'available').toLowerCase(),
+                'language': _ctx?.getLang?.() || 'en',
+                'source_page': 'index_lightbox'
+            };
+
+            if (isModifiedClick) {
+                trackEvent('lightbox_cta_click', eventParams);
+                return;
+            }
+
+            e.preventDefault();
+            trackEventAndNavigate('lightbox_cta_click', eventParams, lightboxCtaButton.href);
+        });
+    }
 
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
