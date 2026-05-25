@@ -44,7 +44,7 @@ const fallbackArtworks = [
     { id: "39", slug: "hanafubuki-3", filename: "hanafubuki-3", title: "Hanafubuki 3 \u4e09\u756a", dimensions: "140 \u00d7 100 cm", paper: "Japanese paper Torinoko", priceDisplay: "10 000 PLN", currency: "PLN", status: "available", year: "", series: "Hanafubuki" },
     { id: "40", slug: "hanafubuki-5", filename: "hanafubuki-5", title: "Hanafubuki 5 \u4e94\u756a", dimensions: "140 \u00d7 100 cm", paper: "Japanese paper Torinoko", priceDisplay: "10 000 PLN", currency: "PLN", status: "available", year: "", series: "Hanafubuki" },
     { id: "41", slug: "hanafubuki-6", filename: "hanafubuki-6", title: "Hanafubuki 6 \u516d\u756a", dimensions: "140 \u00d7 100 cm", paper: "Japanese paper Torinoko", priceDisplay: "10 000 PLN", currency: "PLN", status: "available", year: "", series: "Hanafubuki" },
-    { id: "42", slug: "tsubaki-5", filename: "tsubaki-5", title: "Tsubaki 5 \u4e94\u756a", dimensions: "42 \u00d7 30 cm", paper: "Japanese paper Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
+    { id: "42", slug: "tsubaki-5", filename: "tsubaki-5", title: "Tsubaki 5 \u4e94\u756a", dimensions: "42 \u00d7 30 cm", paper: "Japanese paper Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "sold", year: "", series: "Tsubaki" },
     { id: "43", slug: "tsubaki-6", filename: "tsubaki-6", title: "Tsubaki 6 \u516d\u756a", dimensions: "42 \u00d7 30 cm", paper: "Japanese paper Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
     { id: "44", slug: "tsubaki-7", filename: "tsubaki-7", title: "Tsubaki 7 \u4e03\u756a", dimensions: "42 \u00d7 30 cm", paper: "Japanese paper Torinoko", priceDisplay: "1 500 PLN", currency: "PLN", status: "available", year: "", series: "Tsubaki" },
     { id: "45", slug: "kohaku-1", filename: "kohaku-1", title: "Kohaku 1 \u4e00\u756a", dimensions: "100 \u00d7 140 cm", paper: "Japanese paper Torinoko", priceDisplay: "10 000 PLN", currency: "PLN", status: "available", year: "", series: "Kohaku" },
@@ -71,8 +71,12 @@ let translateX = 0;
 let translateY = 0;
 
 // DOM references (set in init)
-let gallery, lightbox, lightboxImage, lightboxPlaceholder, lightboxContainer, lightboxLoader, closeBtn, prevBtn, nextBtn;
+let gallery, lightbox, lightboxImage, lightboxPlaceholder, lightboxContainer, lightboxLoader, lightboxSoldRibbon, closeBtn, prevBtn, nextBtn;
 let lightboxCta, lightboxCtaButton;
+
+function shouldShowSoldRibbon(artwork) {
+    return (artwork?.status || '').toLowerCase() === 'sold';
+}
 
 function resetZoom() {
     zoomLevel = 1;
@@ -109,6 +113,10 @@ function updateLightboxImage({ translations, getLang }) {
     }
     document.getElementById('caption-paper').textContent = paperText;
     updateLightboxCta(artwork, { translations, getLang });
+    lightboxContainer.classList.toggle('has-sold-ribbon', shouldShowSoldRibbon(artwork));
+    if (lightboxSoldRibbon) {
+        lightboxSoldRibbon.hidden = !shouldShowSoldRibbon(artwork);
+    }
 
     resetZoom();
 }
@@ -252,6 +260,7 @@ export async function initGallery({ translations, getLang }) {
     lightboxPlaceholder = document.getElementById('lightbox-placeholder');
     lightboxContainer = document.getElementById('lightbox-container');
     lightboxLoader = document.getElementById('lightbox-loader');
+    lightboxSoldRibbon = document.getElementById('lightbox-sold-ribbon');
     closeBtn = document.querySelector('.lightbox-close');
     prevBtn = document.querySelector('.lightbox-prev');
     nextBtn = document.querySelector('.lightbox-next');

@@ -1408,6 +1408,59 @@
             transform: scale(1.08);
         }
 
+        .sold-ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 4;
+            width: 8.75rem;
+            height: 8.75rem;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .sold-ribbon__text {
+            position: absolute;
+            top: 1.95rem;
+            right: -3.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 12rem;
+            box-sizing: border-box;
+            padding: 0.42rem 0;
+            transform: rotate(45deg);
+            transform-origin: center;
+            border-top: 1px solid rgba(255, 246, 218, 0.48);
+            border-bottom: 1px solid rgba(74, 10, 10, 0.52);
+            background:
+                linear-gradient(180deg, rgba(178, 45, 35, 0.98) 0%, rgba(112, 19, 19, 0.98) 100%);
+            box-shadow:
+                0 5px 14px rgba(0, 0, 0, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.22);
+            color: #fff7e6;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            text-shadow: 0 1px 1px rgba(45, 7, 7, 0.5);
+        }
+
+        .lightbox-image-container .sold-ribbon {
+            top: 0;
+            right: 0;
+            z-index: 11;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .lightbox-image-container.has-sold-ribbon .sold-ribbon {
+            opacity: 1;
+        }
+
         /* Loading skeleton animation */
         .gallery-item::before {
             content: '';
@@ -1488,6 +1541,7 @@
                 overflow-y: visible;
                 padding: 0.75rem;
             }
+
         }
 
         /* Lightbox */
@@ -1587,7 +1641,7 @@
         .lightbox-close {
             position: absolute;
             top: 0.5rem;
-            right: 0.5rem;
+            right: -3.6rem;
             background: rgba(0, 0, 0, 0.5);
             border: none;
             color: white;
@@ -1775,6 +1829,10 @@
         @media (max-width: 768px) {
             .lightbox-nav {
                 display: none;
+            }
+            .lightbox-close {
+                top: -3rem;
+                right: 0;
             }
             .lightbox-zoom-hint {
                 display: none;
@@ -2545,6 +2603,9 @@
                 <div class="lightbox-loader" id="lightbox-loader"></div>
                 <img src="" alt="" class="lightbox-placeholder" id="lightbox-placeholder">
                 <img src="" alt="" class="lightbox-image" id="lightbox-image">
+                <span class="sold-ribbon" id="lightbox-sold-ribbon" aria-hidden="true">
+                    <span class="sold-ribbon__text">売約済 / SOLD</span>
+                </span>
             </div>
             <button class="lightbox-nav lightbox-next" aria-label="Next image">&#8250;</button>
             <div class="lightbox-caption" id="lightbox-caption" aria-live="polite">

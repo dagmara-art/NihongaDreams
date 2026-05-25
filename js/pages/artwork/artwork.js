@@ -107,6 +107,7 @@ export function renderArtwork({ t, getLang }) {
     const safeDimensions = escapeHtml(art.dimensions);
     const safeYear = escapeHtml(art.year);
     const safeStatusLabel = escapeHtml(statusLabels[statusKey] || statusLabels.available);
+    const showSoldRibbon = statusKey === 'sold';
 
     let detailsHtml = `
         <span class="detail-label">${escapeHtml(t('artwork.dimensions'))}</span>
@@ -230,6 +231,7 @@ export function renderArtwork({ t, getLang }) {
                  alt="${safeArtTitle} \u2014 Nihonga painting"
                  id="artwork-main-image"
                  data-fullsrc="Data/Lightbox_new/Original/${safeArtFilename}.webp">
+            ${showSoldRibbon ? '<span class="sold-ribbon" aria-hidden="true"><span class="sold-ribbon__text">売約済 / SOLD</span></span>' : ''}
         </div>
         <div class="image-hint">${escapeHtml(t('artwork.tapToEnlarge'))}</div>
 
@@ -280,7 +282,14 @@ function setupLightbox() {
     const trigger = document.getElementById('artwork-image-trigger');
     const lightbox = document.getElementById('artwork-lightbox');
     const lightboxImg = document.getElementById('lightbox-full-image');
+    const lightboxSoldRibbon = document.getElementById('artwork-lightbox-sold-ribbon');
     const closeBtn = lightbox.querySelector('.artwork-lightbox-close');
+    const showSoldRibbon = (artwork?.status || '').toLowerCase() === 'sold';
+
+    lightbox.classList.toggle('has-sold-ribbon', showSoldRibbon);
+    if (lightboxSoldRibbon) {
+        lightboxSoldRibbon.hidden = !showSoldRibbon;
+    }
 
     if (!trigger) return;
 

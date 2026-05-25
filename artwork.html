@@ -306,6 +306,47 @@
             z-index: 1;
         }
 
+        .sold-ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
+            width: 8.75rem;
+            height: 8.75rem;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .sold-ribbon__text {
+            position: absolute;
+            top: 1.95rem;
+            right: -3.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 12rem;
+            box-sizing: border-box;
+            padding: 0.42rem 0;
+            transform: rotate(45deg);
+            transform-origin: center;
+            border-top: 1px solid rgba(255, 246, 218, 0.48);
+            border-bottom: 1px solid rgba(74, 10, 10, 0.52);
+            background:
+                linear-gradient(180deg, rgba(178, 45, 35, 0.98) 0%, rgba(112, 19, 19, 0.98) 100%);
+            box-shadow:
+                0 5px 14px rgba(0, 0, 0, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.22);
+            color: #fff7e6;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            text-shadow: 0 1px 1px rgba(45, 7, 7, 0.5);
+        }
+
         .image-hint {
             text-align: center;
             font-size: 0.7rem;
@@ -644,6 +685,18 @@
             display: flex;
         }
 
+        .artwork-lightbox .sold-ribbon {
+            top: 0;
+            right: 0;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .artwork-lightbox.has-sold-ribbon .sold-ribbon {
+            opacity: 1;
+        }
+
         .artwork-lightbox img {
             max-width: 95vw;
             max-height: 95vh;
@@ -685,6 +738,10 @@
 
         .artwork-lightbox-close {
             z-index: 2;
+        }
+
+        .artwork-lightbox.has-sold-ribbon .artwork-lightbox-close {
+            right: 10rem;
         }
 
         /* Responsive */
@@ -757,6 +814,9 @@
     <div class="artwork-lightbox" id="artwork-lightbox" role="dialog" aria-label="Fullscreen image" aria-hidden="true">
         <button class="artwork-lightbox-close" aria-label="Close fullscreen">&times;</button>
         <img src="" alt="" id="lightbox-full-image">
+        <span class="sold-ribbon" id="artwork-lightbox-sold-ribbon" aria-hidden="true">
+            <span class="sold-ribbon__text">売約済 / SOLD</span>
+        </span>
     </div>
 
     <!-- Footer -->
