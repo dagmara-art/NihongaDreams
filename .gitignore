@@ -10,6 +10,10 @@ CLAUDE.md
 
 # Local docs (Image + QR procedures; not committed — same family as CLAUDE.md)
 docs/image-and-qr.md
+docs/presentation-mode-implementation.md
+
+# Scripts
+generate_presentations.py
 
 # Editor directories and files
 .idea/
