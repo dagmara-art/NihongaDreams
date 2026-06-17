@@ -86,7 +86,7 @@ test.describe('Language toggle', () => {
 
 test.describe('Reservation form validation', () => {
     test('blocks submission with empty fields and surfaces field errors', async ({ page }) => {
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
         await expect(page.locator('#reservation-form')).toBeVisible();
 
         // Pre-fill nothing; click submit.
@@ -101,7 +101,7 @@ test.describe('Reservation form validation', () => {
     });
 
     test('rejects an invalid email address', async ({ page }) => {
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
         await expect(page.locator('#reservation-form')).toBeVisible();
 
         await page.fill('#rf-name', 'Test User');
@@ -114,7 +114,7 @@ test.describe('Reservation form validation', () => {
     });
 
     test('honeypot field is hidden from real users', async ({ page }) => {
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
         await expect(page.locator('#reservation-form')).toBeVisible();
 
         const hp = page.locator('#rf-website');
@@ -134,7 +134,7 @@ test.describe('Reservation form validation', () => {
     });
 
     test('_timestamp hidden field is populated for spam timing check', async ({ page }) => {
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
         await expect(page.locator('#reservation-form')).toBeVisible();
         const ts = await page.locator('input[name="_timestamp"]').inputValue();
         expect(Number(ts)).toBeGreaterThan(1_700_000_000_000);
@@ -150,7 +150,7 @@ test.describe('Reservation form validation', () => {
             });
         });
 
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
         await expect(page.locator('#reservation-form')).toBeVisible();
 
         await page.fill('#rf-name', 'Playwright Tester');
@@ -167,7 +167,7 @@ test.describe('Reservation form validation', () => {
         expect(payload.name).toBe('Playwright Tester');
         expect(payload.email).toBe('tester@example.com');
         expect(payload.consent).toBe(true);
-        expect(payload.artworkSlug).toBe('mokuren-ichi');
+        expect(payload.artworkSlug).toBe('mokuren-ni');
 
         // After success, the form children are hidden (per implementation).
         await expect(page.locator('.form-status.success')).toBeVisible();

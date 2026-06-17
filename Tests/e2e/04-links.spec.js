@@ -65,8 +65,8 @@ test.describe('Link / asset integrity', () => {
         ).toEqual([]);
     });
 
-    test('artwork.html (mokuren-ichi): every local link and image resolves', async ({ page }) => {
-        const missing = await checkPageLinks(page, '/artwork.html?slug=mokuren-ichi');
+    test('artwork.html (mokuren-ni): every local link and image resolves', async ({ page }) => {
+        const missing = await checkPageLinks(page, '/artwork.html?slug=mokuren-ni');
         expect(
             missing,
             `Missing assets referenced by artwork.html:\n${missing.map((m) => `  [${m.kind}] ${m.value}`).join('\n')}`
@@ -81,7 +81,7 @@ test.describe('Link / asset integrity', () => {
         ).toEqual([]);
     });
 
-    test('every artwork in artworks.json has all 3 image variants on disk', async ({ request }) => {
+    test('every artwork in artworks.json has required and optional image variants on disk', async ({ request }) => {
         const resp = await request.get('/Data/artworks.json');
         expect(resp.ok()).toBeTruthy();
         const arts = await resp.json();
@@ -92,10 +92,32 @@ test.describe('Link / asset integrity', () => {
                 const p = path.join(ROOT, 'Data', 'Lightbox_new', folder, `${a.filename}.webp`);
                 if (!fs.existsSync(p)) missing.push(`${folder}/${a.filename}.webp`);
             }
+            if (a.presentationFilename) {
+                const p = path.join(ROOT, 'Data', 'Lightbox_new', 'Presentation', `${a.presentationFilename}.webp`);
+                if (!fs.existsSync(p)) missing.push(`Presentation/${a.presentationFilename}.webp`);
+            }
         }
         expect(
             missing,
             `Artworks.json references images that don't exist on disk:\n${missing.join('\n')}`
+        ).toEqual([]);
+    });
+
+    test('optional presentation image variants exist on disk', async ({ request }) => {
+        const resp = await request.get('/Data/artworks.json');
+        expect(resp.ok()).toBeTruthy();
+        const arts = await resp.json();
+
+        const missing = [];
+        for (const a of arts) {
+            if (!a.presentationFilename) continue;
+            const p = path.join(ROOT, 'Data', 'Lightbox_new', 'Presentation', `${a.presentationFilename}.webp`);
+            if (!fs.existsSync(p)) missing.push(`Presentation/${a.presentationFilename}.webp`);
+        }
+
+        expect(
+            missing,
+            `Artworks.json references presentation images that don't exist on disk:\n${missing.join('\n')}`
         ).toEqual([]);
     });
 

@@ -58,7 +58,7 @@ test.describe('External link safety', () => {
         expect(offendersIndex, `target=_blank without rel=noopener on index.html:\n${offendersIndex.join('\n')}`)
             .toEqual([]);
 
-        const offendersArtwork = await checkOnPage('/artwork.html?slug=mokuren-ichi');
+        const offendersArtwork = await checkOnPage('/artwork.html?slug=mokuren-ni');
         expect(offendersArtwork).toEqual([]);
     });
 });
@@ -115,7 +115,7 @@ test.describe('XSS hardening (escapeHtml / sanitizeUrl)', () => {
     test('XSS payload in artwork title is rendered as text, not HTML, on artwork.html', async ({ page }) => {
         // Inject a poisoned dataset before the page-level fetch resolves.
         const poisonedSlug = 'xss-test-slug-' + Date.now();
-        await page.route('**/Data/artworks.json', async (route) => {
+        await page.route('**/Data/artworks.json*', async (route) => {
             await route.fulfill({
                 status: 200,
                 contentType: 'application/json',

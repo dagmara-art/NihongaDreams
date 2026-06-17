@@ -1627,6 +1627,11 @@
             z-index: 2;
         }
 
+        .lightbox-image-container.has-presentation-image:not(.zoomed) .lightbox-image {
+            max-height: 72vh;
+            max-height: 72dvh;
+        }
+
         .lightbox-image-container.zoomed .lightbox-image {
             max-width: none;
             max-height: none;
@@ -1785,6 +1790,7 @@
             animation: lightbox-spin 0.8s linear infinite;
             z-index: 5;
             opacity: 0;
+            pointer-events: none;
             transition: opacity 0.2s ease;
         }
 
@@ -1842,6 +1848,10 @@
                 max-width: 95vw;
                 max-height: 70vh;
                 max-height: 70dvh;
+            }
+            .lightbox-image-container.has-presentation-image:not(.zoomed) .lightbox-image {
+                max-height: 60vh;
+                max-height: 60dvh;
             }
             .lightbox-caption {
                 margin-top: 1rem;

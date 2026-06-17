@@ -61,6 +61,53 @@ test.describe('Render: index.html', () => {
         await expect(firstItem.locator('img')).toHaveAttribute('alt', /.+/);
     });
 
+    test('Shidare 1 opens with presentation image and zooms to original', async ({ page }) => {
+        await page.goto('/index.html');
+        await expect(page.locator('#gallery .gallery-item').first()).toBeVisible({ timeout: 10_000 });
+
+        const shidare = page.locator('#gallery .gallery-item[aria-label="View Shidare 1"]');
+        await page.locator('#catalog').scrollIntoViewIfNeeded();
+        await shidare.scrollIntoViewIfNeeded();
+        await expect(shidare.locator('img')).toHaveAttribute(
+            'src',
+            /Data\/Lightbox_new\/Thumbnails\/shidare-1\.webp$/
+        );
+
+        // The gallery's layered hover layout can intercept hit-testing after
+        // scrollIntoView; dispatch directly to test the lightbox handler.
+        await shidare.dispatchEvent('click');
+
+        const lightbox = page.locator('#lightbox');
+        const lightboxContainer = page.locator('#lightbox-container');
+        const lightboxImage = page.locator('#lightbox-image');
+
+        await expect(lightbox).toHaveClass(/active/);
+        await expect(lightboxImage).toHaveAttribute(
+            'src',
+            /Data\/Lightbox_new\/Presentation\/shidare-1\.webp$/
+        );
+        await expect(page.locator('#caption-title')).toHaveText('Shidare 1');
+        await expect(page.locator('#caption-dimensions')).toHaveText('50 × 50 cm');
+        await expect(page.locator('#caption-paper')).toHaveText('Japanese paper Kumohada-mashi');
+        await expect(page.locator('#lightbox-cta')).toBeHidden();
+        await expect(lightboxContainer).toHaveClass(/has-sold-ribbon/);
+        await expect(page.locator('#lightbox-sold-ribbon')).toBeVisible();
+
+        await lightboxContainer.dispatchEvent('click');
+        await expect(lightboxContainer).toHaveClass(/zoomed/);
+        await expect(lightboxImage).toHaveAttribute(
+            'src',
+            /Data\/Lightbox_new\/Original\/shidare-1\.webp$/
+        );
+
+        await lightboxContainer.dispatchEvent('click');
+        await expect(lightboxContainer).not.toHaveClass(/zoomed/);
+        await expect(lightboxImage).toHaveAttribute(
+            'src',
+            /Data\/Lightbox_new\/Presentation\/shidare-1\.webp$/
+        );
+    });
+
     test('exhibitions section renders cards', async ({ page }) => {
         await page.goto('/index.html');
 
@@ -90,12 +137,12 @@ test.describe('Render: artwork.html', () => {
         const errors = collectConsoleErrors(page);
 
         // Pick a slug we know has images shipped.
-        await page.goto('/artwork.html?slug=mokuren-ichi');
+        await page.goto('/artwork.html?slug=mokuren-ni');
 
         await expect(page.locator('.artwork-title')).toContainText(/Mokuren/i);
         await expect(page.locator('#artwork-main-image')).toHaveAttribute(
             'src',
-            /Data\/Lightbox_new\/Preview\/mokuren-ichi\.webp$/
+            /Data\/Lightbox_new\/Preview\/mokuren-ni\.webp$/
         );
         await expect(page.locator('.status-badge')).toBeVisible();
         await expect(page.locator('.artwork-details')).toBeVisible();
