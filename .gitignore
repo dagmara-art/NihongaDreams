@@ -11,6 +11,7 @@ CLAUDE.md
 # Local docs (Image + QR procedures; not committed — same family as CLAUDE.md)
 docs/image-and-qr.md
 docs/presentation-mode-implementation.md
+docs/security-notes.md
 
 # Scripts
 generate_presentations.py
@@ -38,6 +39,9 @@ qr-codes/
 # Node / npm (dev tooling for the test suite — site itself has no runtime deps)
 node_modules/
 npm-debug.log*
+
+# Python cache
+__pycache__/
 
 # Playwright artifacts (kept out of git; specs themselves live in Tests/ and ARE tracked)
 Tests/playwright-report/

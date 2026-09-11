@@ -4,11 +4,12 @@ import { createI18n } from '../../shared/i18n.js';
 import { trackEvent } from '../../shared/analytics.js';
 import { getEmail } from '../../shared/utils.js';
 import { initImageProtection } from '../../shared/image-protection.js';
-import { translations } from './translations.js?v=lightbox-cta-live-1';
+import { ASSET_VERSION } from '../../shared/version.js';
+import { translations } from './translations.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initScroll } from './scroll.js';
 import { loadExhibitions, renderExhibitions, closeExhibitionDetail, closeExhibitionPhoto, nextExhibitionPhoto, prevExhibitionPhoto, isExhPhotoActive, isExhDetailActive } from './exhibitions.js';
-import { initGallery, closeLightbox, showNext, showPrev, isLightboxActive } from './gallery.js?v=lightbox-cta-live-1';
+import { initGallery, closeLightbox, showNext, showPrev, isLightboxActive } from './gallery.js';
 
 // i18n setup
 const i18n = createI18n({ translations });
@@ -16,13 +17,12 @@ const i18n = createI18n({ translations });
 // Context object passed to exhibitions and gallery
 const ctx = { getLang: i18n.getLang, translations };
 
-// Wire language change to update DOM and re-render exhibitions
-i18n.setOnLanguageChange((lang) => {
-    // Update all translatable elements
+function applyTranslations(lang) {
+    const dict = translations[lang] || translations.en;
     const currentYear = new Date().getFullYear();
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        let translation = translations[lang][key];
+        let translation = dict[key];
         if (translation) {
             translation = translation.replace('{year}', currentYear);
             if (el.hasAttribute('data-i18n-html')) {
@@ -32,8 +32,11 @@ i18n.setOnLanguageChange((lang) => {
             }
         }
     });
+}
 
-    // Re-render exhibitions with new language
+// Wire language change to update DOM and re-render exhibitions
+i18n.setOnLanguageChange((lang) => {
+    applyTranslations(lang);
     const activeYearBtn = document.querySelector('.exhibitions-year-btn.active');
     renderExhibitions(activeYearBtn ? activeYearBtn.dataset.year : null, ctx);
 });
@@ -50,25 +53,14 @@ langToggle.addEventListener('click', () => {
     });
 });
 
-// Initialize language (triggers setLanguage -> onLanguageChange -> DOM update)
+// initLanguage sets lang without calling onLanguageChange — translate manually.
 i18n.initLanguage();
-// Run initial DOM translation since initLanguage sets lang without calling onLanguageChange for default 'en'
-const initialLang = i18n.getLang();
-const currentYear = new Date().getFullYear();
-document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    let translation = translations[initialLang][key];
-    if (translation) {
-        translation = translation.replace('{year}', currentYear);
-        if (el.hasAttribute('data-i18n-html')) {
-            el.innerHTML = translation;
-        } else {
-            el.textContent = translation;
-        }
-    }
-});
+applyTranslations(i18n.getLang());
 
-// Reveal animations via IntersectionObserver
+// Reveal animations via IntersectionObserver. rootMargin includes elements that
+// are already on screen at load — they fire immediately. Top margin equal to
+// viewport height covers initial-hash deep-links so reveals along the route
+// don't sit hidden until the user scrolls.
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -76,33 +68,9 @@ const revealObserver = new IntersectionObserver((entries) => {
             revealObserver.unobserve(entry.target);
         }
     });
-}, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
+}, { rootMargin: '100% 0px -100px 0px', threshold: 0 });
 
-function activateVisibleReveals() {
-    const scrollY = window.scrollY;
-    const viewportBottom = scrollY + window.innerHeight;
-    document.querySelectorAll('.reveal:not(.active)').forEach(el => {
-        const elTop = el.getBoundingClientRect().top + scrollY;
-        if (elTop < viewportBottom + 100) {
-            el.classList.add('active');
-            revealObserver.unobserve(el);
-        } else {
-            revealObserver.observe(el);
-        }
-    });
-}
-
-activateVisibleReveals();
-setTimeout(activateVisibleReveals, 100);
-if (window.location.hash) {
-    setTimeout(activateVisibleReveals, 400);
-    setTimeout(activateVisibleReveals, 800);
-}
-
-window.addEventListener('hashchange', () => {
-    setTimeout(activateVisibleReveals, 100);
-    setTimeout(activateVisibleReveals, 500);
-});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // Section view analytics
 const trackedSections = new Set();

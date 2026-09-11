@@ -5,8 +5,6 @@ import { getEmail } from '../../shared/utils.js';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQIpIuHUHHwA0xiK3lJ21B-wiHdwqTkiaDmBQv-I8W9c9W5D3Cp4Pxl_y7YvF1QIFrpg/exec';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-
 export function setupReservationForm({ t, getLang, artwork, entrySource }) {
     const form = document.getElementById('reservation-form');
     if (!form) return;
@@ -17,7 +15,9 @@ export function setupReservationForm({ t, getLang, artwork, entrySource }) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Prevent double-submit
+        // Honeypot first — silent return before any UI/analytics side effects.
+        if (form.querySelector('[name="website"]').value) return;
+
         const submitBtn = document.getElementById('form-submit-btn');
         if (submitBtn.disabled) return;
         submitBtn.disabled = true;
@@ -32,36 +32,34 @@ export function setupReservationForm({ t, getLang, artwork, entrySource }) {
         const consentError = document.getElementById('rf-consent-error');
         if (consentError) consentError.style.display = 'none';
 
-        // Validate
+        // Browser-native validation via checkValidity() — covers required + email format.
         const nameField = form.querySelector('[name="name"]');
         const emailField = form.querySelector('[name="email"]');
         const consentField = form.querySelector('[name="consent"]');
-        let valid = true;
 
-        if (!nameField.value.trim()) {
+        const nameOk = nameField.checkValidity() && nameField.value.trim() !== '';
+        const emailOk = emailField.checkValidity() && emailField.value.trim() !== '';
+        const consentOk = consentField.checked;
+        const valid = nameOk && emailOk && consentOk;
+
+        if (!nameOk) {
             nameField.closest('.form-field').classList.add('form-field-error');
             nameField.setAttribute('aria-invalid', 'true');
-            valid = false;
         }
-        if (!emailField.value.trim() || !EMAIL_REGEX.test(emailField.value)) {
+        if (!emailOk) {
             emailField.closest('.form-field').classList.add('form-field-error');
             emailField.setAttribute('aria-invalid', 'true');
-            valid = false;
         }
-        if (!consentField.checked) {
+        if (!consentOk) {
             if (consentWrapper) consentWrapper.classList.add('form-consent-error');
             consentField.setAttribute('aria-invalid', 'true');
             if (consentError) consentError.style.display = 'block';
             consentField.focus();
-            valid = false;
         }
 
         if (!valid) {
-            const failedFields = [
-                !nameField.value.trim() ? 'name' : '',
-                (!emailField.value.trim() || !EMAIL_REGEX.test(emailField.value)) ? 'email' : '',
-                !consentField.checked ? 'consent' : ''
-            ].filter(Boolean).join(',');
+            const failedFields = [!nameOk && 'name', !emailOk && 'email', !consentOk && 'consent']
+                .filter(Boolean).join(',');
             trackEvent('form_validation_failure', {
                 artwork_title: artwork.title,
                 artwork_slug: artwork.slug || '',
@@ -72,9 +70,6 @@ export function setupReservationForm({ t, getLang, artwork, entrySource }) {
             submitBtn.disabled = false;
             return;
         }
-
-        // Honeypot check
-        if (form.querySelector('[name="website"]').value) return;
 
         const statusEl = document.getElementById('form-status');
 

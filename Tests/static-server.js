@@ -6,10 +6,10 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const url = require('url');
 
 const PORT = Number(process.env.PORT || 8765);
 const ROOT = path.resolve(__dirname, '..'); // repo root (Tests/ -> ..)
+const ROOT_PREFIX = ROOT + path.sep;
 
 const MIME = {
     '.html': 'text/html; charset=utf-8',
@@ -30,11 +30,19 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-    const parsed = url.parse(req.url);
-    let pathname = decodeURIComponent(parsed.pathname || '/');
+    let pathname;
+    try {
+        const parsed = new URL(req.url, `http://${req.headers.host || '127.0.0.1'}`);
+        pathname = decodeURIComponent(parsed.pathname || '/');
+    } catch (_) {
+        res.writeHead(400); res.end('Bad Request'); return;
+    }
     if (pathname.endsWith('/')) pathname += 'index.html';
-    const filePath = path.join(ROOT, pathname);
-    if (!filePath.startsWith(ROOT)) {
+    // Resolve to a normalized absolute path, then re-check containment.
+    // path.join alone collapses ../ but encoded forms decode after, so we
+    // normalize *after* decode and require the resolved path to be inside ROOT.
+    const filePath = path.resolve(ROOT, '.' + pathname);
+    if (filePath !== ROOT && !filePath.startsWith(ROOT_PREFIX)) {
         res.writeHead(403); res.end('Forbidden'); return;
     }
     fs.stat(filePath, (err, stat) => {

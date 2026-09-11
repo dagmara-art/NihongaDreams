@@ -93,6 +93,7 @@ test.describe('XSS hardening (escapeHtml / sanitizeUrl)', () => {
                 jsSpaces: m.sanitizeUrl('  javascript:alert(1)'),
                 data: m.sanitizeUrl('data:text/html,<script>alert(1)</script>'),
                 vb: m.sanitizeUrl('vbscript:msgbox(1)'),
+                file: m.sanitizeUrl('file:///etc/passwd'),
                 http: m.sanitizeUrl('http://example.com/x'),
                 https: m.sanitizeUrl('https://example.com/x'),
                 rel: m.sanitizeUrl('Data/foo.webp'),
@@ -105,6 +106,7 @@ test.describe('XSS hardening (escapeHtml / sanitizeUrl)', () => {
         expect(out.jsSpaces).toBe('#');
         expect(out.data).toBe('#');
         expect(out.vb).toBe('#');
+        expect(out.file).toBe('#');
         expect(out.http).toBe('http://example.com/x');
         expect(out.https).toBe('https://example.com/x');
         expect(out.rel).toBe('Data/foo.webp');

@@ -724,14 +724,6 @@
             opacity: 1;
         }
 
-        /* Image protection */
-        .artwork-lightbox::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-        }
-
         .artwork-lightbox img {
             z-index: 1;
         }
@@ -740,8 +732,11 @@
             z-index: 2;
         }
 
+        /* When the sold ribbon is in the top-right corner, move the close
+           button to the top-left so they don't overlap on narrow viewports. */
         .artwork-lightbox.has-sold-ribbon .artwork-lightbox-close {
-            right: 10rem;
+            right: auto;
+            left: 1.5rem;
         }
 
         /* Responsive */
@@ -811,7 +806,7 @@
     </main>
 
     <!-- Fullscreen lightbox -->
-    <div class="artwork-lightbox" id="artwork-lightbox" role="dialog" aria-label="Fullscreen image" aria-hidden="true">
+    <div class="artwork-lightbox" id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Fullscreen image" aria-hidden="true">
         <button class="artwork-lightbox-close" aria-label="Close fullscreen">&times;</button>
         <img src="" alt="" id="lightbox-full-image">
         <span class="sold-ribbon" id="artwork-lightbox-sold-ribbon" aria-hidden="true">

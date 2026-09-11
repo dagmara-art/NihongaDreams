@@ -16,9 +16,7 @@ module.exports = defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
     workers: process.env.CI ? 1 : undefined,
-    reporter: process.env.CI
-        ? [['list'], ['html', { open: 'never', outputFolder: 'Tests/playwright-report' }]]
-        : [['list'], ['html', { open: 'never', outputFolder: 'Tests/playwright-report' }]],
+    reporter: [['list'], ['html', { open: 'never', outputFolder: 'Tests/playwright-report' }]],
 
     use: {
         baseURL: BASE_URL,

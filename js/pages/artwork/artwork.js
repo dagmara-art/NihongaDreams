@@ -1,12 +1,14 @@
 // Artwork page: data loading, rendering, and lightbox
 
-import { escapeHtml, getEmail } from '../../shared/utils.js';
+import { escapeHtml, getEmail, trapFocus, makeBackgroundInert } from '../../shared/utils.js';
 import { trackEvent, trackEventOnce } from '../../shared/analytics.js';
+import { ASSET_VERSION } from '../../shared/version.js';
 import { setupReservationForm } from './reservation.js';
 
 let artwork = null;
 let allArtworks = [];
 let lightboxAC = null;
+let loadFailed = false;
 
 function getEntrySource() {
     const params = new URLSearchParams(window.location.search);
@@ -39,11 +41,13 @@ export function getArtwork() {
 
 export async function loadArtworks({ t, getLang }) {
     try {
-        const response = await fetch('Data/artworks.json?v=lightbox-cta-live-1');
+        const response = await fetch(`Data/artworks.json?v=${ASSET_VERSION}`);
         if (!response.ok) throw new Error('Fetch failed');
         allArtworks = await response.json();
+        loadFailed = false;
     } catch (err) {
         allArtworks = [];
+        loadFailed = true;
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -59,18 +63,46 @@ export async function loadArtworks({ t, getLang }) {
     renderArtwork({ t, getLang });
 }
 
+function captureFormState() {
+    const existing = document.getElementById('reservation-form');
+    if (!existing) return null;
+    return {
+        name: existing.querySelector('[name="name"]')?.value || '',
+        email: existing.querySelector('[name="email"]')?.value || '',
+        phone: existing.querySelector('[name="phone"]')?.value || '',
+        message: existing.querySelector('[name="message"]')?.value || '',
+        consent: existing.querySelector('[name="consent"]')?.checked || false,
+    };
+}
+
+function restoreFormState(state) {
+    if (!state) return;
+    const form = document.getElementById('reservation-form');
+    if (!form) return;
+    const set = (sel, val) => { const el = form.querySelector(sel); if (el) el.value = val; };
+    set('[name="name"]', state.name);
+    set('[name="email"]', state.email);
+    set('[name="phone"]', state.phone);
+    set('[name="message"]', state.message);
+    const consent = form.querySelector('[name="consent"]');
+    if (consent) consent.checked = state.consent;
+}
+
 export function renderArtwork({ t, getLang }) {
     const currentLang = getLang();
     const page = document.getElementById('artwork-page');
+    const previousFormState = captureFormState();
 
     if (!artwork) {
+        const titleKey = loadFailed ? 'page.loadErrorTitle' : 'page.notFoundTitle';
+        const textKey = loadFailed ? 'page.loadErrorText' : 'page.notFoundText';
         page.innerHTML = `
             <div class="page-state">
-                <h1>${t('page.notFoundTitle')}</h1>
-                <p>${t('page.notFoundText')}</p>
-                <a href="index.html#catalog">${t('page.backLink')}</a>
+                <h1>${escapeHtml(t(titleKey))}</h1>
+                <p>${escapeHtml(t(textKey))}</p>
+                <a href="index.html#catalog">${escapeHtml(t('page.backLink'))}</a>
             </div>`;
-        document.title = `${t('page.notFoundTitle')} \u2014 Dagmara Dreams of Nihonga`;
+        document.title = `${t(titleKey)} \u2014 Dagmara Dreams of Nihonga`;
         return;
     }
 
@@ -230,7 +262,7 @@ export function renderArtwork({ t, getLang }) {
             <img src="Data/Lightbox_new/Preview/${safeArtFilename}.webp"
                  alt="${safeArtTitle} \u2014 Nihonga painting"
                  id="artwork-main-image"
-                 data-fullsrc="Data/Lightbox_new/Original/${safeArtFilename}.webp">
+                 data-fullsrc="Data/Lightbox_new/Preview/${safeArtFilename}.webp">
             ${showSoldRibbon ? '<span class="sold-ribbon" aria-hidden="true"><span class="sold-ribbon__text">売約済 / SOLD</span></span>' : ''}
         </div>
         <div class="image-hint">${escapeHtml(t('artwork.tapToEnlarge'))}</div>
@@ -261,6 +293,7 @@ export function renderArtwork({ t, getLang }) {
     // Re-attach listeners
     setupLightbox();
     setupReservationForm({ t, getLang, artwork, entrySource });
+    restoreFormState(previousFormState);
     updateFooterText({ t, getLang });
 
     trackEventOnce('artwork_view', {
@@ -293,6 +326,9 @@ function setupLightbox() {
 
     if (!trigger) return;
 
+    let trapHandler = null;
+    let restoreInert = null;
+
     function openLightbox() {
         const mainImg = document.getElementById('artwork-main-image');
         const fullSrc = mainImg.dataset.fullsrc || mainImg.src;
@@ -301,7 +337,14 @@ function setupLightbox() {
         lightbox.classList.add('active');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        closeBtn.focus();
+
+        restoreInert = makeBackgroundInert(lightbox);
+        trapHandler = trapFocus(lightbox);
+        document.addEventListener('keydown', trapHandler);
+
+        // Defer focus until after the display:flex transition lands.
+        setTimeout(() => closeBtn.focus(), 50);
+
         if (artwork) {
             trackEvent('artwork_image_enlarge', {
                 'artwork_title': artwork.title,
@@ -314,6 +357,13 @@ function setupLightbox() {
         lightbox.classList.remove('active');
         lightbox.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+
+        if (trapHandler) {
+            document.removeEventListener('keydown', trapHandler);
+            trapHandler = null;
+        }
+        if (restoreInert) { restoreInert(); restoreInert = null; }
+
         trigger.focus();
     }
 
