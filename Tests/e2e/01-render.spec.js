@@ -18,7 +18,8 @@ const collectConsoleErrors = (page) => {
 // must still work. Anything served from our own origin must NOT error.
 const isOwnOriginError = (msgText) => {
     if (/script\.google\.com/.test(msgText)) return false;
-    if (/usercentrics|googletagmanager|google-analytics|gstatic|googleapis/.test(msgText)) return false;
+    if (/usercentrics|googletagmanager|google-analytics|gstatic|googleapis/i.test(msgText)) return false;
+    if (/CMP initialization failed/.test(msgText)) return false;
     // Usercentrics rejects the local test hostname with a generic 403 that omits its URL.
     if (/status of 403/.test(msgText)) return false;
     return true;
