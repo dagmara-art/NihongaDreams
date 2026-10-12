@@ -51,7 +51,7 @@ Implications you must remember:
 
 - XSS protection via `escapeHtml()` and `sanitizeUrl()` in `js/shared/utils.js`
 - Content Security Policy via `<meta http-equiv="Content-Security-Policy">` (currently uses `unsafe-inline`)
-- Cookiebot consent management with Google Consent Mode v2
+- Usercentrics consent management with Google Consent Mode v2
 - Email obfuscation (assembled from parts in JS, not in HTML source)
 - Image right-click/drag prevention (UX deterrent, not true protection — images are watermarked)
 

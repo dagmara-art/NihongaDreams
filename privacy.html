@@ -11,8 +11,13 @@
 
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.usercentrics.eu https://*.cmp.usercentrics.eu; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.usercentrics.eu https://*.cmp.usercentrics.eu; connect-src 'self' https://*.usercentrics.eu https://*.cmp.usercentrics.eu; frame-src https://*.usercentrics.eu https://*.cmp.usercentrics.eu; object-src 'none'; base-uri 'self'; form-action 'self';">
 
+    <!-- Usercentrics Consent Management -->
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-ruleset-id="i1YVsYza0b-oRN" async></script>
+
+    <link rel="preconnect" href="https://web.cmp.usercentrics.eu">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -232,7 +237,7 @@
     <!-- English version -->
     <main class="privacy-page" id="privacy-en">
         <h1>Privacy Policy</h1>
-        <p class="last-updated">Last updated: April 2026</p>
+        <p class="last-updated">Last updated: October 2026</p>
 
         <h2>1. Who we are</h2>
         <p>This website is operated by Dagmara Okła ("Dagmara Dreams of Nihonga"). For privacy-related questions, contact <span id="email-en"></span>.</p>
@@ -248,10 +253,10 @@
         <p>This data is collected through Google Forms and stored in Google Sheets, both operated by Google LLC. Submission is voluntary and based on your explicit consent (privacy checkbox). I use this data solely to respond to your inquiry and process a potential artwork reservation.</p>
 
         <p><strong>Website analytics</strong></p>
-        <p>This website uses Google Analytics to understand how visitors interact with the site. Analytics cookies are only set if you consent through the Cookiebot consent banner. If you decline, no analytics data is collected. Google Analytics may collect anonymised usage data such as pages visited, time on site, and approximate geographic region.</p>
+        <p>This website uses Google Analytics to understand how visitors interact with the site. Google Analytics is activated only if you consent through the Usercentrics consent banner. If you decline, Google Analytics remains blocked. With your consent, Google Analytics may collect usage data such as pages visited, time on site, and approximate geographic region.</p>
 
         <p><strong>Cookies and consent</strong></p>
-        <p>We use Cookiebot to manage cookie consent. Cookiebot itself may set a strictly necessary cookie to remember your consent choice. No marketing or advertising cookies are used on this website.</p>
+        <p>We use Usercentrics to manage cookie consent. Usercentrics may use strictly necessary storage to remember your consent choice. No marketing or advertising cookies are used on this website.</p>
 
         <h2>3. How long we keep your data</h2>
         <p>Reservation request data is kept for up to 12 months after the inquiry is resolved. If you purchase an artwork, order-related data may be kept longer as required for tax and accounting purposes. You may request earlier deletion at any time.</p>
@@ -260,7 +265,7 @@
         <ul>
             <li><strong>Dagmara Okła</strong> — to process your reservation request</li>
             <li><strong>Google LLC</strong> — as the operator of Google Forms and Google Sheets (data processor). Google's privacy policy: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
-            <li><strong>Cookiebot (Cybot A/S)</strong> — for consent management</li>
+            <li><strong>Usercentrics (Usercentrics GmbH)</strong> — for consent management</li>
             <li><strong>Google Analytics (Google LLC)</strong> — for website usage analytics, only with your consent</li>
         </ul>
         <p>Your data is not sold, rented, or shared with any other third parties.</p>
@@ -286,7 +291,7 @@
     <!-- Polish version -->
     <section class="privacy-page" id="privacy-pl" style="display: none;" aria-labelledby="privacy-pl-title">
         <h1 id="privacy-pl-title">Polityka prywatności</h1>
-        <p class="last-updated">Ostatnia aktualizacja: kwiecień 2026</p>
+        <p class="last-updated">Ostatnia aktualizacja: październik 2026</p>
 
         <h2>1. Kim jesteśmy</h2>
         <p>Strona jest prowadzona przez Dagmarę Okła („Dagmara Dreams of Nihonga"). W sprawach dotyczących prywatności prosimy o kontakt: <span id="email-pl"></span>.</p>
@@ -302,10 +307,10 @@
         <p>Dane te są zbierane za pośrednictwem Google Forms i przechowywane w Google Sheets (operator: Google LLC). Przesłanie formularza jest dobrowolne i opiera się na Twojej wyraźnej zgodzie (checkbox prywatności). Dane te wykorzystuję wyłącznie do odpowiedzi na zapytanie i ewentualnej rezerwacji dzieła.</p>
 
         <p><strong>Analityka strony</strong></p>
-        <p>Strona korzysta z Google Analytics w celu analizy ruchu. Pliki cookie analityczne są ustawiane wyłącznie po wyrażeniu zgody w banerze Cookiebot. W przypadku odmowy żadne dane analityczne nie są zbierane. Google Analytics może zbierać zanonimizowane dane dotyczące odwiedzonych stron, czasu na stronie i przybliżonej lokalizacji geograficznej.</p>
+        <p>Strona korzysta z Google Analytics w celu analizy ruchu. Google Analytics jest uruchamiane wyłącznie po wyrażeniu zgody w banerze Usercentrics. W przypadku odmowy Google Analytics pozostaje zablokowane. Po wyrażeniu zgody Google Analytics może zbierać dane dotyczące odwiedzonych stron, czasu na stronie i przybliżonej lokalizacji geograficznej.</p>
 
         <p><strong>Pliki cookie i zgoda</strong></p>
-        <p>Stosujemy Cookiebot do zarządzania zgodami na pliki cookie. Cookiebot może ustawić niezbędny plik cookie w celu zapamiętania Twojego wyboru. Strona nie wykorzystuje plików cookie marketingowych ani reklamowych.</p>
+        <p>Stosujemy Usercentrics do zarządzania zgodami na pliki cookie. Usercentrics może korzystać z niezbędnej pamięci w celu zapamiętania Twojego wyboru. Strona nie wykorzystuje plików cookie marketingowych ani reklamowych.</p>
 
         <h2>3. Jak długo przechowujemy dane</h2>
         <p>Dane z zapytań o rezerwację przechowujemy do 12 miesięcy po zakończeniu obsługi zapytania. W przypadku zakupu dzieła dane związane z zamówieniem mogą być przechowywane dłużej ze względów podatkowych i księgowych. Możesz w każdej chwili poprosić o wcześniejsze usunięcie danych.</p>
@@ -314,7 +319,7 @@
         <ul>
             <li><strong>Dagmara Okła</strong> — w celu obsługi zapytania o rezerwację</li>
             <li><strong>Google LLC</strong> — jako operator Google Forms i Google Sheets (podmiot przetwarzający). Polityka prywatności Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
-            <li><strong>Cookiebot (Cybot A/S)</strong> — do zarządzania zgodami na pliki cookie</li>
+            <li><strong>Usercentrics (Usercentrics GmbH)</strong> — do zarządzania zgodami na pliki cookie</li>
             <li><strong>Google Analytics (Google LLC)</strong> — do analizy ruchu na stronie, wyłącznie za Twoją zgodą</li>
         </ul>
         <p>Twoje dane nie są sprzedawane, wynajmowane ani udostępniane żadnym innym podmiotom trzecim.</p>
@@ -343,7 +348,7 @@
         <a href="index.html" id="footer-back-link">Back to portfolio</a>
     </footer>
 
-    <script>
+    <script data-uc-allowed="true">
         let currentLang = 'en';
 
         function initLanguage() {

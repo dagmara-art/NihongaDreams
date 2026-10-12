@@ -73,4 +73,4 @@ Until then, push with `--no-verify`.
 - Visual regression (no screenshot diffing).
 - The Google Apps Script reservation backend (form submission is intercepted in
   `02-interactions.spec.js`; we never hit the real endpoint).
-- Cookiebot consent flow (third-party widget, blocked by the test viewport).
+- Usercentrics consent flow (third-party widget, blocked by the test viewport).

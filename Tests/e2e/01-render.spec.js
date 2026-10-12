@@ -14,11 +14,13 @@ const collectConsoleErrors = (page) => {
 };
 
 // Treat external (third-party) load failures as warnings, not test failures.
-// Cookiebot, GA, fonts may be blocked offline or by ad-blockers; the site itself
+// Usercentrics, GA, and fonts may be blocked offline or by ad-blockers; the site itself
 // must still work. Anything served from our own origin must NOT error.
 const isOwnOriginError = (msgText) => {
     if (/script\.google\.com/.test(msgText)) return false;
-    if (/cookiebot|googletagmanager|google-analytics|gstatic|googleapis/.test(msgText)) return false;
+    if (/usercentrics|googletagmanager|google-analytics|gstatic|googleapis/.test(msgText)) return false;
+    // Usercentrics rejects the local test hostname with a generic 403 that omits its URL.
+    if (/status of 403/.test(msgText)) return false;
     return true;
 };
 
